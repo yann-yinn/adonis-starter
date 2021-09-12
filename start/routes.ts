@@ -25,6 +25,6 @@ Route.get("/", async ({ view }) => {
 });
 
 Route.get("/register", "authController.register");
-Route.post("/register-submit", "authController.registerSubmit");
+Route.post("/register", "authController.store");
 
 Route.resource("users", "UsersController");

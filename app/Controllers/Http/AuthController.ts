@@ -1,20 +1,24 @@
+import { schema, rules } from "@ioc:Adonis/Core/Validator";
+import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+
 export default class AuthController {
-  public async register({ request, auth, view }) {
+  public async register({ view }) {
     return view.render("register");
   }
-  public async registerSubmit({ response }) {
-    response.redirect().toPath("/");
-  }
 
-  public async login({ request, auth, view }) {
-    /*
-    const email = request.input("email");
-    const password = request.input("password");
+  public async store({ request, response }: HttpContextContract) {
+    const validationSchema = schema.create({
+      email: schema.string({}, [rules.minLength(1)]),
+      name: schema.string({ trim: true }, [rules.minLength(1)]),
+      password: schema.string(),
+      password_confirmation: schema.string(),
+    });
+    console.log("submit");
 
-    await auth
-      .use("web") // 👈 using sessions guard
-      .attempt(email, password);
-*/
-    return view.render("register");
+    const validatedData = await request.validate({
+      schema: validationSchema,
+    });
+
+    return validatedData;
   }
 }

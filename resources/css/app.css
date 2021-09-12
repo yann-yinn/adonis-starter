@@ -1,16 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
 
-html, body {
-  background-color: #F7F8FA;
-  font-family: 'Poppins', sans-serif;
+html,
+body {
+  background-color: #f7f8fa;
+  font-family: "Poppins", sans-serif;
   height: 100vh;
   color: #46444c;
   position: relative;
 }
 
 body:before {
-  content: '';
-  background: #5A45FF;
+  content: "";
+  background: #5a45ff;
   top: 0;
   left: 0;
   right: 0;
@@ -24,7 +25,7 @@ body:before {
 }
 
 a {
-  color: #5A45FF;
+  color: #5a45ff;
   text-decoration: none;
 }
 
@@ -42,7 +43,7 @@ main {
   font-size: 50px;
   line-height: 50px;
   margin-bottom: 10px;
-  color: #17161A;
+  color: #17161a;
 }
 
 .subtitle {
@@ -65,7 +66,7 @@ main li {
 }
 
 main li:before {
-  content: '—';
+  content: "—";
   position: absolute;
   left: 0;
 }
