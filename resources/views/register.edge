@@ -1,0 +1,52 @@
+@layout('layouts.master')
+
+@section('title')
+Register
+@endsection
+
+@section('content')
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3">
+
+      <div class="card mt-5">
+        <div class="card-header">Créer un compte</div>
+        <div class="card-body">
+          <form method="POST" action="{{ route('authController.registerSubmit') }}">
+            {{ csrfField() }}
+
+              <div class="form-group row">
+                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                <div class="col-md-6">
+                  <input id="email" type="text" name="email" value="" class="form-control">
+    
+                </div>
+              </div>
+
+              <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                <div class="col-md-6">
+                  <input id="password" type="password" name="password" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                <div class="col-md-6">
+                  <input id="password-confirm" type="password" name="password_confirmation" class="form-control">
+                </div>
+              </div>
+
+                <div class="form-group row mb-0">
+                  <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                      Register
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end row -->
+    </div> <!-- end container -->
+   @endsection
