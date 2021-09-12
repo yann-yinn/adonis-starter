@@ -29,5 +29,12 @@ export default class CreateUserValidator {
    * }
    *
    */
-  public messages = {};
+  public messages = {
+    "email.required": "ce champ est requis",
+    "password.required": "ce champ est requis",
+    "name.required": "ce champ est requis",
+    "password_confirmation.required": "ce champ est requis",
+    "password_confirmation.confirmed":
+      "Les deux mots de passe ne sont pas identiques",
+  };
 }

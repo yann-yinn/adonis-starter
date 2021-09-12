@@ -1,0 +1,55 @@
+<form method="POST" action="{{ route('authController.store') }}">
+  {{ csrfField() }}
+
+    <div class="form-group row">
+      <label for="email" class="col-md-4 col-form-label text-md-right mb-3">E-Mail Address</label>
+      <div class="col-md-6">
+        <input id="email" type="text" name="email" value="" class="form-control">
+        @if(flashMessages.has('errors.email'))
+        <div class="invalid-feedback d-block">
+          {{ flashMessages.get('errors.email') }}
+        </div>
+        @endif
+
+      </div>
+
+    </div>
+
+    <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Password</label>
+      <div class="col-md-6">
+        <input id="password" type="password" name="password" class="form-control">
+        @if(flashMessages.has('errors.password'))
+        <div class="invalid-feedback d-block">
+          {{ flashMessages.get('errors.password') }}
+        </div>
+        @endif
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="password-confirm" class="col-md-4 col-form-label text-md-right  mb-3">Confirm Password</label>
+      <div class="col-md-6">
+        <input id="password-confirm" type="password" name="password_confirmation" class="form-control">
+        @if(flashMessages.has('errors.password_confirmation'))
+        <div class="invalid-feedback d-block">
+          {{ flashMessages.get('errors.password_confirmation') }}
+        </div>
+        @endif
+      </div>
+    </div>
+      
+    {{-- inspect(flashMessages.all()) --}}
+
+      <div class="form-group row mb-0">
+        <div class="col-md-6 offset-md-4">
+          <button type="submit" class="btn btn-primary">
+            Créer un compte
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

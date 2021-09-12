@@ -13,59 +13,7 @@ Register
       <div class="card mt-5">
         <div class="card-header">Créer un compte</div>
         <div class="card-body">
-          <form method="POST" action="{{ route('authController.store') }}">
-            {{ csrfField() }}
-
-              <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                <div class="col-md-6">
-                  <input id="email" type="text" name="email" value="" class="form-control">
-                </div>
-                @if(flashMessages.has('errors.email'))
-                <div>
-                  {{ flashMessages.get('errors.email') }}
-                </div>
-                @endif
-              </div>
-
-              <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                <div class="col-md-6">
-                  <input id="password" type="password" name="password" class="form-control">
-                </div>
-                @if(flashMessages.has('errors.password'))
-                <div>
-                  {{ flashMessages.get('errors.password') }}
-                </div>
-                @endif
-              </div>
-
-              <div class="form-group row">
-                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
-                <div class="col-md-6">
-                  <input id="password-confirm" type="password" name="password_confirmation" class="form-control">
-                </div>
-                @if(flashMessages.has('errors.passwordConfirmation'))
-                <div>
-                  {{ flashMessages.get('errors.passwordConfirmation') }}
-                </div>
-                @endif
-              </div>
-
-
-              {{ inspect(flashMessages.all()) }}
-
-            
-
-                <div class="form-group row mb-0">
-                  <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                      Register
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
+          @include('forms/registerForm')
         </div>
       </div> <!-- end row -->
     </div> <!-- end container -->
