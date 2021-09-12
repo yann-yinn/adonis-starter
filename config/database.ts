@@ -38,7 +38,7 @@ const databaseConfig: DatabaseConfig = {
       connection: {
         ssl: {
           rejectUnauthorized:
-            Env.get("NODE_ENV") === "development" ? true : true,
+            Env.get("NODE_ENV") === "development" ? false : false,
         },
         host: Env.get("PG_HOST"),
         port: Env.get("PG_PORT"),
