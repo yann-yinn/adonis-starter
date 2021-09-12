@@ -7,7 +7,13 @@ export default class AuthController {
   }
 
   public async store({ request }: HttpContextContract) {
-    const validatedData = await request.validate(CreateUserValidator);
-    return validatedData;
+    try {
+      const validatedData = await request.validate(CreateUserValidator);
+      console.log("validatedData", validatedData);
+    } catch (e) {
+      console.log("e", e);
+    }
+
+    return "hello";
   }
 }
