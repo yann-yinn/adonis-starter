@@ -5,8 +5,8 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env';
-import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database';
+import Env from "@ioc:Adonis/Core/Env";
+import { DatabaseConfig } from "@ioc:Adonis/Lucid/Database";
 
 const databaseConfig: DatabaseConfig = {
   /*
@@ -19,7 +19,7 @@ const databaseConfig: DatabaseConfig = {
   | file.
   |
   */
-  connection: Env.get('DB_CONNECTION'),
+  connection: Env.get("DB_CONNECTION"),
 
   connections: {
     /*
@@ -34,17 +34,17 @@ const databaseConfig: DatabaseConfig = {
     |
     */
     pg: {
-      client: 'pg',
+      client: "pg",
       connection: {
         ssl: {
           rejectUnauthorized:
-            Env.get('NODE_ENV') === 'development' ? false : true,
+            Env.get("NODE_ENV") === "development" ? true : true,
         },
-        host: Env.get('PG_HOST'),
-        port: Env.get('PG_PORT'),
-        user: Env.get('PG_USER'),
-        password: Env.get('PG_PASSWORD', ''),
-        database: Env.get('PG_DB_NAME'),
+        host: Env.get("PG_HOST"),
+        port: Env.get("PG_PORT"),
+        user: Env.get("PG_USER"),
+        password: Env.get("PG_PASSWORD", ""),
+        database: Env.get("PG_DB_NAME"),
       },
       migrations: {
         naturalSort: true,
