@@ -12,7 +12,6 @@ export default class LoginController {
    * Handle login form submissions
    */
   public async store({ request, auth, response }: HttpContextContract) {
-    console.log(request.input("email"), request.input("password"));
     /**
      * Attempt to login the user with the email and password. The
      * "auth.attempt" method will perform all the required
@@ -21,7 +20,7 @@ export default class LoginController {
     try {
       await auth.attempt(request.input("email"), request.input("password"));
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
 
     /**
