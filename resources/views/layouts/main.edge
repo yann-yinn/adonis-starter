@@ -14,5 +14,11 @@
 </head>
 <body>
   @!section('content')
+
+  @if(flashMessages.all())
+  <footer>
+    {{ inspect(flashMessages.all()) }}
+  </footer>
+  @endif
 </body>
 </html>

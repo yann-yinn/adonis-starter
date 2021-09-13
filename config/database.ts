@@ -40,6 +40,7 @@ const databaseConfig: DatabaseConfig = {
           rejectUnauthorized:
             Env.get("NODE_ENV") === "development" ? false : false,
         },
+
         host: Env.get("PG_HOST"),
         port: Env.get("PG_PORT"),
         user: Env.get("PG_USER"),
