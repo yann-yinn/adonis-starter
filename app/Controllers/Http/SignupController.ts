@@ -1,7 +1,7 @@
 import User from "App/Models/User";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
-import Mail from "@ioc:Adonis/Addons/Mail";
+// import Mail from "@ioc:Adonis/Addons/Mail";
 
 /**
  * Controller to handle user signup requests. We keep it simple
@@ -31,7 +31,7 @@ export default class SignupController {
     user.email = payload.email;
     user.password = payload.email;
     await user.save();
-
+    /*
     await Mail.send((message) => {
       message
         .from("yann.boisselier@gmail.com")
@@ -39,6 +39,7 @@ export default class SignupController {
         .subject("Welcome Onboard!")
         .htmlView("emails/welcome", { name: user.email });
     });
+    */
 
     /**
      * Login the user
