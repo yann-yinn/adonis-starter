@@ -13,10 +13,10 @@
   @entryPointScripts('app')
 </head>
 <body>
-  Hello {{ inspect(user) }}
+
   @if(auth.isLoggedIn)
   <p> Hello {{ auth.user.email }} </p>
-@endif
+  @endif
   @!section('content')
 
   @if(flashMessages.all())
