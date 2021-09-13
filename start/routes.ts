@@ -21,10 +21,11 @@
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.get("/", async ({ view }) => {
-  return view.render("welcome");
+  return view.render("pages/home");
 });
 
 Route.resource("users", "UsersController");
-Route.get("register", "UsersController.create");
-Route.get("login", "UsersController.login");
-Route.post("login-submit", "UsersController.loginSubmit");
+Route.get("signup", "SignupController.create");
+Route.post("signup", "SignupController.store");
+Route.get("login", "LoginController.create");
+Route.post("login", "LoginController.store");

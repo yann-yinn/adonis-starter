@@ -13,6 +13,7 @@
   @entryPointScripts('app')
 </head>
 <body>
+  {{ auth.user }}
   @!section('content')
 
   @if(flashMessages.all())
