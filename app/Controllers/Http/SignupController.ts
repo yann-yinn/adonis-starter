@@ -18,7 +18,12 @@ export default class SignupController {
   /**
    * Handle signup form submissions
    */
-  public async store({ request, response, auth }: HttpContextContract) {
+  public async store({
+    request,
+    response,
+    auth,
+    session,
+  }: HttpContextContract) {
     /**
      * Validate new user account creation form
      */
@@ -30,7 +35,9 @@ export default class SignupController {
     const user = new User();
     user.email = payload.email;
     user.password = payload.email;
+    user.name = payload.name;
     await user.save();
+    session.flash({ notification: "User created successfully" });
     /*
     await Mail.send((message) => {
       message

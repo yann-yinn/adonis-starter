@@ -2,7 +2,7 @@
   {{ csrfField() }}
 
     <div class="form-group row">
-      <label for="email" class="col-md-4 col-form-label text-md-right mb-3">E-Mail Address</label>
+      <label for="email" class="col-md-4 col-form-label text-md-right mb-3">Email</label>
       <div class="col-md-6">
         <input id="email" type="text" name="email" value="" class="form-control">
         @if(flashMessages.has('errors.email'))
@@ -10,12 +10,10 @@
           {{ flashMessages.get('errors.email') }}
         </div>
         @endif
-
       </div>
-
     </div>
 
-    <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Password</label>
+    <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Mot de passe</label>
       <div class="col-md-6">
         <input id="password" type="password" name="password" class="form-control">
         @if(flashMessages.has('errors.password'))
