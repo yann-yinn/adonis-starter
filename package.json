@@ -12,14 +12,15 @@
     "@symfony/webpack-encore": "^1.6.1",
     "adonis-preset-ts": "^2.1.0",
     "pino-pretty": "^7.0.0",
-    "typescript": "~4.2",
+    "typescript": "~4.4",
     "youch": "^2.2.2",
     "youch-terminal": "^1.1.1"
   },
   "dependencies": {
     "@adonisjs/auth": "^8.0.9",
-    "@adonisjs/core": "^5.3.3",
+    "@adonisjs/core": "^5.3.4",
     "@adonisjs/lucid": "^16.0.2",
+    "@adonisjs/mail": "^7.2.4",
     "@adonisjs/repl": "^3.1.6",
     "@adonisjs/session": "^6.1.2",
     "@adonisjs/shield": "^7.0.6",

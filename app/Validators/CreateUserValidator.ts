@@ -33,9 +33,9 @@ export default class CreateUserValidator {
    *
    */
   public messages = {
-    "email.required": "ce champ est requis",
-    "password.required": "ce champ est requis",
-    "name.required": "ce champ est requis",
+    "email.required": "Le champ email est requis",
+    "email.unique": "Un compte avec cette adresse email existe déjà",
+    "password.required": "Le champ password est requis",
     "password_confirmation.required": "ce champ est requis",
     "password_confirmation.confirmed":
       "Les deux mots de passe ne sont pas identiques",
