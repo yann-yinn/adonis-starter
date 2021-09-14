@@ -28,4 +28,12 @@ export default class LoginController {
      */
     response.redirect("/");
   }
+
+  /**
+   * Destroy user session (aka logout)
+   */
+  public async destroy({ auth, response }: HttpContextContract) {
+    await auth.logout();
+    response.redirect("/");
+  }
 }
