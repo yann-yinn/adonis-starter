@@ -17,12 +17,8 @@ export default class LoginController {
      * "auth.attempt" method will perform all the required
      * validations.
      */
-    try {
-      console.log("login", request.input("email"), request.input("password"));
-      await auth.attempt(request.input("email"), request.input("password"));
-    } catch (error) {
-      console.log("error", error);
-    }
+
+    await auth.attempt(request.input("email"), request.input("password"));
 
     /**
      * Redirect to the home page
