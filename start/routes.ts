@@ -30,3 +30,4 @@ Route.post("signup", "SignupController.store");
 Route.get("login", "LoginController.create").middleware("guest");
 Route.post("login", "LoginController.store").middleware("guest");
 Route.get("logout", "LoginController.destroy").middleware("auth");
+Route.resource("posts", "PostsController");

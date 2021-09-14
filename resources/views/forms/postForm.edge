@@ -1,0 +1,31 @@
+<form method="POST" action="{{ route('/posts') }}">
+  {{ csrfField() }}
+
+  @if(flashMessages.has('errors'))
+  <div class="alert alert-danger">
+    {{ inspect(flashMessages.all()) }}
+  </div>
+  @endif
+
+  <div class="form-group row">
+    <label for="title" class="col-md-4 col-form-label text-md-right mb-3">Titre</label>
+    <div class="col-md-6">
+      <input id="email" type="text" name="title" value="" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Contenu</label>
+    <div class="col-md-6">
+      <textarea rows="10" cols="40"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group row mb-0">
+    <div class="col-md-6 offset-md-4">
+      <button type="submit" class="btn btn-primary">
+        Sauvegarder
+      </button>
+    </div>
+  </div>
+
+</form>

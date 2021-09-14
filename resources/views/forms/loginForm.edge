@@ -1,40 +1,31 @@
 <form method="POST" action="{{ route('/login') }}">
   {{ csrfField() }}
 
-    @if(flashMessages.has('auth.errors.uid') || flashMessages.has('auth.errors.email'))
-    <div class="alert alert-danger">
-      Identifiant ou mot de passe invalide.
-    </div>
-    @endif
-
-    <div class="form-group row">
-      <label for="email" class="col-md-4 col-form-label text-md-right mb-3">Email</label>
-      <div class="col-md-6">
-        <input id="email" type="text" name="email" value="" class="form-control">
-
-      </div>
-    </div>
-
-    <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Mot de passe</label>
-      <div class="col-md-6">
-        <input id="password" type="password" name="password" class="form-control">
-        @if(flashMessages.has('errors.password'))
-        <div class="invalid-feedback d-block">
-          {{ flashMessages.get('errors.password') }}
-        </div>
-        @endif
-      </div>
-    </div>
-      
-    {{-- inspect(flashMessages.all()) --}}
-
-      <div class="form-group row mb-0">
-        <div class="col-md-6 offset-md-4">
-          <button type="submit" class="btn btn-primary">
-            Se connecter
-          </button>
-        </div>
-      </div>
-    </form>
+  @if(flashMessages.has('auth.errors.uid') || flashMessages.has('auth.errors.email'))
+  <div class="alert alert-danger">
+    Identifiant ou mot de passe invalide.
   </div>
-</div>
+  @endif
+
+  <div class="form-group row">
+    <label for="email" class="col-md-4 col-form-label text-md-right mb-3">Email</label>
+    <div class="col-md-6">
+      <input id="email" type="text" name="email" value="" class="form-control">
+    </div>
+  </div>
+
+  <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Mot de passe</label>
+    <div class="col-md-6">
+      <input id="password" type="password" name="password" class="form-control">
+    </div>
+  </div>
+      
+  <div class="form-group row mb-0">
+    <div class="col-md-6 offset-md-4">
+      <button type="submit" class="btn btn-primary">
+        Se connecter
+      </button>
+    </div>
+  </div>
+
+</form>
