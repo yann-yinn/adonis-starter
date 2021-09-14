@@ -9,7 +9,7 @@ export default class PostsController {
   }
 
   public async create({ view }: HttpContextContract) {
-    return view.render("pages/postCreate");
+    return view.render("pages/postForm");
   }
 
   public async store({ session, request, response }: HttpContextContract) {
@@ -27,7 +27,10 @@ export default class PostsController {
 
   public async show({}: HttpContextContract) {}
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({ view, request }: HttpContextContract) {
+    const post = await Post.find(request.param("id"));
+    return view.render("pages/postForm", { post: post });
+  }
 
   public async update({}: HttpContextContract) {}
 

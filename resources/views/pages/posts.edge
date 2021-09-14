@@ -3,13 +3,24 @@
 @section('content')
 <div class="container">
   <h1>Liste des posts</h1>
-  @each(post in posts)
   <table class="table">
-    <tr>
-      <td> {{ post.title }} </td>
-      <td> {{ post.content }} </td>
-    </tr>
+    <thead>
+      <tr>
+        <th scope="col">Titre</th>
+        <th scope="col">contenu</th>
+        <th scope="col">edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(post in posts)
+      <tr>
+        <td> {{ post.title }} </td>
+        <td> {{ post.content }} </td>
+        <td> <a href="{{ "posts/" + post.id + "/edit" }}">edit</a> </td>
+      </tr>
+      @end
+    </tbody>
   </table>
-  @end
+
 </div>
 @endsection

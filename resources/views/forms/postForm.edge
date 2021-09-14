@@ -10,13 +10,13 @@
   <div class="form-group row">
     <label for="title" class="col-md-4 col-form-label text-md-right mb-3">Titre</label>
     <div class="col-md-6">
-      <input id="email" type="text" name="title" value="" class="form-control">
+      <input id="email" type="text" name="title" value="{{ post ? post.title : ""}}" class="form-control">
     </div>
   </div>
 
   <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Contenu</label>
     <div class="col-md-6">
-      <textarea rows="10" cols="40" name="content"></textarea>
+      <textarea rows="10" cols="40" name="content">{{ post ? post.content : "" }}</textarea>
     </div>
   </div>
 
