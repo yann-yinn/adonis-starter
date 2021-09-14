@@ -4,7 +4,7 @@ import Post from "App/Models/Post";
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
     const posts = await Post.all();
-    return view.render("posts.index", { posts: posts });
+    return view.render("pages/posts", { posts: posts });
   }
 
   public async create({ view }: HttpContextContract) {

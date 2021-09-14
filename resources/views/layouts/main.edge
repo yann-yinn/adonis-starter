@@ -13,11 +13,18 @@
   @entryPointScripts('app')
 </head>
 <body>
+  <div class="container">
+    @if(!auth.isLoggedIn)
+    <a href="/signup">Créer un compte</a> | 
+    <a href="/login">Se connecter</a>
+    @endif
 
-  @if(auth.isLoggedIn)
-  <p> Hello {{ auth.user.email }} </p>
-  @endif
-
+    @if(auth.isLoggedIn)
+    <span> Hello {{ auth.user.email }} </span> | 
+    <a href="/logout">Se déconnecter</a> |
+    <a href="/posts/create">Créer un post</a>
+    @endif
+  </div>
   @!section('content')
 
   @if(flashMessages.all())
@@ -25,5 +32,6 @@
     {{ inspect(flashMessages.all()) }}
   </footer>
   @endif
+
 </body>
 </html>

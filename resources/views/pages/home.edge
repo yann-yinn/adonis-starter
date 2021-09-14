@@ -8,16 +8,6 @@
       Congratulations, you have just created your first AdonisJS app.
     </p>
 
-    @if(!auth.isLoggedIn)
-    <a href="/signup">Créer un compte</a> | 
-    <a href="/login">Se connecter</a>
-    @endif
-
-    @if(auth.isLoggedIn)
-    <a href="/logout">Se déconnecter</a> |
-    <a href="/posts/create">Créer un post</a>
-    @endif
-
     <ul>
       <li>
         The route for this page is defined inside <code>start/routes.ts</code> file
