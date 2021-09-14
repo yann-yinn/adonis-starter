@@ -14,18 +14,7 @@
 </head>
 <body>
   <div class="container">
-    @if(!auth.isLoggedIn)
-    <a href="/signup">Créer un compte</a> | 
-    <a href="/login">Se connecter</a>
-    @endif
-
-    @if(auth.isLoggedIn)
-    <span> Hello {{ auth.user.email }} </span> | 
-    <a href="/logout">Se déconnecter</a> |
-    <a href="/posts/create">Créer un post</a> | 
-    @endif
-
-    <a href="/posts">Liste des posts</a> |
+    @include('partials/navbar')
   </div>
   @!section('content')
 

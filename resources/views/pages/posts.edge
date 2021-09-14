@@ -2,10 +2,14 @@
 
 @section('content')
 <div class="container">
-  List des posts
+  <h1>Liste des posts</h1>
   @each(post in posts)
-  <div> {{ post.title }} </div>
-  <div> {{ post.content }} </div>
+  <table class="table">
+    <tr>
+      <td> {{ post.title }} </td>
+      <td> {{ post.content }} </td>
+    </tr>
+  </table>
   @end
 </div>
 @endsection
