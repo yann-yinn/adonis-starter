@@ -2,25 +2,22 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Post from "App/Models/Post";
 
 export default class PostsController {
-  public async index({}: HttpContextContract) {}
+  public async index({ view }: HttpContextContract) {
+    const posts = await Post.all();
+    return view.render("posts.index", { posts: posts });
+  }
 
   public async create({ view }: HttpContextContract) {
     return view.render("pages/postCreate");
   }
 
   public async store({ session, response }: HttpContextContract) {
-    /**
-     * Create a new post
-     */
     const post = new Post();
     post.title = post.title;
     post.content = post.content;
     await post.save();
     session.flash({ notification: "post created successfully" });
-    /**
-     * Redirect to the home page
-     */
-    response.redirect("/");
+    response.redirect("/posts");
   }
 
   public async show({}: HttpContextContract) {}
