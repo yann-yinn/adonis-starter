@@ -34,7 +34,7 @@ export default class SignupController {
      */
     const user = new User();
     user.email = payload.email;
-    user.password = payload.email;
+    user.password = payload.password;
     user.name = payload.name;
     await user.save();
     session.flash({ notification: "User created successfully" });
