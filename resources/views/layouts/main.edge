@@ -22,8 +22,10 @@
     @if(auth.isLoggedIn)
     <span> Hello {{ auth.user.email }} </span> | 
     <a href="/logout">Se déconnecter</a> |
-    <a href="/posts/create">Créer un post</a>
+    <a href="/posts/create">Créer un post</a> | 
     @endif
+
+    <a href="/posts">Liste des posts</a> |
   </div>
   @!section('content')
 
