@@ -1,5 +1,6 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Post from "App/Models/Post";
+import CreatePostValidator from "App/Validators/CreatePostValidator";
 
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
@@ -11,11 +12,15 @@ export default class PostsController {
     return view.render("pages/postCreate");
   }
 
-  public async store({ session, response }: HttpContextContract) {
+  public async store({ session, request, response }: HttpContextContract) {
+    console.log("store");
+    const payload = await request.validate(CreatePostValidator);
+    console.log("payload", payload);
     const post = new Post();
-    post.title = post.title;
-    post.content = post.content;
+    post.title = payload.title;
+    post.content = <string>payload.content;
     await post.save();
+
     session.flash({ notification: "post created successfully" });
     response.redirect("/posts");
   }

@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
   List des posts
-  {{inspect(posts)}}
+  @each(post in posts)
+  <div> {{ post.title }} </div>
+  <div> {{ post.content }} </div>
+  @end
 </div>
 @endsection
