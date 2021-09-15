@@ -4,14 +4,18 @@ import CreatePostValidator from "App/Validators/CreatePostValidator";
 import UpdatePostValidator from "App/Validators/UpdatePostValidator";
 import postsService from "App/Services/PostsService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
+import Database from "@ioc:Adonis/Lucid/Database";
 
 export default class PostsController {
   /**
    * List des posts pour l'admin
    */
-  public async index({ view }: HttpContextContract) {
-    const posts = await Post.all();
-    const results: PostListResult[] = [];
+  public async index({ view, request }: HttpContextContract) {
+    const page = request.input("page", 1);
+    const limit = 5;
+    const posts = await Database.from("posts").paginate(page, limit);
+    posts.baseUrl("/admin/posts");
+
     posts.forEach((post) => {
       const deleteLink = createConfirmDeleteLink({
         entity: "Post",
@@ -19,6 +23,9 @@ export default class PostsController {
         title: `Étes vous sûr de vouloir supprimer "${post.title}" ?`,
         formAction: "/admin/posts/" + post.id + "/delete",
       });
+      post._deleteLink = deleteLink;
+      post._editLink = `/admin/posts/${post.id}/edit`;
+      /*
       results.push({
         meta: {
           deleteLink,
@@ -26,9 +33,10 @@ export default class PostsController {
         },
         entity: post,
       });
+      */
     });
 
-    return view.render("pages/admin/posts", { results });
+    return view.render("pages/admin/posts", { posts });
   }
 
   public async create({ view }: HttpContextContract) {

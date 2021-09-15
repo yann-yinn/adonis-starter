@@ -12,15 +12,26 @@
       </tr>
     </thead>
     <tbody>
-      @each(result in results)
+      @each(post in posts)
       <tr>
-        <td> {{ result.entity.title }} </td>
-        <td> <a href="{{ result.meta.editLink }}">edit</a> </td>
-        <td> <a href="{{ result.meta.deleteLink }}">delete</a> </td>
+        <td> {{ post.title }} </td>
+        <td> <a href="{{post._editLink}}">Editer</a> </td>
+        <td> <a href="{{post._deleteLink}}">Supprimer</a> </td>
       </tr>
       @end
     </tbody>
   </table>
 
+  <div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        @each(anchor in posts.getUrlsForRange(1, posts.lastPage))
+        <li class="page-item">
+          <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+        </li>
+        @endeach
+      </ul>
+    </nav>
+  </div>
 </div>
 @endsection
