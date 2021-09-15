@@ -7,25 +7,29 @@
   </div>
   @endif
 
-  <div class="form-group row">
-    <label for="title" class="col-md-4 col-form-label text-md-right mb-3">Titre</label>
-    <div class="col-md-6">
-      <input id="email" type="text" name="title" value="{{ post ? post.title : ""}}" class="form-control">
-    </div>
+  <div class="form-group">
+    <label for="title">Titre</label>
+    <input 
+      type="text" 
+      name="title" 
+      value="{{ formValues.title }}" 
+      class="form-control"
+    />
   </div>
 
-  <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Contenu</label>
-    <div class="col-md-6">
-      <textarea rows="10" cols="40" name="content">{{ post ? post.content : "" }}</textarea>
-    </div>
+  <div class="form-group mt-3">
+    <label for="password">Contenu</label>
+    <textarea 
+      class="textarea form-control" 
+      name="content">
+        {{ formValues.content }}
+    </textarea>
   </div>
 
-  <div class="form-group row mb-0">
-    <div class="col-md-6 offset-md-4">
-      <button type="submit" class="btn btn-primary">
-        Sauvegarder
-      </button>
-    </div>
+  <div class="form-group mt-3">
+    <button type="submit" class="btn btn-primary">
+      Sauvegarder
+    </button>
   </div>
 
 </form>
