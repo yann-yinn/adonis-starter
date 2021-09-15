@@ -38,9 +38,11 @@ Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
 // posts
 Route.get("admin/posts", "PostsController.index").middleware("auth");
 Route.get("admin/posts/create", "PostsController.create").middleware("auth");
-Route.post("admin/posts", "PostsController.store").middleware("auth");
 Route.get("admin/posts/:id", "PostsController.show").middleware("auth");
 Route.get("admin/posts/:id/edit", "PostsController.edit").middleware("auth");
+Route.post("admin/posts", "PostsController.store").middleware("auth");
 Route.post("admin/posts/:id", "PostsController.update").middleware("auth");
-Route.delete("admin/posts/:id", "PostsController.destroy").middleware("auth");
+Route.post("admin/posts/:id/delete", "PostsController.delete").middleware(
+  "auth"
+);
 //Route.resource("posts", "PostsController");

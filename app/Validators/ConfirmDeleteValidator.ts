@@ -8,7 +8,6 @@ export default class ConfirmDeleteValidator {
     entity: schema.string(),
     id: schema.string(),
     formAction: schema.string(),
-    redirect: schema.string(),
   });
 
   /**

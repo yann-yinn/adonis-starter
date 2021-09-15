@@ -5,15 +5,10 @@ import UpdatePostValidator from "App/Validators/UpdatePostValidator";
 import postsService from "App/Services/PostsService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 
-interface PostListResult {
-  meta: {
-    deleteLink: string;
-    editLink: string;
-  };
-  entity: Post;
-}
-
 export default class PostsController {
+  /**
+   * List des posts pour l'admin
+   */
   public async index({ view }: HttpContextContract) {
     const posts = await Post.all();
     const results: PostListResult[] = [];
@@ -22,8 +17,7 @@ export default class PostsController {
         entity: "Post",
         id: post.id,
         title: `Étes vous sûr de vouloir supprimer "${post.title}" ?`,
-        formAction: "/admin/posts",
-        redirect: "/admin/posts",
+        formAction: "/admin/posts/" + post.id + "/delete",
       });
       results.push({
         meta: {
@@ -57,14 +51,13 @@ export default class PostsController {
 
   public async edit({ view, request, response }: HttpContextContract) {
     const post = await Post.find(request.param("id"));
+    console.log("post", post);
     if (post) {
       const formValues = postsService.prepareFormValues(post);
       return view.render("pages/admin/postForm", {
         formValues,
         operation: "edit",
         formAction: "/admin/posts/" + post.id,
-        editLink: "/admin/posts/" + post.id + "/edit",
-        deleteLink,
       });
     } else {
       response.status(404);
@@ -78,5 +71,19 @@ export default class PostsController {
     response.redirect("/admin/posts");
   }
 
-  public async destroy({}: HttpContextContract) {}
+  public async delete({ request, response }: HttpContextContract) {
+    const post = await Post.find(request.param("id"));
+    if (post) {
+      post.delete();
+      response.redirect("/admin/posts");
+    }
+  }
+}
+
+interface PostListResult {
+  meta: {
+    deleteLink: string;
+    editLink: string;
+  };
+  entity: Post;
 }

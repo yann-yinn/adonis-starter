@@ -2,7 +2,6 @@ interface createConfirmDeleteLinkArguments {
   id: number;
   entity: string;
   formAction: string;
-  redirect: string;
   title: string;
 }
 
