@@ -16,12 +16,9 @@
   <div class="container">
     @include('partials/navbar')
   </div>
-  @if(flashMessages.get("notification"))
-  <div class="container alert alert-success">
-    {{ flashMessages.get("notification") }}
-  </div>
-  @end
 
+  @include('partials/notifications')
+  
   @!section('content')
 
   @if(flashMessages.all())

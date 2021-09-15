@@ -8,6 +8,7 @@ export default class Posts extends BaseSchema {
       table.increments("id");
       table.string("title", 255).notNullable();
       table.text("content");
+      table.foreign("user_id");
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
