@@ -5,7 +5,7 @@ interface formValues {
   content: string;
 }
 
-export function prepareFormValues(post?: Post): formValues {
+function prepareFormValues(post?: Post): formValues {
   const formValues = {
     id: post && post.id ? post.id : "",
     title: post ? post.title : "",
@@ -14,8 +14,7 @@ export function prepareFormValues(post?: Post): formValues {
   return formValues;
 }
 
-export async function save(values) {
-  console.log("values", values);
+async function save(values) {
   const post = values.id ? await Post.find(values.id) : new Post();
   if (post) {
     post.title = values.title;

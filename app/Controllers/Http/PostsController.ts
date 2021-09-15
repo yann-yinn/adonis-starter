@@ -24,6 +24,21 @@ export default class PostsController {
         title: `Étes vous sûr de vouloir supprimer "${post.title}" ?`,
         formAction: "/admin/posts/" + post.id + "/delete",
       });
+      post.created_at = new Date(post.created_at).toLocaleDateString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
+      post.udpated_at = new Date(post.updated_at).toLocaleDateString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+      });
+
       post._deleteLink = deleteLink;
       post._editLink = `/admin/posts/${post.id}/edit`;
     });
@@ -43,7 +58,9 @@ export default class PostsController {
   public async store({ session, request, response }: HttpContextContract) {
     const payload = await request.validate(CreatePostValidator);
     await postsService.save(payload);
-    session.flash({ notification: "post created successfully" });
+    session.flash({
+      notification: "Le billet de blog a été crée",
+    });
     response.redirect("/admin/posts");
   }
 
@@ -66,14 +83,15 @@ export default class PostsController {
   public async update({ request, session, response }: HttpContextContract) {
     const payload = await request.validate(UpdatePostValidator);
     await postsService.save(payload);
-    session.flash({ notification: "post updated successfully" });
+    session.flash({ notification: "Le billet de blog a été mis à jour" });
     response.redirect("/admin/posts");
   }
 
-  public async delete({ request, response }: HttpContextContract) {
+  public async delete({ request, response, session }: HttpContextContract) {
     const post = await Post.find(request.param("id"));
     if (post) {
       post.delete();
+      session.flash({ notification: "Le billet de blog a été supprimé" });
       response.redirect("/admin/posts");
     }
   }

@@ -14,12 +14,10 @@ export default class SignupController {
     user.password = payload.password;
     user.name = payload.name;
     await user.save();
-
     session.flash({
       notification:
         "Votre compte a été crée. Vous pouvez vous connecter désormais.",
     });
-
     response.redirect("/");
   }
 }
