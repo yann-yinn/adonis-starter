@@ -12,11 +12,11 @@
       </tr>
     </thead>
     <tbody>
-      @each(post in posts)
+      @each(result in results)
       <tr>
-        <td> {{ post.title }} </td>
-        <td> <a href="{{ "/admin/posts/" + post.id + "/edit" }}">edit</a> </td>
-        <td> <a href="{{ "/admin/confirm-delete?id=" + post.id}}">delete</a> </td>
+        <td> {{ result.entity.title }} </td>
+        <td> <a href="{{ result.meta.editLink }}">edit</a> </td>
+        <td> <a href="{{ result.meta.deleteLink }}">delete</a> </td>
       </tr>
       @end
     </tbody>

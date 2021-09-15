@@ -24,6 +24,7 @@ export default class ConfirmDeleteValidator {
    */
   public messages = {
     "entity.required": "Le paramètre entity est requis",
+    "title.required": "Le paramètre title est requis",
     "id.required": "Le paramètre id est requis",
     "formAction.required": "Le paramètre formAction est requis",
     "redirect.required": "Le paramètre redirect est requis",

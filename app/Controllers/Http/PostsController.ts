@@ -2,17 +2,39 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Post from "App/Models/Post";
 import CreatePostValidator from "App/Validators/CreatePostValidator";
 import UpdatePostValidator from "App/Validators/UpdatePostValidator";
-import postsService from "App/Services/postsService";
+import postsService from "App/Services/PostsService";
+import { createConfirmDeleteLink } from "App/Services/HelpersService";
+
+interface PostListResult {
+  meta: {
+    deleteLink: string;
+    editLink: string;
+  };
+  entity: Post;
+}
 
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
     const posts = await Post.all();
-    return view.render("pages/admin/posts", { posts: posts });
-  }
+    const results: PostListResult[] = [];
+    posts.forEach((post) => {
+      const deleteLink = createConfirmDeleteLink({
+        entity: "Post",
+        id: post.id,
+        title: `Étes vous sûr de vouloir supprimer "${post.title}" ?`,
+        formAction: "/admin/posts",
+        redirect: "/admin/posts",
+      });
+      results.push({
+        meta: {
+          deleteLink,
+          editLink: `/admin/posts/${post.id}/edit`,
+        },
+        entity: post,
+      });
+    });
 
-  public async indexAdmin({ view }: HttpContextContract) {
-    const posts = await Post.all();
-    return view.render("pages/admin/posts", { posts: posts });
+    return view.render("pages/admin/posts", { results });
   }
 
   public async create({ view }: HttpContextContract) {
@@ -41,6 +63,8 @@ export default class PostsController {
         formValues,
         operation: "edit",
         formAction: "/admin/posts/" + post.id,
+        editLink: "/admin/posts/" + post.id + "/edit",
+        deleteLink,
       });
     } else {
       response.status(404);

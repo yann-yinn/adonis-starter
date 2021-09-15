@@ -11,10 +11,7 @@ export default class PostsController {
     }
 
     return view.render("pages/admin/confirm-delete", {
-      entity: request.param("entity"),
-      id: request.param("id"),
-      formAction: request.param("formAction"),
-      redirect: request.param("redirect"),
+      ...request.qs(),
       errors,
     });
   }
