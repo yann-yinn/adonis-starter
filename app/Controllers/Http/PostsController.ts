@@ -8,7 +8,7 @@ import Database from "@ioc:Adonis/Lucid/Database";
 
 export default class PostsController {
   /**
-   * List des posts pour l'admin
+   * Liste des posts pour l'admin
    */
   public async index({ view, request }: HttpContextContract) {
     const page = request.input("page", 1);
@@ -16,6 +16,7 @@ export default class PostsController {
     const posts = await Database.from("posts").paginate(page, limit);
     posts.baseUrl("/admin/posts");
 
+    // add delete links and edit Links for each post.
     posts.forEach((post) => {
       const deleteLink = createConfirmDeleteLink({
         entity: "Post",
@@ -25,15 +26,6 @@ export default class PostsController {
       });
       post._deleteLink = deleteLink;
       post._editLink = `/admin/posts/${post.id}/edit`;
-      /*
-      results.push({
-        meta: {
-          deleteLink,
-          editLink: `/admin/posts/${post.id}/edit`,
-        },
-        entity: post,
-      });
-      */
     });
 
     return view.render("pages/admin/posts", { posts });
@@ -59,7 +51,6 @@ export default class PostsController {
 
   public async edit({ view, request, response }: HttpContextContract) {
     const post = await Post.find(request.param("id"));
-    console.log("post", post);
     if (post) {
       const formValues = postsService.prepareFormValues(post);
       return view.render("pages/admin/postForm", {
@@ -86,12 +77,4 @@ export default class PostsController {
       response.redirect("/admin/posts");
     }
   }
-}
-
-interface PostListResult {
-  meta: {
-    deleteLink: string;
-    editLink: string;
-  };
-  entity: Post;
 }
