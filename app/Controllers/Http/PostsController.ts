@@ -6,12 +6,17 @@ import postsService from "App/Services/postsService";
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
     const posts = await Post.all();
-    return view.render("pages/posts", { posts: posts });
+    return view.render("pages/admin/posts", { posts: posts });
+  }
+
+  public async indexAdmin({ view }: HttpContextContract) {
+    const posts = await Post.all();
+    return view.render("pages/admin/posts", { posts: posts });
   }
 
   public async create({ view }: HttpContextContract) {
     const formValues = postsService.prepareFormValues();
-    return view.render("pages/postForm", { formValues });
+    return view.render("pages/admin/postForm", { formValues });
   }
 
   public async store({ session, request, response }: HttpContextContract) {
@@ -21,7 +26,7 @@ export default class PostsController {
     post.content = <string>payload.content;
     await post.save();
     session.flash({ notification: "post created successfully" });
-    response.redirect("/posts");
+    response.redirect("/admin/posts");
   }
 
   public async show({}: HttpContextContract) {}
@@ -30,7 +35,7 @@ export default class PostsController {
     const post = await Post.find(request.param("id"));
     if (post) {
       const formValues = postsService.prepareFormValues(post);
-      return view.render("pages/postForm", { formValues });
+      return view.render("pages/admin/postForm", { formValues });
     } else {
       response.status(404);
     }

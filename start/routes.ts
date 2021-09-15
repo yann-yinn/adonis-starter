@@ -30,4 +30,14 @@ Route.post("signup", "SignupController.store");
 Route.get("login", "LoginController.create").middleware("guest");
 Route.post("login", "LoginController.store").middleware("guest");
 Route.get("logout", "LoginController.destroy").middleware("auth");
-Route.resource("posts", "PostsController");
+
+// posts
+Route.get("admin/posts", "PostsController.index").middleware("auth");
+Route.get("admin/posts/create", "PostsController.create").middleware("auth");
+Route.post("admin/posts", "PostsController.store").middleware("auth");
+Route.get("admin/post", "PostsController.show").middleware("auth");
+Route.get("admin/posts/:id", "PostsController.show").middleware("auth");
+Route.get("admin/posts/:id/edit", "PostsController.edit").middleware("auth");
+Route.patch("admin/posts/:id", "PostsController.update").middleware("auth");
+Route.delete("admin/posts/:id", "PostsController.destroy").middleware("auth");
+//Route.resource("posts", "PostsController");

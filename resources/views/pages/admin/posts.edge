@@ -1,0 +1,25 @@
+@layout('layouts.main')
+
+@section('content')
+<div class="container">
+  <h1>Liste des posts</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Titre</th>
+        <th scope="col">contenu</th>
+        <th scope="col">edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(post in posts)
+      <tr>
+        <td> {{ post.title }} </td>
+        <td> <a href="{{ "/admin/posts/" + post.id + "/edit" }}">edit</a> </td>
+      </tr>
+      @end
+    </tbody>
+  </table>
+
+</div>
+@endsection
