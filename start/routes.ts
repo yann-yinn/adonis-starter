@@ -31,6 +31,10 @@ Route.get("login", "LoginController.create").middleware("guest");
 Route.post("login", "LoginController.store").middleware("guest");
 Route.get("logout", "LoginController.destroy").middleware("auth");
 
+Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
+  "auth"
+);
+
 // posts
 Route.get("admin/posts", "PostsController.index").middleware("auth");
 Route.get("admin/posts/create", "PostsController.create").middleware("auth");

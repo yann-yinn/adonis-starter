@@ -3,6 +3,7 @@ import Post from "App/Models/Post";
 import CreatePostValidator from "App/Validators/CreatePostValidator";
 import UpdatePostValidator from "App/Validators/UpdatePostValidator";
 import postsService from "App/Services/postsService";
+import View from "@ioc:Adonis/Core/View";
 
 export default class PostsController {
   public async index({ view }: HttpContextContract) {

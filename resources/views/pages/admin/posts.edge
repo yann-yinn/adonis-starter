@@ -7,8 +7,8 @@
     <thead>
       <tr>
         <th scope="col">Titre</th>
-        <th scope="col">contenu</th>
         <th scope="col">edit</th>
+        <th scope="col">delete</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +16,7 @@
       <tr>
         <td> {{ post.title }} </td>
         <td> <a href="{{ "/admin/posts/" + post.id + "/edit" }}">edit</a> </td>
+        <td> <a href="{{ "/admin/posts/" + post.id + "/delete" }}">delete</a> </td>
       </tr>
       @end
     </tbody>

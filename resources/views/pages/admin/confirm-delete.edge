@@ -1,0 +1,15 @@
+@layout('layouts.main')
+
+@section('content')
+<main>
+  <div class="container">
+    <h1 class="title"> Confirmer la suppression </h1>
+    <p>Etes vous sûr de vouloir supprimer ce contenu ?</p>
+    <form action="{{formAction}}">
+      <a href="#">Annuler</a>
+      <button type="submit" value="confirm"> 
+        Supprimer définitivement 
+      </button>
+    </form>
+<main>
+@endsection
