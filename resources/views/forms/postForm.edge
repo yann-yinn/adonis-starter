@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('/admin/posts') }}">
+<form method="POST" action="{{ formAction }}">
   {{ csrfField() }}
 
   @if(flashMessages.has('errors'))
