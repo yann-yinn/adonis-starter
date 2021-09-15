@@ -4,6 +4,16 @@
 <main>
   <div class="container">
     <h1 class="title"> Confirmer la suppression </h1>
+
+    @if(errors)
+    <div class="alert alert-danger">
+      @each(error in errors)
+        <div>{{ error }}</div>
+      @end
+    </div>
+    @end
+
+    @if(!errors)
     <p>Etes vous sûr de vouloir supprimer ce contenu ?</p>
     <form action="{{formAction}}">
       <a href="#">Annuler</a>
@@ -11,5 +21,6 @@
         Supprimer définitivement 
       </button>
     </form>
+    @end
 <main>
 @endsection

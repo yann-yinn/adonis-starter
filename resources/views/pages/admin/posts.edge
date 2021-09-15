@@ -16,7 +16,7 @@
       <tr>
         <td> {{ post.title }} </td>
         <td> <a href="{{ "/admin/posts/" + post.id + "/edit" }}">edit</a> </td>
-        <td> <a href="{{ "/admin/posts/" + post.id + "/delete" }}">delete</a> </td>
+        <td> <a href="{{ "/admin/confirm-delete?id=" + post.id}}">delete</a> </td>
       </tr>
       @end
     </tbody>

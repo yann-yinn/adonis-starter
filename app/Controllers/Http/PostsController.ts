@@ -3,7 +3,6 @@ import Post from "App/Models/Post";
 import CreatePostValidator from "App/Validators/CreatePostValidator";
 import UpdatePostValidator from "App/Validators/UpdatePostValidator";
 import postsService from "App/Services/postsService";
-import View from "@ioc:Adonis/Core/View";
 
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
@@ -48,18 +47,11 @@ export default class PostsController {
     }
   }
 
-  public async update({ request }: HttpContextContract) {
+  public async update({ request, session, response }: HttpContextContract) {
     const payload = await request.validate(UpdatePostValidator);
     await postsService.save(payload);
-
-    /*
-    post.title = payload.title;
-    post.content = <string>payload.content;
-    await post.save();
-    session.flash({ notification: "post created successfully" });
+    session.flash({ notification: "post updated successfully" });
     response.redirect("/admin/posts");
-    */
-    return "update";
   }
 
   public async destroy({}: HttpContextContract) {}
