@@ -2,9 +2,10 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Post from "App/Models/Post";
 import CreatePostValidator from "App/Validators/CreatePostValidator";
 import UpdatePostValidator from "App/Validators/UpdatePostValidator";
-import postsService from "App/Services/PostsService";
+import PostsService from "App/Services/PostsService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
+import User from "App/Models/User";
 
 export default class PostsController {
   /**
@@ -13,8 +14,13 @@ export default class PostsController {
   public async index({ view, request }: HttpContextContract) {
     const page = request.input("page", 1);
     const limit = 5;
-    const posts = await Database.from("posts").paginate(page, limit);
+    const posts = await Database.from("posts")
+      .join("users", "users.id", "=", "posts.user_id")
+      .select("posts.*")
+      .select("users.name as userName", "users.id as userId")
+      .paginate(page, limit);
     posts.baseUrl("/admin/posts");
+    console.log("posts", posts);
 
     // add delete links and edit Links for each post.
     posts.forEach((post) => {
@@ -31,13 +37,6 @@ export default class PostsController {
         hour: "numeric",
         minute: "numeric",
       });
-      post.udpated_at = new Date(post.updated_at).toLocaleDateString("fr-FR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      });
 
       post._deleteLink = deleteLink;
       post._editLink = `/admin/posts/${post.id}/edit`;
@@ -47,7 +46,7 @@ export default class PostsController {
   }
 
   public async create({ view }: HttpContextContract) {
-    const formValues = postsService.prepareFormValues();
+    const formValues = PostsService.prepareFormValues();
     return view.render("pages/admin/postForm", {
       formValues,
       operation: "create",
@@ -55,9 +54,14 @@ export default class PostsController {
     });
   }
 
-  public async store({ session, request, response }: HttpContextContract) {
+  public async store({
+    session,
+    request,
+    response,
+    auth,
+  }: HttpContextContract) {
     const payload = await request.validate(CreatePostValidator);
-    await postsService.save(payload);
+    await PostsService.save(payload, auth.user as User);
     session.flash({
       notification: "Le billet de blog a été crée",
     });
@@ -69,7 +73,7 @@ export default class PostsController {
   public async edit({ view, request, response }: HttpContextContract) {
     const post = await Post.find(request.param("id"));
     if (post) {
-      const formValues = postsService.prepareFormValues(post);
+      const formValues = PostsService.prepareFormValues(post);
       return view.render("pages/admin/postForm", {
         formValues,
         operation: "edit",
@@ -80,9 +84,14 @@ export default class PostsController {
     }
   }
 
-  public async update({ request, session, response }: HttpContextContract) {
+  public async update({
+    request,
+    session,
+    response,
+    auth,
+  }: HttpContextContract) {
     const payload = await request.validate(UpdatePostValidator);
-    await postsService.save(payload);
+    await PostsService.save(payload, auth.user as User);
     session.flash({ notification: "Le billet de blog a été mis à jour" });
     response.redirect("/admin/posts");
   }

@@ -10,6 +10,7 @@ export default class Posts extends BaseSchema {
       table.text("content");
       table
         .integer("user_id")
+        .notNullable()
         .unsigned()
         .references("users.id")
         .onDelete("CASCADE"); // delete post when user is deleted

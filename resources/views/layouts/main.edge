@@ -18,14 +18,8 @@
   </div>
 
   @include('partials/notifications')
-  
-  @!section('content')
 
-  @if(flashMessages.all())
-  <footer>
-    {{ inspect(flashMessages.all()) }}
-  </footer>
-  @endif
+  @!section('content')
 
 </body>
 </html>

@@ -27,9 +27,9 @@ Route.get("/", async ({ view }) => {
 Route.resource("users", "UsersController");
 Route.get("signup", "SignupController.create");
 Route.post("signup", "SignupController.store");
-Route.get("login", "LoginController.create").middleware("guest");
-Route.post("login", "LoginController.store").middleware("guest");
-Route.get("logout", "LoginController.destroy").middleware("auth");
+Route.get("login", "SessionController.create").middleware("guest");
+Route.post("login", "SessionController.store").middleware("guest");
+Route.get("logout", "SessionController.destroy").middleware("auth");
 
 Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
   "auth"

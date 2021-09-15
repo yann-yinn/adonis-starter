@@ -8,7 +8,7 @@
       <tr>
         <th scope="col">Titre</th>
         <th scope="col">Crée le</th>
-        <th scope="col">Modifié le</th>
+        <th scope="col">Auteur</th>
         <th scope="col">edit</th>
         <th scope="col">delete</th>
       </tr>
@@ -18,7 +18,7 @@
       <tr>
         <td> {{ post.title }} </td>
         <td> {{ post.created_at }} </td>
-        <td> {{ post.updated_at }} </td>
+        <td> {{ post.userName }} </td>
         <td> <a href="{{post._editLink}}">Editer</a> </td>
         <td> <a href="{{post._deleteLink}}">Supprimer</a> </td>
       </tr>
