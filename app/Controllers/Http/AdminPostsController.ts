@@ -7,7 +7,7 @@ import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
 
-export default class PostsController {
+export default class AdminPostsController {
   /**
    * Liste des posts pour l'admin
    */
@@ -48,7 +48,6 @@ export default class PostsController {
     const formValues = PostsService.prepareFormValues();
     return view.render("pages/admin/postForm", {
       formValues,
-      operation: "create",
       formAction: "/admin/posts",
     });
   }
@@ -75,7 +74,6 @@ export default class PostsController {
       const formValues = PostsService.prepareFormValues(post);
       return view.render("pages/admin/postForm", {
         formValues,
-        operation: "edit",
         formAction: "/admin/posts/" + post.id,
       });
     } else {

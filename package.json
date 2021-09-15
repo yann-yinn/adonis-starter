@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@adonisjs/auth": "^8.0.9",
+    "@adonisjs/bouncer": "^2.2.5",
     "@adonisjs/core": "^5.3.4",
     "@adonisjs/lucid": "^16.0.2",
     "@adonisjs/mail": "^7.2.4",

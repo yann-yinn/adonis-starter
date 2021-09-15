@@ -31,18 +31,23 @@ Route.get("login", "SessionController.create").middleware("guest");
 Route.post("login", "SessionController.store").middleware("guest");
 Route.get("logout", "SessionController.destroy").middleware("auth");
 
+// route générique pour confirmer la suppression d'une entité
 Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
   "auth"
 );
 
-// posts
-Route.get("admin/posts", "PostsController.index").middleware("auth");
-Route.get("admin/posts/create", "PostsController.create").middleware("auth");
-Route.get("admin/posts/:id", "PostsController.show").middleware("auth");
-Route.get("admin/posts/:id/edit", "PostsController.edit").middleware("auth");
-Route.post("admin/posts", "PostsController.store").middleware("auth");
-Route.post("admin/posts/:id", "PostsController.update").middleware("auth");
-Route.post("admin/posts/:id/delete", "PostsController.delete").middleware(
+// administration des posts
+Route.get("admin/posts", "AdminPostsController.index").middleware("auth");
+Route.get("admin/posts/create", "AdminPostsController.create").middleware(
+  "auth"
+);
+Route.get("admin/posts/:id", "AdminPostsController.show").middleware("auth");
+Route.get("admin/posts/:id/edit", "AdminPostsController.edit").middleware(
+  "auth"
+);
+Route.post("admin/posts", "AdminPostsController.store").middleware("auth");
+Route.post("admin/posts/:id", "AdminPostsController.update").middleware("auth");
+Route.post("admin/posts/:id/delete", "AdminPostsController.delete").middleware(
   "auth"
 );
 //Route.resource("posts", "PostsController");

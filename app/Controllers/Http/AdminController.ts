@@ -1,7 +1,7 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import ConfirmDeleteValidator from "App/Validators/ConfirmDeleteValidator";
 
-export default class PostsController {
+export default class AdminController {
   public async confirmDelete({ view, request }: HttpContextContract) {
     let errors;
     try {
