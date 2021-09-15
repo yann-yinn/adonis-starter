@@ -20,7 +20,6 @@ export default class PostsController {
       .select("users.name as userName", "users.id as userId")
       .paginate(page, limit);
     posts.baseUrl("/admin/posts");
-    console.log("posts", posts);
 
     // add delete links and edit Links for each post.
     posts.forEach((post) => {

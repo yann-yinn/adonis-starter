@@ -2,11 +2,11 @@
 
 Todo:
 
-- [ ] Affichage correct des messages flash dans le template
-- [ ] Un post doit appartenir à un utilisateur
+- [x] Affichage correct des messages flash dans le template
+- [x] Un post doit appartenir à un utilisateur
 - [ ] Gestion des rôles + permissions avec Bouncer (authenticated, admin)
-- [ ] Gestion de l'envoi des emails
 - [ ] Page d'édition du profil, avec upload de l'avatar
+- [ ] Gestion de l'envoi des emails
 
 Non prioritaire:
 

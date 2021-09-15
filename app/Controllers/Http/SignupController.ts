@@ -15,8 +15,7 @@ export default class SignupController {
     user.name = payload.name;
     await user.save();
     session.flash({
-      notification:
-        "Votre compte a été crée. Vous pouvez vous connecter désormais.",
+      notification: "Votre compte a été crée. Vous pouvez vous connecter.",
     });
     response.redirect("/");
   }
