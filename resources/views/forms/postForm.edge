@@ -1,3 +1,7 @@
+@section('head')
+<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+@endsection
+
 <form method="POST" action="{{ formAction }}">
   {{ csrfField() }}
 
@@ -21,7 +25,7 @@
 
   <div class="form-group mt-3">
     <label for="password">Contenu</label>
-    <textarea rows="10" class="textarea form-control" name="content">{{ formValues.content }}</textarea>
+    <textarea id="editor" name="content">{{ formValues.content }}</textarea>
   </div>
 
   <div class="form-group mt-3">
@@ -31,3 +35,14 @@
   </div>
 
 </form>
+
+<script>
+  ClassicEditor
+    .create( document.querySelector( '#editor' ) )
+    .then(editor => {
+      console.log( editor );
+    })
+    .catch(error => {
+      console.error( error );
+  });
+</script>
