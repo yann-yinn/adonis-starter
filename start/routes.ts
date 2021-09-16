@@ -22,7 +22,7 @@ import Route from "@ioc:Adonis/Core/Route";
 
 Route.get("/", async ({ view }) => {
   return view.render("pages/home");
-});
+}).middleware("roles:guest,admin,authenticated");
 
 Route.resource("users", "UsersController");
 Route.get("signup", "SignupController.create");

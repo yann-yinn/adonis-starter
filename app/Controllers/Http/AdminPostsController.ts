@@ -68,16 +68,19 @@ export default class AdminPostsController {
 
   public async show({}: HttpContextContract) {}
 
-  public async edit({ view, request, response }: HttpContextContract) {
+  public async edit({ view, request, response, bouncer }: HttpContextContract) {
     const post = await Post.find(request.param("id"));
+    if (!post) {
+      response.status(404);
+      return;
+    }
+    await bouncer.authorize("editOwnPost", post);
     if (post) {
       const formValues = PostsService.prepareFormValues(post);
       return view.render("pages/admin/postForm", {
         formValues,
         formAction: "/admin/posts/" + post.id,
       });
-    } else {
-      response.status(404);
     }
   }
 

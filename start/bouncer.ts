@@ -5,7 +5,9 @@
  * file.
  */
 
-import Bouncer from '@ioc:Adonis/Addons/Bouncer'
+import Bouncer from "@ioc:Adonis/Addons/Bouncer";
+import Post from "App/Models/Post";
+import User from "App/Models/User";
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,12 @@ import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-export const { actions } = Bouncer
+export const { actions } = Bouncer.define(
+  "editOwnPost",
+  (user: User, post: Post) => {
+    return post.userId === user.id;
+  }
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +61,4 @@ export const { actions } = Bouncer
 | NOTE: Always export the "policies" const from this file
 |****************************************************************
 */
-export const { policies } = Bouncer.registerPolicies({})
+export const { policies } = Bouncer.registerPolicies({});
