@@ -1,4 +1,6 @@
-# AdonisJS starter - monolithic Node JS Application
+# AdonisJS 5 monolith starter
+
+AdonisJS 5 *monolith* starter with signup / signin form to build MVP. Edges templates, Bootstrap CSS.
 
 Todo:
 
