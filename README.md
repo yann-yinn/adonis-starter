@@ -2,17 +2,16 @@
 
 AdonisJS 5 *monolith* starter with signup / signin form to build MVP. Edges templates, Bootstrap CSS.
 
+Done:
+
+- [x] Sign up Form
+- [x] Sign in form
+- [x] Sign auth
+- [x] Authenticated users can create "posts" in the admin as an example entity
+
 Todo:
 
-- [x] Affichage correct des messages flash dans le template
-- [x] Un post doit appartenir à un utilisateur
-- [ ] Gestion des rôles + permissions avec Bouncer (authenticated, admin)
-- [ ] Page d'édition du profil, avec upload de l'avatar
-- [ ] Gestion de l'envoi des emails
-
-Non prioritaire:
-
-- [ ] Modification de l'adresse email avec vérification par email
-- [ ] Mot de passe oublié
-- [ ] Mail d'activation du profil
-- [ ] Modification du mot de passe
+- [ ] Profile page
+- [ ] Send email on account creation
+- [ ] Reset password
+- [ ] roles and access with Bouncer (authenticated, admin)
