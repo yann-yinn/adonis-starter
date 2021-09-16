@@ -6,7 +6,7 @@ Done:
 
 - [x] Sign up Form
 - [x] Sign in form
-- [x] Sign auth
+- [x] Log out
 - [x] Authenticated users can create "posts" in the admin as an example entity
 
 Todo:
