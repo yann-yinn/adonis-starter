@@ -4,7 +4,7 @@
 <main>
   <div class="container">
     <h1 class="title"> Confirmer la suppression </h1>
-
+    <div class="shadow-lg p-5">
     @if(errors)
     <div class="alert alert-danger">
       @each(error in errors)
@@ -18,9 +18,10 @@
     <form method="post" action="{{ options.formAction }}">
       {{ csrfField() }}
       <input type="hidden" name="id" value="{{ options.id }}"/>
-      <a href="{{ options.returnUrl }}">Annuler</a>
-      <input type="submit" value="Supprimer définitivement"/> 
+      <a href="{{ options.returnUrl }}">Annuler</a> 
+      <input class="btn btn-primary" type="submit" value="Supprimer définitivement"/> 
     </form>
     @end
+  </div>
 <main>
 @endsection
