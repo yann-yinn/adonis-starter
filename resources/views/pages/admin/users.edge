@@ -1,0 +1,41 @@
+@layout('layouts/main')
+
+@section('content')
+<div class="container">
+  <h1>Utilisateurs</h1>
+  <div class="shadow-lg p-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nom</th>
+          <th scope="col">Email</th>
+          <th scope="col">edit</th>
+          <th scope="col">delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(user in users)
+        <tr>
+          <td> {{ user.name }} </td>
+          <td> {{ user.email }} </td>
+          <td> <a href="{{user._editLink}}">Editer</a> </td>
+          <td> <a href="{{user._deleteLink}}">Supprimer</a> </td>
+        </tr>
+        @end
+      </tbody>
+    </table>
+
+    <div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          @each(anchor in users.getUrlsForRange(1, users.lastPage))
+          <li class="page-item">
+            <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+          </li>
+          @endeach
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+@endsection
