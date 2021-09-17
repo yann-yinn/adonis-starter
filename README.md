@@ -1,6 +1,6 @@
 # AdonisJS 5 monolith starter
 
-AdonisJS 5 *monolith* starter with signup / signin form to build MVP. Edges templates, Bootstrap CSS.
+AdonisJS 5 _monolith_ starter with signup / signin form to build MVP. Edges templates, Bootstrap CSS.
 
 Done:
 
