@@ -53,3 +53,6 @@ Route.post("admin/posts/:id/delete", "AdminPostsController.delete").middleware(
 
 // administration des utilisateurs
 Route.get("admin/users", "AdminUsersController.index").middleware("auth");
+Route.get("admin/users/:id/edit", "AdminUsersController.edit").middleware(
+  "auth"
+);
