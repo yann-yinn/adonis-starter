@@ -16,7 +16,6 @@ export default class AdminPostsController {
     const limit = 5;
     const users = await Database.from("users").paginate(page, limit);
     users.baseUrl(this.usersPath);
-    console.log("users", users);
 
     // add delete links and edit Links for each post.
     users.forEach((user) => {
