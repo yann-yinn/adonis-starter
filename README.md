@@ -2,6 +2,8 @@
 
 AdonisJS 5 _monolith_ starter with signup / signin form to build MVP. Edges templates, Bootstrap CSS.
 
+<img src="https://github.com/yann-yinn/adonis-starter/blob/main/screen.png"/>
+
 Done:
 
 - [x] Sign up Form
