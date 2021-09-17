@@ -7,16 +7,14 @@ Se connecter
 @section('content')
 <main>
   <div class="container">
+    <h1>Se connecter</h1>
+    <div class="shadow-lg p-5">
     <div class="row">
       <div class="col-sm-6 offset-sm-3">
-        <div class="card mt-5">
-          <div class="card-header">Se connecter</div>
-          <div class="card-body">
-            @include('forms/loginForm')
-          </div>
-        </div>
+        @include('forms/loginForm')
       </div>
     </div> <!-- end row -->
+    </div>
   </div> <!-- end container -->
 </main>
 @endsection

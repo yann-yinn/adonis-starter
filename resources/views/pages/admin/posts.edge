@@ -2,40 +2,42 @@
 
 @section('content')
 <div class="container">
-  <h1>Liste des posts</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Titre</th>
-        <th scope="col">Crée le</th>
-        <th scope="col">Auteur</th>
-        <th scope="col">edit</th>
-        <th scope="col">delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      @each(post in posts)
-      <tr>
-        <td> {{ post.title }} </td>
-        <td> {{ post.created_at }} </td>
-        <td> {{ post.userName }} </td>
-        <td> <a href="{{post._editLink}}">Editer</a> </td>
-        <td> <a href="{{post._deleteLink}}">Supprimer</a> </td>
-      </tr>
-      @end
-    </tbody>
-  </table>
+  <h1>Posts</h1>
+  <div class="shadow-lg p-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Titre</th>
+          <th scope="col">Crée le</th>
+          <th scope="col">Auteur</th>
+          <th scope="col">edit</th>
+          <th scope="col">delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(post in posts)
+        <tr>
+          <td> {{ post.title }} </td>
+          <td> {{ post.created_at }} </td>
+          <td> {{ post.userName }} </td>
+          <td> <a href="{{post._editLink}}">Editer</a> </td>
+          <td> <a href="{{post._deleteLink}}">Supprimer</a> </td>
+        </tr>
+        @end
+      </tbody>
+    </table>
 
-  <div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        @each(anchor in posts.getUrlsForRange(1, posts.lastPage))
-        <li class="page-item">
-          <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
-        </li>
-        @endeach
-      </ul>
-    </nav>
+    <div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          @each(anchor in posts.getUrlsForRange(1, posts.lastPage))
+          <li class="page-item">
+            <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+          </li>
+          @endeach
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 @endsection

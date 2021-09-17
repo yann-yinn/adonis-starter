@@ -1,40 +1,44 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-  <a class="navbar-brand" href="/">Adonis starter</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" href="/">Adonis starter</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+
+        @if(auth.isLoggedIn)
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/posts/create">Nouveau post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/posts">Posts</a>
+        </li>
+        @endif
+
+        @if(!auth.isLoggedIn)
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">Créer un compte</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Se connecter</a>
+        </li>
+        @endif
+
+      </ul>
+
       @if(auth.isLoggedIn)
-      <li class="nav-item active">
-        <a class="nav-link" href="/admin/posts/create">Créer un post</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/logout">Se déconnecter</a>
-      </li>
-      @endif
+        <span class="navbar-text">
+            <i class="bi bi-person-circle"></i>
+          Hello {{auth.user.name}}
+        </span>
+        <span class="navbar-text">
+          <a class="nav-link inactive" href="/logout">(Se déconnecter)</a>
+        </span>
+        @end
+    </div>
 
-      @if(!auth.isLoggedIn)
-      <li class="nav-item">
-        <a class="nav-link" href="/signup">Créer un compte</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/login">Se connecter</a>
-      </li>
-      @endif
-
-      <li class="nav-item active">
-        <a class="nav-link" href="/admin/posts">Liste des posts</a>
-      </li>
-
-    </ul>
-  </div>
-  @if(auth.isLoggedIn)
-  <span class="navbar-text">
-    Bonjour {{auth.user.name}}
-  </span>
-  @end
 </div>
 </nav>
