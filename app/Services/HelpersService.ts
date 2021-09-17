@@ -1,13 +1,6 @@
-interface createConfirmDeleteLinkArguments {
-  id: number;
-  entity: string;
-  formAction: string;
-  title: string;
-}
+import { ConfirmDeleteOptions } from "App/types";
 
-export function createConfirmDeleteLink(
-  params: createConfirmDeleteLinkArguments
-) {
+export function createConfirmDeleteLink(params: ConfirmDeleteOptions) {
   let vars: string[] = [];
   for (const property in params) {
     vars.push(`${property}=${params[property]}`);

@@ -14,11 +14,11 @@
     @end
 
     @if(!errors)
-    <p>{{title}}</p>
-    <form method="post" action="{{formAction}}">
+    <p>{{ options.title }}</p>
+    <form method="post" action="{{ options.formAction }}">
       {{ csrfField() }}
-      <input type="hidden" name="id" value="{{id}}"/>
-      <a href="#">Annuler</a>
+      <input type="hidden" name="id" value="{{ options.id }}"/>
+      <a href="{{ options.returnUrl }}">Annuler</a>
       <input type="submit" value="Supprimer définitivement"/> 
     </form>
     @end

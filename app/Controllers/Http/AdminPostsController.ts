@@ -8,6 +8,7 @@ import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
 
 export default class AdminPostsController {
+  public postsPath = "/admin/posts";
   /**
    * Liste des posts pour l'admin
    */
@@ -19,7 +20,7 @@ export default class AdminPostsController {
       .select("posts.*")
       .select("users.name as userName", "users.id as userId")
       .paginate(page, limit);
-    posts.baseUrl("/admin/posts");
+    posts.baseUrl(this.postsPath);
 
     // add delete links and edit Links for each post.
     posts.forEach((post) => {
@@ -27,18 +28,11 @@ export default class AdminPostsController {
         entity: "Post",
         id: post.id,
         title: `Étes vous sûr de vouloir supprimer "${post.title}" ?`,
-        formAction: "/admin/posts/" + post.id + "/delete",
+        formAction: `${this.postsPath}/${post.id}/delete`,
+        returnUrl: this.postsPath,
       });
-      post.created_at = new Date(post.created_at).toLocaleDateString("fr-FR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-      });
-
       post._deleteLink = deleteLink;
-      post._editLink = `/admin/posts/${post.id}/edit`;
+      post._editLink = `${this.postsPath}/${post.id}/edit`;
     });
 
     return view.render("pages/admin/posts", { posts });
@@ -48,7 +42,7 @@ export default class AdminPostsController {
     const formValues = PostsService.prepareFormValues();
     return view.render("pages/admin/postForm", {
       formValues,
-      formAction: "/admin/posts",
+      formAction: this.postsPath,
     });
   }
 
@@ -63,18 +57,17 @@ export default class AdminPostsController {
     session.flash({
       notification: "Le billet de blog a été crée",
     });
-    response.redirect("/admin/posts");
+    response.redirect(this.postsPath);
   }
 
   public async show({}: HttpContextContract) {}
 
-  public async edit({ view, request, response, bouncer }: HttpContextContract) {
+  public async edit({ view, request, response }: HttpContextContract) {
     const post = await Post.find(request.param("id"));
     if (!post) {
       response.status(404);
       return;
     }
-    await bouncer.authorize("editOwnPost", post);
     if (post) {
       const formValues = PostsService.prepareFormValues(post);
       return view.render("pages/admin/postForm", {

@@ -5,9 +5,11 @@ export default class ConfirmDeleteValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
+    title: schema.string(),
     entity: schema.string(),
-    id: schema.string(),
+    id: schema.number(),
     formAction: schema.string(),
+    returnUrl: schema.string(),
   });
 
   /**
@@ -26,6 +28,6 @@ export default class ConfirmDeleteValidator {
     "title.required": "Le paramètre title est requis",
     "id.required": "Le paramètre id est requis",
     "formAction.required": "Le paramètre formAction est requis",
-    "redirect.required": "Le paramètre redirect est requis",
+    "returnUrl.required": "Le paramètre returnUrl est requis",
   };
 }

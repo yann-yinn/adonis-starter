@@ -1,7 +1,3 @@
-@section('head')
-<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
-@endsection
-
 <form method="POST" action="{{ formAction }}">
   {{ csrfField() }}
 
@@ -24,8 +20,8 @@
   </div>
 
   <div class="form-group mt-3">
-    <label for="password">Contenu</label>
-    <textarea id="editor" name="content">{{ formValues.content }}</textarea>
+    <label for="textarea">Contenu</label>
+    <textarea class="form-control" rows="10" name="content">{{ formValues.content }}</textarea>
   </div>
 
   <div class="form-group mt-3">
