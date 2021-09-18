@@ -28,7 +28,7 @@ export default class AdminUsersController {
    */
   public async index({ view, request }: HttpContextContract) {
     const page = request.input("page", 1);
-    const limit = 5;
+    const limit = 20;
     const entities = await Database.from(this.entityTable).paginate(
       page,
       limit

@@ -23,11 +23,9 @@ async function save(values) {
   if (user) {
     user.name = values.name;
     user.email = values.email;
-    console.log("values", values);
-    if (user.password) {
+    if (values.password.trim()) {
       user.password = values.password;
     }
-    console.log("user", user);
     await user.save();
     return user;
   }
