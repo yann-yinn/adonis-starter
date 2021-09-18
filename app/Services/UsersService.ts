@@ -1,13 +1,15 @@
 import User from "App/Models/User";
 
-interface formValues {
-  id?: number | string;
-  email: string;
+interface userSaveValues {
+  id?: number;
   name: string;
+  email: string;
+  roles: string[];
   password: string;
+  password_confirmation: string;
 }
 
-function prepareFormValues(entity?: User): formValues {
+function prepareFormValues(entity?: User) {
   const formValues = {
     id: entity ? entity.id : "",
     name: entity ? entity.name : "",
@@ -18,11 +20,12 @@ function prepareFormValues(entity?: User): formValues {
   return formValues;
 }
 
-async function save(values) {
+async function save(values: userSaveValues) {
   const user = values.id ? await User.find(values.id) : new User();
   if (user) {
     user.name = values.name;
     user.email = values.email;
+    user.roles = values.roles;
     if (values.password && values.password_confirmation) {
       user.password = values.password.trim();
     }

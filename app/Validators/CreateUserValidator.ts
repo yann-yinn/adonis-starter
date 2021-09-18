@@ -1,5 +1,8 @@
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { Role } from "App/types";
+import roles from "Config/roles";
+const roleIds = roles.map((r) => r.id);
 
 export default class CreateUserValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -23,6 +26,7 @@ export default class CreateUserValidator {
       rules.minLength(6),
       rules.maxLength(255),
     ]),
+    role: schema.enum(roleIds),
   });
 
   /**
@@ -43,5 +47,8 @@ export default class CreateUserValidator {
     "password_confirmation.required": "ce champ est requis",
     "password_confirmation.confirmed":
       "Les deux mots de passe ne sont pas identiques",
+    "role.array": `Le role doit être une des valeurs suivantes : ${Object.values(
+      Role
+    )}`,
   };
 }

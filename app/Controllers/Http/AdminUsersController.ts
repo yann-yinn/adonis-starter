@@ -61,8 +61,13 @@ export default class AdminUsersController {
   }
 
   public async store({ session, request, response }: HttpContextContract) {
-    const payload = await request.validate(this.entityCreateValidator);
-    await this.entityService.save(payload);
+    let payload = await request.validate(this.entityCreateValidator);
+    // form let us choose only on options, but we store roles as en array in database.
+    const userValues = {
+      ...payload,
+      roles: [payload.role],
+    };
+    await this.entityService.save(userValues);
     session.flash({
       notification: this.entityCreationNotification(),
     });

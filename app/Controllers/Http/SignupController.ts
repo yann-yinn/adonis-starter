@@ -13,7 +13,7 @@ export default class SignupController {
     user.email = payload.email;
     user.password = payload.password;
     user.name = payload.name;
-    user.roles = ["member", "admin"];
+    user.roles = ["member"];
     await user.save();
     session.flash({
       notification: "Votre compte a été crée. Vous pouvez vous connecter.",
