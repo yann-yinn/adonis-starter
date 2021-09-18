@@ -56,7 +56,10 @@ Route.get("admin/users", "AdminUsersController.index").middleware("auth");
 Route.get("admin/users/:id/edit", "AdminUsersController.edit").middleware(
   "auth"
 );
-
+Route.get("admin/users/create", "AdminUsersController.create").middleware(
+  "auth"
+);
+Route.post("admin/users", "AdminUsersController.store").middleware("auth");
 Route.post("admin/users/:id", "AdminUsersController.update").middleware("auth");
 Route.post("admin/users/:id/delete", "AdminUsersController.delete").middleware(
   "auth"

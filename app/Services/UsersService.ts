@@ -4,6 +4,7 @@ interface formValues {
   id?: number | string;
   email: string;
   name: string;
+  password: string;
 }
 
 function prepareFormValues(entity?: User): formValues {
@@ -11,6 +12,8 @@ function prepareFormValues(entity?: User): formValues {
     id: entity ? entity.id : "",
     name: entity ? entity.name : "",
     email: entity ? entity.email : "",
+    password: "",
+    password_confirmation: "",
   };
   return formValues;
 }
@@ -20,6 +23,11 @@ async function save(values) {
   if (user) {
     user.name = values.name;
     user.email = values.email;
+    console.log("values", values);
+    if (user.password) {
+      user.password = values.password;
+    }
+    console.log("user", user);
     await user.save();
     return user;
   }

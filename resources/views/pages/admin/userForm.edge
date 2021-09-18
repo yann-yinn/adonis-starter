@@ -1,13 +1,23 @@
 @layout('layouts/main')
 
 @section('title')
-Editer l'utilisateur
+  @if(formValues.id)
+  Editer l'utilisateur
+  @else
+  Créer un nouvel utilisateur
+  @endif
 @endsection
 
 @section('content')
 <main>
   <div class="container">
-    <h1>Editer le profil</h1>
+    <h1>  
+      @if(formValues.id)
+      Editer l'utilisateur
+      @else
+      Créer un nouvel utilisateur
+      @endif
+    </h1>
     <div class="shadow-lg p-5">
       <div class="row">
         <div class="col-sm-6 offset-sm-3">
