@@ -33,6 +33,15 @@
     @endif
   </div>
 
+  <p>Roles: </p>
+  <select class="form-control">
+  @each (role in roles)
+    <option class="form-check-input" type="checkbox" value="role.id">
+      {{role.label}}
+    </option>
+  @end
+  </select>
+
   @if(formValues.id)
   <div class="mt-5 mb-3">
     <strong>Changer le mot de passe:</strong>

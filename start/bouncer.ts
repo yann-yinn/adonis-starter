@@ -31,12 +31,30 @@ import User from "App/Models/User";
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
+function userHasRoles(roles: string[], user: User) {
+  let authorized = false;
+  for (const role in roles) {
+    if (user.roles.includes(role)) {
+      authorized = true;
+    }
+  }
+  return authorized;
+}
+
 export const { actions } = Bouncer.define(
   "editOwnPost",
   (user: User, post: Post) => {
-    return post.userId === user.id;
+    return (
+      userHasRoles(["admin", "authenticated"], user) && post.userId === user.id
+    );
   }
-);
+)
+  .define("createPost", (user: User) => {
+    return userHasRoles(["admin", "authenticated"], user);
+  })
+  .define("createUser", (user: User) => {
+    return userHasRoles(["admin", "authenticated"], user);
+  });
 
 /*
 |--------------------------------------------------------------------------

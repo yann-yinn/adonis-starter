@@ -5,6 +5,7 @@ import UsersService from "App/Services/UsersService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
+import roles from "Config/roles";
 
 export default class AdminUsersController {
   // controller config
@@ -20,7 +21,7 @@ export default class AdminUsersController {
     return "/admin/users/" + entity.id;
   };
   private entityCreationNotification = () => "L'utilisateur a été crée";
-  private entityUpdateNotification = () => "L'utilisateur a été crée";
+  private entityUpdateNotification = () => "L'utilisateur a été mis à jour";
   private entityDeleteNotification = () => "L'utilisateur a été supprimé";
 
   /**
@@ -40,7 +41,7 @@ export default class AdminUsersController {
       const deleteLink = createConfirmDeleteLink({
         id: entity.id,
         title: `Étes vous sûr de vouloir supprimer l'utilisateur "${entity.name}" ?`,
-        formAction: `${this.entityListPath}/${entity.id}/delete`,
+        formAction: `${this.entityListPath}/${entity.id}?_method=DELETE`,
         returnUrl: this.entityListPath,
       });
       entity._deleteLink = deleteLink;
@@ -53,6 +54,7 @@ export default class AdminUsersController {
   public async create({ view }: HttpContextContract) {
     const formValues = this.entityService.prepareFormValues();
     return view.render(this.entityFormView, {
+      roles,
       formValues,
       formAction: this.entityListPath,
     });
@@ -78,8 +80,9 @@ export default class AdminUsersController {
     if (entity) {
       const formValues = this.entityService.prepareFormValues(entity);
       return view.render(this.entityFormView, {
+        roles,
         formValues,
-        formAction: this.entityFormAction(entity),
+        formAction: this.entityFormAction(entity) + "?_method=PUT",
       });
     }
   }
@@ -91,7 +94,7 @@ export default class AdminUsersController {
     response.redirect(this.entityListPath);
   }
 
-  public async delete({ request, response, session }: HttpContextContract) {
+  public async destroy({ request, response, session }: HttpContextContract) {
     const user = await this.entityModel.find(request.param("id"));
     if (user) {
       user.delete();

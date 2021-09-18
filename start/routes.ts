@@ -52,6 +52,10 @@ Route.post("admin/posts/:id/delete", "AdminPostsController.delete").middleware(
 );
 
 // administration des utilisateurs
+Route.resource("/admin/users", "AdminUsersController").middleware({
+  "*": "auth",
+});
+/*
 Route.get("admin/users", "AdminUsersController.index").middleware("auth");
 Route.get("admin/users/:id/edit", "AdminUsersController.edit").middleware(
   "auth"
@@ -63,4 +67,4 @@ Route.post("admin/users", "AdminUsersController.store").middleware("auth");
 Route.post("admin/users/:id", "AdminUsersController.update").middleware("auth");
 Route.post("admin/users/:id/delete", "AdminUsersController.delete").middleware(
   "auth"
-);
+);*/
