@@ -1,6 +1,7 @@
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { Role } from "App/types";
+import roles from "Config/roles";
+const roleIds = roles.map((r) => r.id);
 
 export default class UpdateUserValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -18,7 +19,7 @@ export default class UpdateUserValidator {
       rules.minLength(6),
       rules.maxLength(255),
     ]),
-    roles: schema.array().members(schema.enum(Object.values(Role))),
+    role: schema.enum(roleIds),
   });
 
   /**

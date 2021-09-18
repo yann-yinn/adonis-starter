@@ -1,7 +1,7 @@
 import User from "App/Models/User";
 
 interface userSaveValues {
-  id?: number;
+  id?: number | string;
   name: string;
   email: string;
   roles: string[];
@@ -16,6 +16,7 @@ function prepareFormValues(entity?: User) {
     email: entity ? entity.email : "",
     password: "",
     password_confirmation: "",
+    role: entity ? entity.roles[0] : "member",
   };
   return formValues;
 }

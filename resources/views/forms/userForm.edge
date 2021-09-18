@@ -39,11 +39,12 @@
   <div class="form-group mt-3">
     <label for="role">Role</label>
     <select class="form-control" name="role">
-    @each (role in roles)
-      <option class="form-check-input" type="checkbox" value="{{ role.id }}">
+      @each (role in roles)
+      @set('selected', formValues.role == role.id ? "selected" : "")
+      <option {{selected}} class="form-check-input" type="checkbox" value="{{ role.id }}">
         {{role.label}}
       </option>
-    @end
+      @end
     </select>
     @if(flashMessages.has('errors.roles'))
     <div class="invalid-feedback d-block">
