@@ -1,0 +1,42 @@
+<form method="POST" action="{{ formAction }}">
+  {{ csrfField() }}
+
+  @if(flashMessages.has('errors'))
+  <div class="alert alert-danger">
+    {{ inspect(flashMessages.all()) }}
+  </div>
+  @endif
+
+  <input type="hidden" name="id" value="{{ formValues.id }}" />
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input 
+      type="text" 
+      name="name" 
+      value="{{ formValues.name }}" 
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="name">Email</label>
+    <input 
+      type="text" 
+      name="email" 
+      value="{{ formValues.email }}" 
+      class="form-control"
+    />
+  </div>
+
+
+
+
+  <div class="form-group mt-3">
+    <button type="submit" class="btn btn-primary">
+      Sauvegarder
+    </button>
+  </div>
+
+</form>
+

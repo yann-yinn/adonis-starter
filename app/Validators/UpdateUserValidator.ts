@@ -1,14 +1,13 @@
 import { schema } from "@ioc:Adonis/Core/Validator";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 
-export default class ConfirmDeleteValidator {
+export default class UpdateUserValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    title: schema.string(),
-    id: schema.number(),
-    formAction: schema.string(),
-    returnUrl: schema.string(),
+    id: schema.string(),
+    email: schema.string({ trim: true }),
+    name: schema.string({ trim: true }),
   });
 
   /**
@@ -22,10 +21,5 @@ export default class ConfirmDeleteValidator {
    * }
    *
    */
-  public messages = {
-    "title.required": "Le paramètre title est requis",
-    "id.required": "Le paramètre id est requis",
-    "formAction.required": "Le paramètre formAction est requis",
-    "returnUrl.required": "Le paramètre returnUrl est requis",
-  };
+  public messages = {};
 }

@@ -1,7 +1,7 @@
 @layout('layouts/main')
 
 @section('title')
-Créer un compte
+Editer l'utilisateur
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ Créer un compte
     <div class="shadow-lg p-5">
       <div class="row">
         <div class="col-sm-6 offset-sm-3">
-          édition utilisateur
+          @include('forms/userForm')
         </div>
       </div>
     </div> <!-- end row -->

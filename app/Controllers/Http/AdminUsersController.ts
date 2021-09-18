@@ -1,6 +1,6 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
-import UpdatePostValidator from "App/Validators/UpdatePostValidator";
+import UpdateUserValidator from "App/Validators/UpdateUserValidator";
 import UsersService from "App/Services/UsersService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
@@ -15,8 +15,9 @@ export default class AdminUsersController {
   private entityIndexView = "pages/admin/users";
   private entityFormView = "pages/admin/userForm";
   private entityCreateValidator = CreateUserValidator;
+  private entityUpdateValidator = UpdateUserValidator;
   private entityFormAction = (entity) => {
-    "/admin/users/" + entity.id;
+    return "/admin/users/" + entity.id;
   };
   private entityCreationNotification = () => "L'utilisateur a été crée";
   private entityUpdateNotification = () => "L'utilisateur a été crée";
@@ -38,7 +39,7 @@ export default class AdminUsersController {
     entities.forEach((entity) => {
       const deleteLink = createConfirmDeleteLink({
         id: entity.id,
-        title: `Étes vous sûr de vouloir supprimer "${entity.title}" ?`,
+        title: `Étes vous sûr de vouloir supprimer l'utilisateur "${entity.name}" ?`,
         formAction: `${this.entityListPath}/${entity.id}/delete`,
         returnUrl: this.entityListPath,
       });
@@ -57,14 +58,9 @@ export default class AdminUsersController {
     });
   }
 
-  public async store({
-    session,
-    request,
-    response,
-    auth,
-  }: HttpContextContract) {
+  public async store({ session, request, response }: HttpContextContract) {
     const payload = await request.validate(this.entityCreateValidator);
-    await this.entityService.save(payload, auth.user as User);
+    await this.entityService.save(payload);
     session.flash({
       notification: this.entityCreationNotification(),
     });
@@ -89,7 +85,7 @@ export default class AdminUsersController {
   }
 
   public async update({ request, session, response }: HttpContextContract) {
-    const payload = await request.validate(UpdatePostValidator);
+    const payload = await request.validate(this.entityUpdateValidator);
     await this.entityService.save(payload);
     session.flash({ notification: this.entityUpdateNotification() });
     response.redirect(this.entityListPath);
