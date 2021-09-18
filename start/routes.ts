@@ -37,34 +37,11 @@ Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
 );
 
 // administration des posts
-Route.get("admin/posts", "AdminPostsController.index").middleware("auth");
-Route.get("admin/posts/create", "AdminPostsController.create").middleware(
-  "auth"
-);
-Route.get("admin/posts/:id", "AdminPostsController.show").middleware("auth");
-Route.get("admin/posts/:id/edit", "AdminPostsController.edit").middleware(
-  "auth"
-);
-Route.post("admin/posts", "AdminPostsController.store").middleware("auth");
-Route.post("admin/posts/:id", "AdminPostsController.update").middleware("auth");
-Route.post("admin/posts/:id/delete", "AdminPostsController.delete").middleware(
-  "auth"
-);
+Route.resource("/admin/posts", "AdminPostsController").middleware({
+  "*": "auth",
+});
 
 // administration des utilisateurs
 Route.resource("/admin/users", "AdminUsersController").middleware({
   "*": "auth",
 });
-/*
-Route.get("admin/users", "AdminUsersController.index").middleware("auth");
-Route.get("admin/users/:id/edit", "AdminUsersController.edit").middleware(
-  "auth"
-);
-Route.get("admin/users/create", "AdminUsersController.create").middleware(
-  "auth"
-);
-Route.post("admin/users", "AdminUsersController.store").middleware("auth");
-Route.post("admin/users/:id", "AdminUsersController.update").middleware("auth");
-Route.post("admin/users/:id/delete", "AdminUsersController.delete").middleware(
-  "auth"
-);*/

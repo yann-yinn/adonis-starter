@@ -41,7 +41,7 @@ export default class AdminPostsController {
       const deleteLink = createConfirmDeleteLink({
         id: entity.id,
         title: `Étes vous sûr de vouloir supprimer "${entity.title}" ?`,
-        formAction: `${this.entityListPath}/${entity.id}/delete`,
+        formAction: `${this.entityListPath}/${entity.id}?_method=DELETE`,
         returnUrl: this.entityListPath,
       });
       entity._deleteLink = deleteLink;
@@ -85,7 +85,7 @@ export default class AdminPostsController {
       const formValues = this.entityService.prepareFormValues(entity);
       return view.render(this.entityFormView, {
         formValues,
-        formAction: this.entityFormAction(entity),
+        formAction: this.entityFormAction(entity) + "?_method=PUT",
       });
     }
   }
@@ -102,7 +102,7 @@ export default class AdminPostsController {
     response.redirect(this.entityListPath);
   }
 
-  public async delete({ request, response, session }: HttpContextContract) {
+  public async destroy({ request, response, session }: HttpContextContract) {
     const user = await this.entityModel.find(request.param("id"));
     if (user) {
       user.delete();
