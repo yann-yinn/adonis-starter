@@ -13,7 +13,8 @@ export default class AdminUsersController {
   private entityService = UsersService;
   private entityListPath = "/admin/users";
   private entityIndexView = "pages/admin/users";
-  private entityFormView = "pages/admin/postForm";
+  private entityFormView = "pages/admin/userForm";
+  private entityCreateValidator = CreateUserValidator;
   private entityFormAction = (entity) => {
     "/admin/users/" + entity.id;
   };
@@ -56,9 +57,14 @@ export default class AdminUsersController {
     });
   }
 
-  public async store({ session, request, response }: HttpContextContract) {
-    const payload = await request.validate(CreateUserValidator);
-    await this.entityService.save(payload);
+  public async store({
+    session,
+    request,
+    response,
+    auth,
+  }: HttpContextContract) {
+    const payload = await request.validate(this.entityCreateValidator);
+    await this.entityService.save(payload, auth.user as User);
     session.flash({
       notification: this.entityCreationNotification(),
     });

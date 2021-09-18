@@ -14,12 +14,12 @@
         </tr>
       </thead>
       <tbody>
-        @each(post in posts)
+        @each(entity in entities)
         <tr>
-          <td> {{ post.title }} </td>
-          <td> {{ post.userName }} </td>
-          <td> <a href="{{post._editLink}}">Editer</a> </td>
-          <td> <a href="{{post._deleteLink}}">Supprimer</a> </td>
+          <td> {{ entity.title }} </td>
+          <td> {{ entity.userName }} </td>
+          <td> <a href="{{entity._editLink}}">Editer</a> </td>
+          <td> <a href="{{entity._deleteLink}}">Supprimer</a> </td>
         </tr>
         @end
       </tbody>
@@ -28,7 +28,7 @@
     <div>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          @each(anchor in posts.getUrlsForRange(1, posts.lastPage))
+          @each(anchor in entities.getUrlsForRange(1, entities.lastPage))
           <li class="page-item">
             <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
           </li>

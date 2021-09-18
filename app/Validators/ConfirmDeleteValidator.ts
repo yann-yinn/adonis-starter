@@ -6,7 +6,6 @@ export default class ConfirmDeleteValidator {
 
   public schema = schema.create({
     title: schema.string(),
-    entity: schema.string(),
     id: schema.number(),
     formAction: schema.string(),
     returnUrl: schema.string(),
@@ -23,8 +22,7 @@ export default class ConfirmDeleteValidator {
    * }
    *
    */
-  public messages = {
-    "entity.required": "Le paramètre entity est requis",
+  public messages = {,
     "title.required": "Le paramètre title est requis",
     "id.required": "Le paramètre id est requis",
     "formAction.required": "Le paramètre formAction est requis",
