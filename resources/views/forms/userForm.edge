@@ -33,7 +33,12 @@
     @endif
   </div>
 
-  @if(!formValues.id)
+  @if(formValues.id)
+  <div class="mt-5 mb-3">
+    <strong>Changer le mot de passe:</strong>
+  </div>
+  @endif
+
   <div class="form-group">
     <label for="name">Mot de passe</label>
     <input 
@@ -61,7 +66,6 @@
     <div class="invalid-feedback d-block">
       {{ flashMessages.get('errors.password_confirmation') }}
     </div>
-    @endif
     
   </div>
   @endif
