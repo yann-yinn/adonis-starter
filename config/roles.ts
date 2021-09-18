@@ -1,4 +1,6 @@
-export default [
+import { Roles } from "App/types";
+
+const roles: Roles[] = [
   {
     id: "member",
     label: "Member",
@@ -8,3 +10,5 @@ export default [
     label: "Admin",
   },
 ];
+
+export default roles;
