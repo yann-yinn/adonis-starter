@@ -1,7 +1,7 @@
 export default [
   {
-    id: "authenticated",
-    label: "Authenticated",
+    id: "member",
+    label: "Member",
   },
   {
     id: "admin",

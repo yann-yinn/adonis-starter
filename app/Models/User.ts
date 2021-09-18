@@ -17,7 +17,7 @@ export default class User extends BaseModel {
   public posts: HasMany<typeof Post>;
 
   @column()
-  // example: ['authenticated', 'admin']
+  // example: ['member', 'admin']
   public roles: string[];
 
   @column()

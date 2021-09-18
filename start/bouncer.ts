@@ -44,10 +44,10 @@ function userHasRoles(roles: string[], user: User) {
 export const { actions } = Bouncer.define(
   "editPost",
   (user: User, post: Post) =>
-    userHasRoles(["admin", "authenticated"], user) || post.userId === user.id
+    userHasRoles(["admin", "member"], user) || post.userId === user.id
 )
   .define("createPost", (user: User) => {
-    return userHasRoles(["admin", "authenticated"], user);
+    return userHasRoles(["admin", "member"], user);
   })
   .define("createUser", (user: User) => {
     return userHasRoles(["admin"], user);
