@@ -23,8 +23,8 @@ async function save(values) {
   if (user) {
     user.name = values.name;
     user.email = values.email;
-    if (values.password.trim()) {
-      user.password = values.password;
+    if (values.password) {
+      user.password = values.password.trim();
     }
     await user.save();
     return user;
