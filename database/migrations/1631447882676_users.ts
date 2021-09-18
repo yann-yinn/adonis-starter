@@ -10,6 +10,7 @@ export default class UsersSchema extends BaseSchema {
       table.string("password", 180).notNullable();
       table.string("remember_me_token").nullable();
       table.string("name");
+      table.specificType("roles", "VARCHAR(255)[]");
 
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
