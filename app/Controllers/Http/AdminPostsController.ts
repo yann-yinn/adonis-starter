@@ -19,9 +19,9 @@ export default class AdminPostsController {
   private entityFormAction = (entity) => {
     return "/admin/posts/" + entity.id;
   };
-  private entityCreationNotification = () => "L'utilisateur a été crée";
-  private entityUpdateNotification = () => "L'utilisateur a été crée";
-  private entityDeleteNotification = () => "L'utilisateur a été supprimé";
+  private entityCreationNotification = () => "Le post a été crée";
+  private entityUpdateNotification = () => "Le post a été mis à jour";
+  private entityDeleteNotification = () => "Le post a été supprimé";
 
   /**
    * Liste des posts pour l'admin
