@@ -6,80 +6,95 @@ import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
 
-export default class AdminPostsController {
-  public usersPath = "/admin/users";
+export default class AdminUsersController {
+  // controller config
+  private entityTable = "users";
+  private entityModel = User;
+  private entityService = UsersService;
+  private entityListPath = "/admin/users";
+  private entityIndexView = "pages/admin/users";
+  private entityFormView = "pages/admin/postForm";
+  private entityFormAction = (entity) => {
+    "/admin/users/" + entity.id;
+  };
+  private entityCreationNotification = () => "L'utilisateur a été crée";
+  private entityUpdateNotification = () => "L'utilisateur a été crée";
+  private entityDeleteNotification = () => "L'utilisateur a été supprimé";
+
   /**
    * Liste des posts pour l'admin
    */
   public async index({ view, request }: HttpContextContract) {
     const page = request.input("page", 1);
     const limit = 5;
-    const users = await Database.from("users").paginate(page, limit);
-    users.baseUrl(this.usersPath);
+    const entities = await Database.from(this.entityTable).paginate(
+      page,
+      limit
+    );
+    entities.baseUrl(this.entityListPath);
 
     // add delete links and edit Links for each post.
-    users.forEach((user) => {
+    entities.forEach((entity) => {
       const deleteLink = createConfirmDeleteLink({
-        entity: "User",
-        id: user.id,
-        title: `Étes vous sûr de vouloir supprimer "${user.title}" ?`,
-        formAction: `${this.usersPath}/${user.id}/delete`,
-        returnUrl: this.usersPath,
+        id: entity.id,
+        title: `Étes vous sûr de vouloir supprimer "${entity.title}" ?`,
+        formAction: `${this.entityListPath}/${entity.id}/delete`,
+        returnUrl: this.entityListPath,
       });
-      user._deleteLink = deleteLink;
-      user._editLink = `${this.usersPath}/${user.id}/edit`;
+      entity._deleteLink = deleteLink;
+      entity._editLink = `${this.entityListPath}/${entity.id}/edit`;
     });
 
-    return view.render("pages/admin/users", { users });
+    return view.render(this.entityIndexView, { entities });
   }
 
   public async create({ view }: HttpContextContract) {
-    const formValues = UsersService.prepareFormValues();
-    return view.render("pages/admin/postForm", {
+    const formValues = this.entityService.prepareFormValues();
+    return view.render(this.entityFormView, {
       formValues,
-      formAction: this.usersPath,
+      formAction: this.entityListPath,
     });
   }
 
   public async store({ session, request, response }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
-    await UsersService.save(payload);
+    await this.entityService.save(payload);
     session.flash({
-      notification: "L'utilisateur a été crée",
+      notification: this.entityCreationNotification(),
     });
-    response.redirect(this.usersPath);
+    response.redirect(this.entityListPath);
   }
 
   public async show({}: HttpContextContract) {}
 
   public async edit({ view, request, response }: HttpContextContract) {
-    const user = await User.find(request.param("id"));
-    if (!user) {
+    const entity = await this.entityModel.find(request.param("id"));
+    if (!entity) {
       response.status(404);
       return;
     }
-    if (user) {
-      const formValues = UsersService.prepareFormValues(user);
-      return view.render("pages/admin/userForm", {
+    if (entity) {
+      const formValues = this.entityService.prepareFormValues(entity);
+      return view.render(this.entityFormView, {
         formValues,
-        formAction: "/admin/users/" + user.id,
+        formAction: this.entityFormAction(entity),
       });
     }
   }
 
   public async update({ request, session, response }: HttpContextContract) {
     const payload = await request.validate(UpdatePostValidator);
-    await UsersService.save(payload);
-    session.flash({ notification: "Le billet de blog a été mis à jour" });
-    response.redirect(this.usersPath);
+    await this.entityService.save(payload);
+    session.flash({ notification: this.entityUpdateNotification() });
+    response.redirect(this.entityListPath);
   }
 
   public async delete({ request, response, session }: HttpContextContract) {
-    const user = await User.find(request.param("id"));
+    const user = await this.entityModel.find(request.param("id"));
     if (user) {
       user.delete();
-      session.flash({ notification: "Le billet de blog a été supprimé" });
-      response.redirect(this.usersPath);
+      session.flash({ notification: this.entityDeleteNotification() });
+      response.redirect(this.entityListPath);
     }
   }
 }
