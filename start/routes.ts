@@ -27,9 +27,9 @@ Route.get("/", async ({ view }) => {
 Route.resource("users", "UsersController");
 Route.get("signup", "SignupController.create");
 Route.post("signup", "SignupController.store");
-Route.get("login", "SessionController.create").middleware("guest");
-Route.post("login", "SessionController.store").middleware("guest");
-Route.get("logout", "SessionController.destroy").middleware("auth");
+Route.get("login", "SigninController.create").middleware("guest");
+Route.post("login", "SigninController.store").middleware("guest");
+Route.get("logout", "SigninController.destroy").middleware("auth");
 
 // route générique pour confirmer la suppression d'une entité
 Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
