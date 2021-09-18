@@ -1,14 +1,6 @@
 <form method="POST" action="{{ formAction }}">
   {{ csrfField() }}
 
-  @if(flashMessages.has('errors'))
-  <div class="alert alert-danger">
-    {{ inspect(flashMessages.all()) }}
-  </div>
-  @endif
-
-  {{ inspect(formValues) }}
-
   <input type="hidden" name="id" value="{{ formValues.id }}" />
 
   <div class="form-group">
@@ -19,6 +11,11 @@
       value="{{ formValues.name }}" 
       class="form-control"
     />
+    @if(flashMessages.has('errors.name'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.name') }}
+    </div>
+    @endif
   </div>
 
   <div class="form-group">
@@ -29,13 +26,18 @@
       value="{{ formValues.email }}" 
       class="form-control"
     />
+    @if(flashMessages.has('errors.email'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.email') }}
+    </div>
+    @endif
   </div>
 
   @if(!formValues.id)
   <div class="form-group">
     <label for="name">Mot de passe</label>
     <input 
-      type="text" 
+      type="password" 
       name="password" 
       value="{{ formValues.password }}" 
       class="form-control"
@@ -50,7 +52,7 @@
   <div class="form-group">
     <label for="name">Confirmation du mot de passe</label>
     <input 
-      type="text" 
+      type="password" 
       name="password_confirmation" 
       value="{{ formValues.password_confirmation }}" 
       class="form-control"
