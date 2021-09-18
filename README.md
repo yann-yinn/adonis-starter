@@ -11,9 +11,12 @@ Done:
 - [x] Log out
 - [x] Authenticated users can create "posts" in the admin as an example entity
 
+In progress:
+
+- [ ] Add role and permissions with bouncers.
+
 Todo:
 
-- [ ] Profile page
+- [ ] Add user profile page / edit profile page
 - [ ] Send email on account creation
 - [ ] Reset password
-- [ ] roles and access with Bouncer (authenticated, admin)
