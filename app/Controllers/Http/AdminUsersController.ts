@@ -1,7 +1,6 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateAdminUserValidator from "App/Validators/CreateAdminUserValidator";
 import UpdateUserValidator from "App/Validators/UpdateUserValidator";
-import UsersService from "App/Services/UsersService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
@@ -18,7 +17,6 @@ export default class AdminUsersController {
   // controller config
   private entityTable = "users";
   private entityModel = User;
-  private entityService = UsersService;
   private entityListPath = "/admin/users";
   private entityIndexView = "pages/admin/users";
   private entityFormView = "pages/admin/userForm";
@@ -59,7 +57,7 @@ export default class AdminUsersController {
   }
 
   public async create({ view }: HttpContextContract) {
-    const formValues = this.entityService.prepareFormValues();
+    const formValues = this.prepareFormValues();
     return view.render(this.entityFormView, {
       roles,
       formValues,
@@ -92,7 +90,7 @@ export default class AdminUsersController {
       return;
     }
     if (entity) {
-      const formValues = this.entityService.prepareFormValues(entity);
+      const formValues = this.prepareFormValues(entity);
       return view.render(this.entityFormView, {
         roles,
         formValues,
@@ -125,5 +123,17 @@ export default class AdminUsersController {
       session.flash({ notification: this.entityDeleteNotification() });
       response.redirect(this.entityListPath);
     }
+  }
+
+  private prepareFormValues(entity?: User) {
+    const formValues = {
+      id: entity ? entity.id : "",
+      name: entity ? entity.name : "",
+      email: entity ? entity.email : "",
+      password: "",
+      password_confirmation: "",
+      role: entity ? entity.roles[0] : "member",
+    };
+    return formValues;
   }
 }

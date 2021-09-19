@@ -3,10 +3,10 @@ import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: number | string;
 
   @column()
-  public userId: number;
+  public userId: number | string;
 
   @column()
   public title: string;

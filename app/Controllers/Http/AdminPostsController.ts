@@ -1,17 +1,14 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreatePostValidator from "App/Validators/CreatePostValidator";
 import UpdatePostValidator from "App/Validators/UpdatePostValidator";
-import PostsService from "App/Services/PostsService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import Post from "App/Models/Post";
-import User from "App/Models/User";
 
 export default class AdminPostsController {
   // controller config
   private entityTable = "posts";
   private entityModel = Post;
-  private entityService = PostsService;
   private entityListPath = "/admin/posts";
   private entityIndexView = "pages/admin/posts";
   private entityFormView = "pages/admin/postForm";
@@ -52,7 +49,7 @@ export default class AdminPostsController {
   }
 
   public async create({ view }: HttpContextContract) {
-    const formValues = this.entityService.prepareFormValues();
+    const formValues = this.prepareFormValues();
     return view.render(this.entityFormView, {
       formValues,
       formAction: this.entityListPath,
@@ -66,7 +63,11 @@ export default class AdminPostsController {
     auth,
   }: HttpContextContract) {
     const payload = await request.validate(this.entityCreateValidator);
-    await this.entityService.save(payload, auth.user as User);
+    await this.entityModel.create({
+      title: payload.title,
+      content: payload.content,
+      userId: auth.user!.id,
+    });
     session.flash({
       notification: this.entityCreationNotification(),
     });
@@ -82,7 +83,7 @@ export default class AdminPostsController {
       return;
     }
     if (entity) {
-      const formValues = this.entityService.prepareFormValues(entity);
+      const formValues = this.prepareFormValues(entity);
       return view.render(this.entityFormView, {
         formValues,
         formAction: this.entityFormAction(entity) + "?_method=PUT",
@@ -90,14 +91,12 @@ export default class AdminPostsController {
     }
   }
 
-  public async update({
-    request,
-    session,
-    response,
-    auth,
-  }: HttpContextContract) {
+  public async update({ request, session, response }: HttpContextContract) {
     const payload = await request.validate(UpdatePostValidator);
-    await this.entityService.save(payload, auth.user as User);
+    const entity = await this.entityModel.findOrFail(payload.id);
+    entity.title = payload.title;
+    entity.content = payload.content || "";
+    await entity.save();
     session.flash({ notification: this.entityUpdateNotification() });
     response.redirect(this.entityListPath);
   }
@@ -109,5 +108,14 @@ export default class AdminPostsController {
       session.flash({ notification: this.entityDeleteNotification() });
       response.redirect(this.entityListPath);
     }
+  }
+
+  private prepareFormValues(post?: Post) {
+    const formValues = {
+      id: post ? post.id : "",
+      title: post ? post.title : "",
+      content: post ? post.content : "",
+    };
+    return formValues;
   }
 }
