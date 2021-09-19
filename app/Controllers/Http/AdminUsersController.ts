@@ -7,6 +7,13 @@ import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
 import roles from "Config/roles";
 
+interface updateValues {
+  email: string;
+  name: string;
+  roles: string[];
+  password?: string;
+}
+
 export default class AdminUsersController {
   // controller config
   private entityTable = "users";
@@ -64,10 +71,12 @@ export default class AdminUsersController {
     let payload = await request.validate(this.entityCreateValidator);
     // form let us choose only on options, but we store roles as en array in database.
     const userValues = {
-      ...payload,
+      email: payload.email,
+      name: payload.name,
+      password: payload.password,
       roles: [payload.role],
     };
-    await this.entityService.save(userValues);
+    await this.entityModel.create(userValues);
     session.flash({
       notification: this.entityCreationNotification(),
     });
@@ -95,11 +104,16 @@ export default class AdminUsersController {
   public async update({ request, session, response }: HttpContextContract) {
     const payload = await request.validate(this.entityUpdateValidator);
     // form let us choose only on options, but we store roles as en array in database.
-    const userValues = {
-      ...payload,
+    const entity = await User.findOrFail(payload.id);
+    const values: updateValues = {
+      email: payload.email,
+      name: payload.name,
       roles: [payload.role],
     };
-    await this.entityService.save(userValues);
+    if (payload.password && payload.password_confirmation) {
+      values.password = payload.password.trim();
+    }
+    await entity.merge(values).save();
     session.flash({ notification: this.entityUpdateNotification() });
     response.redirect(this.entityListPath);
   }

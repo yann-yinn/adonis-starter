@@ -11,7 +11,7 @@ import Post from "App/Models/Post";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
-  public id: number;
+  public id: number | string;
 
   @hasMany(() => Post)
   public posts: HasMany<typeof Post>;
