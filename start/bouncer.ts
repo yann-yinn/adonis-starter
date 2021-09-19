@@ -41,29 +41,9 @@ function userHasRoles(roles: string[], user: User) {
   return authorized;
 }
 
-export const { actions } = Bouncer.define(
-  "editPost",
-  (user: User, post: Post) =>
-    userHasRoles(["admin", "member"], user) || post.userId === user.id
-)
-  .define("createPost", (user: User) => {
-    return userHasRoles(["admin", "member"], user);
-  })
-  .define("viewAdminPostList", (user: User) => {
-    return userHasRoles(["admin"], user);
-  })
-  .define("deletePost", (user: User, post: Post) => {
-    return userHasRoles(["admin"], user) || post.userId === user.id;
-  })
-  .define("viewAdminUserList", (user: User) => {
-    return userHasRoles(["admin"], user);
-  })
-  .define("createUser", (user: User) => {
-    return userHasRoles(["admin"], user);
-  })
-  .define("deleteUser", (user: User, userToDelete) => {
-    return userHasRoles(["admin"], user) || user.id === userToDelete.id;
-  });
+export const { actions } = Bouncer.define("viewUsersList", (user: User) => {
+  return userHasRoles(["admin"], user);
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -33,7 +33,7 @@ export default class AdminUsersController {
    * Liste des posts pour l'admin
    */
   public async index({ view, request, bouncer }: HttpContextContract) {
-    await bouncer.authorize("viewAdminUserList");
+    await bouncer.authorize("viewUsersList");
     const page = request.input("page", 1);
     const limit = 20;
     const entities = await Database.from(this.entityTable).paginate(
