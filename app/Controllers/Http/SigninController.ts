@@ -3,7 +3,7 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 export default class SessionController {
   // page de login
   public async create({ view }: HttpContextContract) {
-    return view.render("pages/login");
+    return view.render("pages/signin");
   }
   // page de soumission du formulaire de login
   public async store({ request, auth, response }: HttpContextContract) {

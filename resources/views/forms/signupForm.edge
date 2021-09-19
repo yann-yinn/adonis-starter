@@ -16,7 +16,7 @@
   <div class="form-group row">
     <label for="email" class="col-md-4 col-form-label text-md-right mb-3">Email</label>
     <div class="col-md-6">
-      <input id="email" type="text" name="email" value="" class="form-control">
+      <input id="email" type="text" name="email" value="" class="form-control" required>
       @if(flashMessages.has('errors.email'))
       <div class="invalid-feedback d-block">
         {{ flashMessages.get('errors.email') }}
@@ -27,7 +27,7 @@
 
   <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Mot de passe</label>
     <div class="col-md-6">
-      <input id="password" type="password" name="password" class="form-control">
+      <input id="password" type="password" name="password" class="form-control" required>
       @if(flashMessages.has('errors.password'))
       <div class="invalid-feedback d-block">
         {{ flashMessages.get('errors.password') }}
@@ -39,7 +39,7 @@
   <div class="form-group row">
     <label for="password-confirm" class="col-md-4 col-form-label text-md-right  mb-3">Confirmer le mot de passe</label>
     <div class="col-md-6">
-      <input id="password-confirm" type="password" name="password_confirmation" class="form-control">
+      <input id="password-confirm" type="password" name="password_confirmation" class="form-control" required>
       @if(flashMessages.has('errors.password_confirmation'))
       <div class="invalid-feedback d-block">
         {{ flashMessages.get('errors.password_confirmation') }}
