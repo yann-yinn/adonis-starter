@@ -9,12 +9,12 @@ export default class SignupController {
 
   public async store({ request, response, session }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
-    const user = new User();
-    user.email = payload.email;
-    user.password = payload.password;
-    user.name = payload.name;
-    user.roles = ["member"];
-    await user.save();
+    await User.create({
+      email: payload.email,
+      password: payload.password,
+      name: payload.name,
+      roles: ["member"],
+    });
     session.flash({
       notification: "Votre compte a été crée. Vous pouvez vous connecter.",
     });

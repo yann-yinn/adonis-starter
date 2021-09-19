@@ -1,10 +1,12 @@
 <form method="POST" action="{{ route('/signup') }}">
   {{ csrfField() }}
 
+  {{inspect(flashMessages.all())}}
+
   <div class="form-group row">
     <label for="name" class="col-md-4 col-form-label text-md-right mb-3">Nom</label>
     <div class="col-md-6">
-      <input id="email" type="text" name="name" value="" class="form-control">
+      <input id="email" type="text" name="name" value="" class="form-control" required>
       @if(flashMessages.has('errors.name'))
       <div class="invalid-feedback d-block">
         {{ flashMessages.get('errors.name') }}

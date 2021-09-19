@@ -4,7 +4,7 @@ import { Role } from "App/types";
 import roles from "Config/roles";
 const roleIds = roles.map((r) => r.id);
 
-export default class CreateUserValidator {
+export default class CreateAdminUserValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
@@ -26,6 +26,7 @@ export default class CreateUserValidator {
       rules.minLength(6),
       rules.maxLength(255),
     ]),
+    role: schema.enum(roleIds),
   });
 
   /**

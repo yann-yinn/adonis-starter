@@ -1,5 +1,5 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import CreateUserValidator from "App/Validators/CreateUserValidator";
+import CreateAdminUserValidator from "App/Validators/CreateAdminUserValidator";
 import UpdateUserValidator from "App/Validators/UpdateUserValidator";
 import UsersService from "App/Services/UsersService";
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
@@ -15,7 +15,7 @@ export default class AdminUsersController {
   private entityListPath = "/admin/users";
   private entityIndexView = "pages/admin/users";
   private entityFormView = "pages/admin/userForm";
-  private entityCreateValidator = CreateUserValidator;
+  private entityCreateValidator = CreateAdminUserValidator;
   private entityUpdateValidator = UpdateUserValidator;
   private entityFormAction = (entity) => {
     return "/admin/users/" + entity.id;
