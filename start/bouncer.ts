@@ -33,7 +33,7 @@ import User from "App/Models/User";
 */
 function userHasRoles(roles: string[], user: User) {
   let authorized = false;
-  for (const role in roles) {
+  for (const role of roles) {
     if (user.roles.includes(role)) {
       authorized = true;
     }
@@ -50,7 +50,7 @@ export const { actions } = Bouncer.define(
     return userHasRoles(["admin", "member"], user);
   })
   .define("viewAdminPostList", (user: User) => {
-    return userHasRoles(["admin", "member"], user);
+    return userHasRoles(["admin"], user);
   })
   .define("deletePost", (user: User, post: Post) => {
     return userHasRoles(["admin"], user) || post.userId === user.id;

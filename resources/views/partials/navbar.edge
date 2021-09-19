@@ -38,7 +38,7 @@
       @if(auth.isLoggedIn)
         <span class="navbar-text">
             <i class="bi bi-person-circle"></i>
-          Hello {{auth.user.name}}
+          Hello {{auth.user.name}} - {{auth.user.roles.join(',')}}
         </span>
         <span class="navbar-text">
           <a class="nav-link inactive" href="/logout">(Se déconnecter)</a>
