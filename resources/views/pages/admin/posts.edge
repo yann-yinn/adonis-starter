@@ -18,8 +18,14 @@
         <tr>
           <td> {{ entity.title }} </td>
           <td> {{ entity.userName }} </td>
-          <td> <a href="{{entity._editLink}}">Editer</a> </td>
-          <td> <a href="{{entity._deleteLink}}">Supprimer</a> </td>
+          <td>
+            @can('adminEditPost', entity)
+              <a href="{{entity._editLink}}">Editer</a> </td>
+            @end
+          <td> 
+            @can('adminEditPost', entity)
+              <a href="{{entity._deleteLink}}">Supprimer</a> </td>
+            @end
         </tr>
         @end
       </tbody>
