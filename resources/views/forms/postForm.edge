@@ -1,12 +1,6 @@
 <form method="POST" action="{{ formAction }}">
   {{ csrfField() }}
 
-  @if(flashMessages.has('errors'))
-  <div class="alert alert-danger">
-    {{ inspect(flashMessages.all()) }}
-  </div>
-  @endif
-
   <input type="hidden" name="id" value="{{ formValues.id }}" />
 
   <div class="form-group">

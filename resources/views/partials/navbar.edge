@@ -10,11 +10,11 @@
 
         @if(auth.isLoggedIn)
           <li class="nav-item">
-            <a class="nav-link" href="/admin/posts">Posts</a>
+            <a class="nav-link" href="/admin/posts">📝 Posts</a>
           </li>
           @can('adminListUsers')
             <li class="nav-item">
-              <a class="nav-link" href="/admin/users">Utilisateurs</a>
+              <a class="nav-link" href="/admin/users">👥 Utilisateurs</a>
             </li>
           @end
         @endif
@@ -29,17 +29,18 @@
         </li>
         @endif
 
+        @if(auth.isLoggedIn)
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">  
+            👋 Hello {{auth.user.name}} ({{auth.user.roles.join(',')}})
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown03">
+            <li><a class="dropdown-item" href="/logout">Déconnexion</a></li>
+            <li><a class="dropdown-item" href="/profile">Mon compte</a></li>
+          </ul>
+        </li>
+        @endif
       </ul>
-
-      @if(auth.isLoggedIn)
-        <span class="navbar-text">
-            <i class="bi bi-person-circle"></i>
-          Hello {{auth.user.name}} - {{auth.user.roles.join(',')}}
-        </span>
-        <span class="navbar-text">
-          <a class="nav-link inactive" href="/logout">(Se déconnecter)</a>
-        </span>
-        @end
     </div>
 
 </div>

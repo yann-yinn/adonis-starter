@@ -1,8 +1,6 @@
 <form method="POST" action="{{ formAction }}">
   {{ csrfField() }}
 
-  {{inspect(flashMessages)}}
-
   <input type="hidden" name="id" value="{{ formValues.id }}" />
 
   <div class="form-group mt-3">
