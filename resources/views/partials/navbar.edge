@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg bg-light shadow">
   <div class="container">
-    <a class="navbar-brand" href="/">Adonis starter</a>
+    <a class="navbar-brand" href="/"><i class="bi bi-gem"></i> Adonis starter</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,20 +9,14 @@
       <ul class="navbar-nav mr-auto">
 
         @if(auth.isLoggedIn)
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/posts/create">Nouveau post</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/posts">Posts</a>
-        </li>
-        @can('adminListUsers')
           <li class="nav-item">
-            <a class="nav-link" href="/admin/users/create">Nouvel utilisateur</a>
+            <a class="nav-link" href="/admin/posts">Posts</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/users">Utilisateurs</a>
-          </li>
-        @end
+          @can('adminListUsers')
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">Utilisateurs</a>
+            </li>
+          @end
         @endif
 
         @if(!auth.isLoggedIn)

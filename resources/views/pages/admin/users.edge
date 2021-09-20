@@ -2,7 +2,14 @@
 
 @section('content')
 <div class="container">
-  <h1>Utilisateurs</h1>
+  <div class="d-flex justify-content-between">
+    <div class="">
+      <h1><i class="bi bi-person-circle"></i> Utilisateurs</h1>
+    </div>
+    <div class="ml-auto">
+      <a href="/admin/users/create" class="btn btn-primary">Nouvel utilisateur</a>
+    </div>
+  </div>
   <div class="shadow-lg p-5">
     <table class="table">
       <thead>

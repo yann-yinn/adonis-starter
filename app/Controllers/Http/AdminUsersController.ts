@@ -94,14 +94,12 @@ export default class AdminUsersController {
   public async edit({ view, request, bouncer }: HttpContextContract) {
     await bouncer.authorize("adminEditUser");
     const entity = await this.entityModel.findOrFail(request.param("id"));
-    if (entity) {
-      const formValues = this.prepareFormValues(entity);
-      return view.render(this.entityFormView, {
-        roles,
-        formValues,
-        formAction: this.entityFormAction(entity) + "?_method=PUT",
-      });
-    }
+    const formValues = this.prepareFormValues(entity);
+    return view.render(this.entityFormView, {
+      roles,
+      formValues,
+      formAction: this.entityFormAction(entity) + "?_method=PUT",
+    });
   }
 
   public async update({
