@@ -24,7 +24,6 @@ Route.get("/", async ({ view }) => {
   return view.render("pages/home");
 });
 
-Route.resource("users", "UsersController");
 Route.get("signup", "SignupController.create");
 Route.post("signup", "SignupController.store");
 Route.get("login", "SigninController.create").middleware("guest");
@@ -45,3 +44,10 @@ Route.resource("/admin/posts", "AdminPostsController").middleware({
 Route.resource("/admin/users", "AdminUsersController").middleware({
   "*": "auth",
 });
+
+// profil utilisateur
+Route.resource("/users", "profileController")
+  .middleware({
+    "*": "auth",
+  })
+  .only(["show", "edit", "update", "destroy"]);

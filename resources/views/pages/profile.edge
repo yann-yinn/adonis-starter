@@ -1,0 +1,16 @@
+@layout('layouts/main')
+
+@section('title')
+Mon compte
+@endsection
+
+@section('content')
+<main>
+  <div class="container">
+    <h1>Mon compte</h1>
+    <div class="shadow-lg p-5">
+      {{inspect(entity)}}
+    </div>
+  </div> <!-- end container -->
+</main>
+@endsection

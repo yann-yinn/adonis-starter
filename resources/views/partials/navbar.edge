@@ -35,8 +35,8 @@
             👋 Hello {{auth.user.name}} ({{auth.user.roles.join(',')}})
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdown03">
+            <li><a class="dropdown-item" href="/users/{{auth.user.id}}">Mon compte</a></li>
             <li><a class="dropdown-item" href="/logout">Déconnexion</a></li>
-            <li><a class="dropdown-item" href="/profile">Mon compte</a></li>
           </ul>
         </li>
         @endif
