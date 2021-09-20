@@ -5,12 +5,9 @@ export interface ConfirmDeleteOptions {
   returnUrl: string;
 }
 
-export enum Role {
-  MEMBER = "member",
-  ADMINISTRATOR = "administrator",
-}
+export type RoleId = "member" | "admin";
 
-export interface Roles {
-  id: string;
+export interface Role {
+  id: RoleId;
   label: string;
 }

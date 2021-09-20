@@ -47,8 +47,8 @@ export default class CreateAdminUserValidator {
     "password_confirmation.required": "ce champ est requis",
     "password_confirmation.confirmed":
       "Les deux mots de passe ne sont pas identiques",
-    "role.array": `Le role doit être une des valeurs suivantes : ${Object.values(
-      Role
+    "role.array": `Le role doit être une des valeurs suivantes : ${roleIds.join(
+      ","
     )}`,
   };
 }

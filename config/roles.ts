@@ -1,6 +1,6 @@
-import { Roles } from "App/types";
+import { Role } from "App/types";
 
-const roles: Roles[] = [
+const roles: Role[] = [
   {
     id: "member",
     label: "Member",

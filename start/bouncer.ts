@@ -6,8 +6,9 @@
  */
 
 import Bouncer from "@ioc:Adonis/Addons/Bouncer";
-import Post from "App/Models/Post";
 import User from "App/Models/User";
+import Post from "App/Models/Post";
+import { RoleId } from "App/types";
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ import User from "App/Models/User";
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-function userHasRoles(roles: string[], user: User) {
+function userHasRoles(roles: RoleId[], user: User) {
   let authorized = false;
   for (const role of roles) {
     if (user.roles.includes(role)) {
@@ -41,9 +42,48 @@ function userHasRoles(roles: string[], user: User) {
   return authorized;
 }
 
-export const { actions } = Bouncer.define("viewUsersList", (user: User) => {
-  return userHasRoles(["admin"], user);
-});
+export const { actions } = Bouncer
+  // === USERS ===
+  .define("adminListUsers", (user: User) => {
+    return userHasRoles(["admin"], user);
+  })
+  .define("adminCreateUser", (user: User) => {
+    return userHasRoles(["admin"], user);
+  })
+  .define("adminEditUser", (user: User) => {
+    return userHasRoles(["admin"], user);
+  })
+  .define("adminDeleteUser", (user: User) => {
+    return userHasRoles(["admin"], user);
+  })
+  // === POSTS ===
+  .define("adminViewPosts", (user: User) => {
+    return userHasRoles(["admin"], user);
+  })
+  .define("adminListPosts", (user: User) => {
+    return userHasRoles(["admin", "member"], user);
+  })
+  .define("adminCreatePost", (user: User) => {
+    return userHasRoles(["admin", "member"], user);
+  })
+  .define("adminEditPost", (user: User, post: Post) => {
+    if (userHasRoles(["admin"], user)) {
+      return true;
+    }
+    if (userHasRoles(["member"], user) && user.id === post.userId) {
+      return true;
+    }
+    return false;
+  })
+  .define("adminDeletePost", (user: User, post: Post) => {
+    if (userHasRoles(["admin"], user)) {
+      return true;
+    }
+    if (userHasRoles(["member"], user) && user.id === post.userId) {
+      return true;
+    }
+    return false;
+  });
 
 /*
 |--------------------------------------------------------------------------
