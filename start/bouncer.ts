@@ -83,6 +83,12 @@ export const { actions } = Bouncer
       return true;
     }
     return false;
+  })
+  .define("viewProfile", (user: User, profile: User) => {
+    return userHasRoles(["admin"], user) || user.id === profile.id;
+  })
+  .define("editProfile", (user: User, profile: User) => {
+    return userHasRoles(["admin"], user) || user.id === profile.id;
   });
 
 /*

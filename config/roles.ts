@@ -7,7 +7,7 @@ const roles: Role[] = [
   },
   {
     id: "admin",
-    label: "Admin",
+    label: "Administrator",
   },
 ];
 

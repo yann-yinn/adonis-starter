@@ -1,13 +1,19 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
+import roles from "Config/roles";
 
-export default class AdminUsersController {
-  public async show({ view, request }: HttpContextContract) {
+export default class profileController {
+  public async show({ view, request, bouncer }: HttpContextContract) {
     const entity = await User.findOrFail(request.param("id"));
-    return view.render("pages/profile", { entity });
+    await bouncer.authorize("viewProfile", entity);
+    return view.render("pages/profile", { entity, roles });
   }
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({ request, bouncer, view }: HttpContextContract) {
+    const entity = await User.findOrFail(request.param("id"));
+    await bouncer.authorize("editProfile", entity);
+    return view.render("pages/profileEdit", { entity, roles });
+  }
 
   public async update({}: HttpContextContract) {}
 

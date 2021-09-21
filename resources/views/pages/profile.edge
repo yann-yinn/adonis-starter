@@ -6,13 +6,29 @@ Mon compte
 
 @section('content')
 <main>
-  <div class="container-sm">
-    <h1>Mon compte</h1>
-    <div class="shadow-lg p-5">
-      <h2>{{entity.name}}</h2>
-      <p>{{entity.email}}</p>
-      {{inspect(entity)}}
-    </div>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <div class="d-flex justify-content-between">
+          <div class="">
+            <h1>Mon compte</h1>
+          </div>
+          <div class="ml-auto">
+            <a href="/users/{{entity.id}}/edit" class="btn btn-primary">Éditer</a>
+          </div>
+        </div>
+        <div class="shadow-lg rounded p-5">
+          <h2>{{entity.name}}</h2>
+          <p>
+            {{entity.email}} <br />
+            @each(roleId in entity.roles)
+              <span>{{ roles.find(r => r.id === roleId).label }}</span>
+            @end
+          </p>
+        </div>
+      </div>
+    </div> <!-- end row -->
   </div> <!-- end container -->
 </main>
 @endsection
