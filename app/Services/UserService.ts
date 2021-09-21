@@ -1,8 +1,9 @@
 import User from "App/Models/User";
 import { RoleId } from "App/types";
 import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
+import { v4 as uuidv4 } from "uuid";
 
-interface createUserFormValues {
+interface createUserPayload {
   name: string;
   email: string;
   password: string;
@@ -11,7 +12,7 @@ interface createUserFormValues {
   picture: MultipartFileContract;
 }
 
-interface updateUserFormValues {
+interface updateUserPayload {
   id: string;
   name?: string;
   email?: string;
@@ -31,31 +32,34 @@ interface formValues {
   picture: string;
 }
 
-async function create(formValues: createUserFormValues) {
+async function create(payload: createUserPayload) {
   const user = new User();
-  user.email = formValues.email;
-  user.password = formValues.password;
-  user.name = formValues.name;
+  user.email = payload.email;
+  user.password = payload.password;
+  user.name = payload.name;
   user.roles = ["member"];
   await user.save();
 }
 
-async function update(formValues: updateUserFormValues) {
-  const user = await User.findOrFail(formValues.id);
-  if (formValues.email) user.email = formValues.email.trim();
-  if (formValues.name) user.name = formValues.name.trim();
-  if (formValues.role) user.roles = [formValues.role];
-  if (formValues.password && formValues.password_confirmation) {
-    user.password = formValues.password.trim();
+async function update(payload: updateUserPayload) {
+  const user = await User.findOrFail(payload.id);
+  if (payload.email) user.email = payload.email.trim();
+  if (payload.name) user.name = payload.name.trim();
+  if (payload.role) user.roles = [payload.role];
+  if (payload.password && payload.password_confirmation) {
+    user.password = payload.password.trim();
   }
-  if (formValues.picture) {
-    await formValues.picture.moveToDisk(`./user-${user.id}`);
+  if (payload.picture) {
+    const name = uuidv4() + "." + payload.picture.extname;
+    await payload.picture.moveToDisk("./", { name });
+    user.picture = name;
   }
   await user.save();
 }
 
+// return values to populate the userForm
 function initFormValues(entity?: User): formValues {
-  const formValues = {
+  const payload = {
     id: entity?.id ? entity.id : "",
     name: entity?.name ? entity.name : "",
     email: entity?.email ? entity.email : "",
@@ -64,7 +68,7 @@ function initFormValues(entity?: User): formValues {
     password_confirmation: "",
     role: entity ? entity.roles[0] : "member",
   };
-  return formValues;
+  return payload;
 }
 
 export default { initFormValues, create, update };

@@ -21,6 +21,7 @@ Mon compte
         <div class="shadow-lg rounded p-5">
           <h2>{{entity.name}}</h2>
           <p>
+            <img src="/files/{{entity.picture}}" width="200"/> <br />
             {{entity.email}} <br />
             @each(roleId in entity.roles)
               <span>{{ roles.find(r => r.id === roleId).label }}</span>
