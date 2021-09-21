@@ -5,6 +5,7 @@ import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
 import roles from "Config/roles";
+import UserService from "App/Services/UserService";
 
 interface updateValues {
   email: string;
@@ -17,6 +18,7 @@ export default class AdminUsersController {
   // controller config
   private entityTable = "users";
   private entityModel = User;
+  private entityService = UserService;
   private entityListPath = "/admin/users";
   private entityIndexView = "pages/admin/users";
   private entityFormView = "pages/admin/userForm";
@@ -59,7 +61,7 @@ export default class AdminUsersController {
 
   public async create({ view, bouncer }: HttpContextContract) {
     await bouncer.authorize("adminCreateUser");
-    const formValues = this.prepareFormValues();
+    const formValues = this.entityService.prepareFormValues();
     return view.render(this.entityFormView, {
       roles,
       formValues,
@@ -94,7 +96,7 @@ export default class AdminUsersController {
   public async edit({ view, request, bouncer }: HttpContextContract) {
     await bouncer.authorize("adminEditUser");
     const entity = await this.entityModel.findOrFail(request.param("id"));
-    const formValues = this.prepareFormValues(entity);
+    const formValues = this.entityService.prepareFormValues(entity);
     return view.render(this.entityFormView, {
       roles,
       formValues,
@@ -138,17 +140,5 @@ export default class AdminUsersController {
       session.flash({ notification: this.entityDeleteNotification() });
       response.redirect(this.entityListPath);
     }
-  }
-
-  private prepareFormValues(entity?: User) {
-    const formValues = {
-      id: entity ? entity.id : "",
-      name: entity ? entity.name : "",
-      email: entity ? entity.email : "",
-      password: "",
-      password_confirmation: "",
-      role: entity ? entity.roles[0] : "member",
-    };
-    return formValues;
   }
 }
