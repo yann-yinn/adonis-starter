@@ -1,6 +1,5 @@
 import User from "App/Models/User";
 import { RoleId } from "App/types";
-import Application from "@ioc:Adonis/Core/Application";
 import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
 
 interface createUserFormValues {

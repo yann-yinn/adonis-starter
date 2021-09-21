@@ -7,7 +7,6 @@
 
 import Env from "@ioc:Adonis/Core/Env";
 import { DriveConfig } from "@ioc:Adonis/Core/Drive";
-import Application from "@ioc:Adonis/Core/Application";
 
 /*
 |--------------------------------------------------------------------------
