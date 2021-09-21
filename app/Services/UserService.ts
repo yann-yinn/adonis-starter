@@ -50,7 +50,7 @@ async function update(formValues: updateUserFormValues) {
     user.password = formValues.password.trim();
   }
   if (formValues.picture) {
-    await formValues.picture.moveToDisk("./");
+    await formValues.picture.moveToDisk(`./user-${user.id}`);
   }
   await user.save();
 }

@@ -1,6 +1,5 @@
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { Role } from "App/types";
 import roles from "Config/roles";
 const roleIds = roles.map((r) => r.id);
 
@@ -27,6 +26,10 @@ export default class CreateAdminUserValidator {
       rules.maxLength(255),
     ]),
     role: schema.enum(roleIds),
+    picture: schema.file({
+      size: "5mb",
+      extnames: ["jpg", "gif", "png", "webp", "jpeg"],
+    }),
   });
 
   /**

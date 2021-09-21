@@ -11,7 +11,7 @@ export default class AdminController {
     } catch (e) {
       errors = e.messages;
     }
-    return view.render("pages/admin/confirm-delete", {
+    return view.render("pages/admin/confirmDelete", {
       options,
       errors,
     });
