@@ -19,6 +19,7 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
+import Application from "@ioc:Adonis/Core/Application";
 
 Route.get("/", async ({ view }) => {
   return view.render("pages/home");
@@ -51,3 +52,8 @@ Route.resource("/profile", "profileController")
     "*": "auth",
   })
   .only(["show", "edit", "update", "destroy"]);
+
+Route.get("/files/*", async ({ response, params }) => {
+  const path = Application.makePath(`/uploads/${params["*"].join("/")}`);
+  response.download(path);
+});
