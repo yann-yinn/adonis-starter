@@ -90,9 +90,6 @@ export const { actions } = Bouncer
   })
   .define("editProfile", (user: User, profile: User) => {
     return userHasRoles(["admin"], user) || user.id === profile.id;
-  })
-  .define("accessFieldUserRole", (user: User) => {
-    return userHasRoles(["admin"], user);
   });
 
 /*

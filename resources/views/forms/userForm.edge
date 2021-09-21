@@ -34,7 +34,28 @@
   </div>
 
 
-  @can('accessFieldUserRole')
+  <div class="form-group mt-3">
+    <label for="name">Avatar</label>
+    <input 
+      type="file" 
+      name="avatar" 
+      value="{{ formValues.avatar }}" 
+      class="form-control"
+      accept="image/gif, image/jpeg, image/png"
+      onchange="displayUploadedImage(event)"
+    />
+    @if(flashMessages.has('errors.avatar'))
+    <div class="invalid-feedback d-block">
+      {{ flashMessages.get('errors.avatar') }}
+    </div>
+    @endif
+    <div class="mt-3" id="avatar-wrapper">
+      <img class="d-block" id="avatar-output" width="200" />	
+    </div>
+  </div>
+
+
+  @if(!hideFieldRole)
     <div class="form-group mt-3">
       <label for="role">Role</label>
       <select class="form-control" name="role">
@@ -51,7 +72,7 @@
       </div>
       @endif
     </div>
-  @end
+  @endif
 
   @if(formValues.id)
   <div class="mt-5 mb-3">
@@ -98,4 +119,11 @@
   </div>
 
 </form>
+
+<script>
+  const displayUploadedImage = function(event) {
+    var image = document.getElementById('avatar-output');
+    image.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
 

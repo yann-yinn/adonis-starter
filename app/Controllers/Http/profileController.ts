@@ -21,6 +21,7 @@ export default class profileController {
     await bouncer.authorize("editProfile", entity);
     const formValues = this.entityService.initFormValues(entity);
     return view.render("pages/profileEdit", {
+      hideFieldRole: true,
       formValues,
       roles,
       formAction: "/profile/update?_method=PUT",
