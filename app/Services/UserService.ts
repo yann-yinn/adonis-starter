@@ -1,7 +1,6 @@
 import User from "App/Models/User";
 import { RoleId } from "App/types";
 import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
-import { v4 as uuidv4 } from "uuid";
 
 interface createUserPayload {
   name: string;
@@ -50,9 +49,8 @@ async function update(payload: updateUserPayload) {
     user.password = payload.password.trim();
   }
   if (payload.picture) {
-    const name = uuidv4() + "." + payload.picture.extname;
-    await payload.picture.moveToDisk("./", { name });
-    user.picture = name;
+    await payload.picture.moveToDisk("./");
+    user.picture = payload.picture.fileName;
   }
   await user.save();
 }
