@@ -6,9 +6,11 @@ Mon compte
 
 @section('content')
 <main>
-  <div class="container">
+  <div class="container-sm">
     <h1>Mon compte</h1>
     <div class="shadow-lg p-5">
+      <h2>{{entity.name}}</h2>
+      <p>{{entity.email}}</p>
       {{inspect(entity)}}
     </div>
   </div> <!-- end container -->
