@@ -7,13 +7,6 @@ import User from "App/Models/User";
 import roles from "Config/roles";
 import UserService from "App/Services/UserService";
 
-interface updateValues {
-  email: string;
-  name: string;
-  roles: string[];
-  password?: string;
-}
-
 export default class AdminUsersController {
   // controller config
   private entityTable = "users";
@@ -61,7 +54,7 @@ export default class AdminUsersController {
 
   public async create({ view, bouncer }: HttpContextContract) {
     await bouncer.authorize("adminCreateUser");
-    const formValues = this.entityService.prepareFormValues();
+    const formValues = this.entityService.initFormValues();
     return view.render(this.entityFormView, {
       roles,
       formValues,
@@ -77,14 +70,7 @@ export default class AdminUsersController {
   }: HttpContextContract) {
     await bouncer.authorize("adminCreateUser");
     let payload = await request.validate(this.entityCreateValidator);
-    // form let us choose only on options, but we store roles as en array in database.
-    const userValues = {
-      email: payload.email,
-      name: payload.name,
-      password: payload.password,
-      roles: [payload.role],
-    };
-    await this.entityModel.create(userValues);
+    this.entityService.create(payload);
     session.flash({
       notification: this.entityCreationNotification(),
     });
@@ -96,7 +82,7 @@ export default class AdminUsersController {
   public async edit({ view, request, bouncer }: HttpContextContract) {
     await bouncer.authorize("adminEditUser");
     const entity = await this.entityModel.findOrFail(request.param("id"));
-    const formValues = this.entityService.prepareFormValues(entity);
+    const formValues = this.entityService.initFormValues(entity);
     return view.render(this.entityFormView, {
       roles,
       formValues,
@@ -112,17 +98,7 @@ export default class AdminUsersController {
   }: HttpContextContract) {
     await bouncer.authorize("adminEditUser");
     const payload = await request.validate(this.entityUpdateValidator);
-    // form let us choose only on options, but we store roles as en array in database.
-    const entity = await User.findOrFail(payload.id);
-    const values: updateValues = {
-      email: payload.email,
-      name: payload.name,
-      roles: [payload.role],
-    };
-    if (payload.password && payload.password_confirmation) {
-      values.password = payload.password.trim();
-    }
-    await entity.merge(values).save();
+    this.entityService.update(payload);
     session.flash({ notification: this.entityUpdateNotification() });
     response.redirect(this.entityListPath);
   }
@@ -134,11 +110,9 @@ export default class AdminUsersController {
     bouncer,
   }: HttpContextContract) {
     await bouncer.authorize("adminDeleteUser");
-    const user = await this.entityModel.find(request.param("id"));
-    if (user) {
-      user.delete();
-      session.flash({ notification: this.entityDeleteNotification() });
-      response.redirect(this.entityListPath);
-    }
+    const user = await this.entityModel.findOrFail(request.param("id"));
+    user.delete();
+    session.flash({ notification: this.entityDeleteNotification() });
+    response.redirect(this.entityListPath);
   }
 }

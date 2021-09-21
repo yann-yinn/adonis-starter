@@ -1,6 +1,5 @@
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { Role } from "App/types";
 
 export default class CreateUserValidator {
   constructor(protected ctx: HttpContextContract) {}
@@ -24,6 +23,7 @@ export default class CreateUserValidator {
       rules.minLength(6),
       rules.maxLength(255),
     ]),
+    role: schema.string.optional({}, []),
   });
 
   /**

@@ -51,7 +51,7 @@ export default class AdminPostsController {
 
   public async create({ view, bouncer }: HttpContextContract) {
     await bouncer.authorize("adminCreatePost");
-    const formValues = this.prepareFormValues();
+    const formValues = this.initFormValues();
     return view.render(this.entityFormView, {
       formValues,
       formAction: this.entityListPath,
@@ -84,7 +84,7 @@ export default class AdminPostsController {
     const entity = await this.entityModel.findOrFail(request.param("id"));
     await bouncer.authorize("adminEditPost", entity);
     if (entity) {
-      const formValues = this.prepareFormValues(entity);
+      const formValues = this.initFormValues(entity);
       return view.render(this.entityFormView, {
         formValues,
         formAction: this.entityFormAction(entity) + "?_method=PUT",
@@ -123,7 +123,7 @@ export default class AdminPostsController {
     }
   }
 
-  private prepareFormValues(post?: Post) {
+  private initFormValues(post?: Post) {
     const formValues = {
       id: post ? post.id : "",
       title: post ? post.title : "",

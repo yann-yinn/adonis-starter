@@ -43,7 +43,7 @@ function userHasRoles(roles: RoleId[], user: User) {
 }
 
 export const { actions } = Bouncer
-  // === USERS ===
+  // === USERS ADMINISTRATION ===
   .define("adminListUsers", (user: User) => {
     return userHasRoles(["admin"], user);
   })
@@ -56,7 +56,7 @@ export const { actions } = Bouncer
   .define("adminDeleteUser", (user: User) => {
     return userHasRoles(["admin"], user);
   })
-  // === POSTS ===
+  // === POSTS ADMINISTRATION ===
   .define("adminViewPosts", (user: User) => {
     return userHasRoles(["admin"], user);
   })
@@ -84,6 +84,7 @@ export const { actions } = Bouncer
     }
     return false;
   })
+  // === PROFILE ===
   .define("viewProfile", (user: User, profile: User) => {
     return userHasRoles(["admin"], user) || user.id === profile.id;
   })

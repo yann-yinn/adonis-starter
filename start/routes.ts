@@ -46,7 +46,7 @@ Route.resource("/admin/users", "AdminUsersController").middleware({
 });
 
 // profil utilisateur
-Route.resource("/users", "profileController")
+Route.resource("/profile", "profileController")
   .middleware({
     "*": "auth",
   })

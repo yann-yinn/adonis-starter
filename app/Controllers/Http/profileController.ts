@@ -2,9 +2,13 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import roles from "Config/roles";
 import UserService from "App/Services/UserService";
+import UpdateProfileValidator from "App/Validators/UpdateProfileValidator";
 
 export default class profileController {
   private entityService = UserService;
+  private entityUpdateValidator = UpdateProfileValidator;
+  private entityModel = User;
+  private entityUpdateNotification = () => "Votre profil a été mis à jour";
 
   public async show({ view, request, bouncer }: HttpContextContract) {
     const entity = await User.findOrFail(request.param("id"));
@@ -13,20 +17,34 @@ export default class profileController {
   }
 
   public async edit({ request, bouncer, view }: HttpContextContract) {
-    const entity = await User.findOrFail(request.param("id"));
+    const entity = await this.entityModel.findOrFail(request.param("id"));
     await bouncer.authorize("editProfile", entity);
-    const formValues = this.entityService.prepareFormValues(entity);
+    const formValues = this.entityService.initFormValues(entity);
     return view.render("pages/profileEdit", {
       formValues,
       roles,
-      formAction: "/admin/users?_method=PUT",
+      formAction: "/profile/update?_method=PUT",
     });
+  }
+
+  public async update({
+    request,
+    session,
+    response,
+    bouncer,
+  }: HttpContextContract) {
+    const validatedData = await request.validate(this.entityUpdateValidator);
+    const user = await this.entityModel.findOrFail(validatedData.id);
+    await bouncer.authorize("editProfile", user);
+    this.entityService.update(validatedData);
+    session.flash({ notification: this.entityUpdateNotification() });
+    response.redirect("/profile/" + validatedData.id);
   }
 
   public async destroy({}: HttpContextContract) {}
 
   /*
-  private prepareFormValues(entity?: User) {
+  private initFormValues(entity?: User) {
     const formValues = {
       id: entity ? entity.id : "",
       name: entity ? entity.name : "",
