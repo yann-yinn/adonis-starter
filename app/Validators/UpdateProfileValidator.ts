@@ -17,6 +17,10 @@ export default class UpdateProfileValidator {
       rules.minLength(6),
       rules.maxLength(255),
     ]),
+    picture: schema.file({
+      size: "5mb",
+      extnames: ["jpg", "gif", "png", "webp", "jpeg"],
+    }),
     // ! do NOT put role here, we don't want a user to be able
     // to change its own role with a POST request !
   });

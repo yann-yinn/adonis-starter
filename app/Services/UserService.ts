@@ -1,5 +1,7 @@
 import User from "App/Models/User";
 import { RoleId } from "App/types";
+import Application from "@ioc:Adonis/Core/Application";
+import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
 
 interface createUserFormValues {
   name: string;
@@ -7,6 +9,7 @@ interface createUserFormValues {
   password: string;
   password_confirmation: string;
   role: RoleId;
+  picture: MultipartFileContract;
 }
 
 interface updateUserFormValues {
@@ -16,6 +19,7 @@ interface updateUserFormValues {
   password?: string;
   password_confirmation?: string;
   role?: RoleId;
+  picture?: MultipartFileContract;
 }
 
 interface formValues {
@@ -25,6 +29,7 @@ interface formValues {
   role: string;
   password: string;
   password_confirmation: string;
+  picture: string;
 }
 
 async function create(formValues: createUserFormValues) {
@@ -44,14 +49,18 @@ async function update(formValues: updateUserFormValues) {
   if (formValues.password && formValues.password_confirmation) {
     user.password = formValues.password.trim();
   }
+  if (formValues.picture) {
+    await formValues.picture.moveToDisk("./");
+  }
   await user.save();
 }
 
 function initFormValues(entity?: User): formValues {
   const formValues = {
-    id: entity ? entity.id : "",
-    name: entity ? entity.name : "",
-    email: entity ? entity.email : "",
+    id: entity?.id ? entity.id : "",
+    name: entity?.name ? entity.name : "",
+    email: entity?.email ? entity.email : "",
+    picture: entity?.picture ? entity.picture : "",
     password: "",
     password_confirmation: "",
     role: entity ? entity.roles[0] : "member",

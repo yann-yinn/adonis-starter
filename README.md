@@ -1,6 +1,9 @@
 # AdonisJS 5 monolith starter
 
-AdonisJS 5 _monolith_ starter (100% node.js) with signup / signin form to build MVP, using edges templates & Bootstrap CSS.
+required: node >= 14
+
+AdonisJS 5 _monolith_ starter (100% node.js) with signup / signin form to build MVP, and user roles.
+classic HTML templating using Edge templates & Bootstrap CSS.
 
 <img src="https://github.com/yann-yinn/adonis-starter/blob/main/screen.png"/>
 
@@ -19,6 +22,6 @@ In progress:
 
 Todo:
 
-- [ ] change password screen
 - [ ] Send email on account creation
-- [ ] Reset password
+- [ ] Forgot password
+- [ ] change password screen

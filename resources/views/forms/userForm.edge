@@ -1,5 +1,7 @@
-<form method="POST" action="{{ formAction }}">
+<form method="POST" action="{{ formAction }}" enctype="multipart/form-data">
   {{ csrfField() }}
+
+  {{inspect(flashMessages.all())}}
 
   <input type="hidden" name="id" value="{{ formValues.id }}" />
 
@@ -35,22 +37,21 @@
 
 
   <div class="form-group mt-3">
-    <label for="name">Avatar</label>
+    <label for="name">Photo</label>
     <input 
       type="file" 
-      name="avatar" 
-      value="{{ formValues.avatar }}" 
+      name="picture" 
+      value="{{ formValues.picture }}" 
       class="form-control"
-      accept="image/gif, image/jpeg, image/png"
       onchange="displayUploadedImage(event)"
     />
-    @if(flashMessages.has('errors.avatar'))
+    @if(flashMessages.has('errors.picture'))
     <div class="invalid-feedback d-block">
-      {{ flashMessages.get('errors.avatar') }}
+      {{ flashMessages.get('errors.picture') }}
     </div>
     @endif
-    <div class="mt-3" id="avatar-wrapper">
-      <img class="d-block" id="avatar-output" width="200" />	
+    <div class="mt-3" id="picture-wrapper">
+      <img class="d-block" id="picture-output" width="200" />	
     </div>
   </div>
 
@@ -122,7 +123,7 @@
 
 <script>
   const displayUploadedImage = function(event) {
-    var image = document.getElementById('avatar-output');
+    var image = document.getElementById('picture-output');
     image.src = URL.createObjectURL(event.target.files[0]);
   };
 </script>

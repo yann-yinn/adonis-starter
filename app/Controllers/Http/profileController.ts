@@ -37,7 +37,7 @@ export default class profileController {
     const validatedData = await request.validate(this.entityUpdateValidator);
     const user = await this.entityModel.findOrFail(validatedData.id);
     await bouncer.authorize("editProfile", user);
-    this.entityService.update(validatedData);
+    await this.entityService.update(validatedData);
     session.flash({ notification: this.entityUpdateNotification() });
     response.redirect("/profile/" + validatedData.id);
   }
