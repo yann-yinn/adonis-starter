@@ -10,13 +10,15 @@ Done:
 - [x] Sign in form
 - [x] Log out
 - [x] Authenticated users can create "posts" in the admin as an example entity
+- [x] Add role and permissions with bouncers.
+- [x] User profile page / profile page edition
 
 In progress:
 
-- [ ] Add role and permissions with bouncers.
+- [ ] User avatar
 
 Todo:
 
-- [ ] Add user profile page / edit profile page
+- [ ] change password screen
 - [ ] Send email on account creation
 - [ ] Reset password
