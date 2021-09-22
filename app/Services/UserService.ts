@@ -34,9 +34,13 @@ interface formValues {
 async function create(payload: createUserPayload) {
   const user = new User();
   user.email = payload.email;
-  user.password = payload.password;
   user.name = payload.name;
   user.roles = ["member"];
+  user.password = payload.password.trim();
+  if (payload.picture) {
+    await payload.picture.moveToDisk("./");
+    user.picture = payload.picture.fileName;
+  }
   await user.save();
 }
 

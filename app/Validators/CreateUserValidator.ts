@@ -23,7 +23,6 @@ export default class CreateUserValidator {
       rules.minLength(6),
       rules.maxLength(255),
     ]),
-    role: schema.string.optional({}, []),
     picture: schema.file({
       size: "5mb",
       extnames: ["jpg", "gif", "png", "webp", "jpeg"],

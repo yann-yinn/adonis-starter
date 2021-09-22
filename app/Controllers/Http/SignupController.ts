@@ -1,6 +1,6 @@
-import User from "App/Models/User";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
+import UserService from "App/Services/UserService";
 
 export default class SignupController {
   public async create({ view }: HttpContextContract) {
@@ -9,12 +9,7 @@ export default class SignupController {
 
   public async store({ request, response, session }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
-    await User.create({
-      email: payload.email,
-      password: payload.password,
-      name: payload.name,
-      roles: ["member"],
-    });
+    UserService.create(payload);
     session.flash({
       notification: "Votre compte a été crée. Vous pouvez vous connecter.",
     });

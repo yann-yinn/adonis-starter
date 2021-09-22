@@ -3,12 +3,13 @@ import User from "App/Models/User";
 import roles from "Config/roles";
 import UserService from "App/Services/UserService";
 import UpdateProfileValidator from "App/Validators/UpdateProfileValidator";
+import Drive from "@ioc:Adonis/Core/Drive";
 
 export default class profileController {
   private entityService = UserService;
   private entityUpdateValidator = UpdateProfileValidator;
   private entityModel = User;
-  private entityUpdateNotification = () => "Votre profil a été mis à jour";
+  private entityUpdateNotification = () => "Your profile has been updated";
 
   public async show({ view, request, bouncer }: HttpContextContract) {
     const entity = await User.findOrFail(request.param("id"));
