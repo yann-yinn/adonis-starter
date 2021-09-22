@@ -32,6 +32,11 @@ Route.get("login", "SigninController.create").middleware("guest");
 Route.post("login", "SigninController.store").middleware("guest");
 Route.get("logout", "SigninController.destroy").middleware("auth");
 
+Route.get("forgot-password", "ForgotPasswordController.render");
+Route.post("forgot-password", "ForgotPasswordController.send");
+Route.get("forgot-password/:id", "ForgotPasswordController.renderWithId");
+Route.post("forgot-password/:id", "ForgotPasswordController.resetPassword");
+
 // route générique pour confirmer la suppression d'une entité
 Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
   "auth"
