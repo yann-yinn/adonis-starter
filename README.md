@@ -2,7 +2,7 @@
 
 required: node >= 14
 
-AdonisJS 5 _monolith_ starter (100% node.js) with ready-to-user signup / signin form, user administration, roles.
+AdonisJS 5 _monolith_ starter (100% node.js) with ready-to-use signup / signin form, user administration, roles.
 
 Classic HTML templating using Adonis Edge templates with Bootstrap CSS.
 
