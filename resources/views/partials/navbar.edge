@@ -14,18 +14,18 @@
           </li>
           @can('adminListUsers')
             <li class="nav-item">
-              <a class="nav-link" href="/admin/users">👥 Utilisateurs</a>
+              <a class="nav-link" href="/admin/users">👥 Users</a>
             </li>
           @end
         @endif
 
         @if(!auth.isLoggedIn)
         <li class="nav-item">
-          <a class="nav-link" href="/signup">Créer un compte</a>
+          <a class="nav-link" href="/signup">Sign up</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/login">Se connecter</a>
+          <a class="nav-link" href="/login">Sign in</a>
         </li>
         @endif
 
@@ -35,8 +35,8 @@
             👋 Hello {{auth.user.name}} ({{auth.user.roles.join(',')}})
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdown03">
-            <li><a class="dropdown-item" href="/profile/{{auth.user.id}}">Mon compte</a></li>
-            <li><a class="dropdown-item" href="/logout">Déconnexion</a></li>
+            <li><a class="dropdown-item" href="/profile/{{auth.user.id}}">My account</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
         </li>
         @endif

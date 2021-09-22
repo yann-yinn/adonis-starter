@@ -20,9 +20,9 @@ export default class AdminUsersController {
   private entityFormAction = (entity) => {
     return "/admin/users/" + entity.id;
   };
-  private entityCreationNotification = () => "L'utilisateur a été crée";
-  private entityUpdateNotification = () => "L'utilisateur a été mis à jour";
-  private entityDeleteNotification = () => "L'utilisateur a été supprimé";
+  private entityCreationNotification = () => "User has been created";
+  private entityUpdateNotification = () => "User has been updated";
+  private entityDeleteNotification = () => "User has been deleted";
 
   /**
    * Liste des posts pour l'admin
@@ -41,7 +41,7 @@ export default class AdminUsersController {
     entities.forEach((entity) => {
       const deleteLink = createConfirmDeleteLink({
         id: entity.id,
-        title: `Étes vous sûr de vouloir supprimer l'utilisateur "${entity.name}" ?`,
+        title: `Are you sure you want to delete "${entity.name}" ?`,
         formAction: `${this.entityListPath}/${entity.id}?_method=DELETE`,
         returnUrl: this.entityListPath,
       });

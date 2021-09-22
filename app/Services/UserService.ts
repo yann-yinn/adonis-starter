@@ -7,7 +7,7 @@ interface createUserPayload {
   email: string;
   password: string;
   password_confirmation: string;
-  role: RoleId;
+  role?: RoleId;
   picture: MultipartFileContract;
 }
 
@@ -35,7 +35,7 @@ async function create(payload: createUserPayload) {
   const user = new User();
   user.email = payload.email;
   user.name = payload.name;
-  user.roles = ["member"];
+  user.roles = payload.role ? [payload.role] : ["member"];
   user.password = payload.password.trim();
   if (payload.picture) {
     await payload.picture.moveToDisk("./");

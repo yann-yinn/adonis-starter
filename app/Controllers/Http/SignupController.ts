@@ -11,7 +11,7 @@ export default class SignupController {
     const payload = await request.validate(CreateUserValidator);
     UserService.create(payload);
     session.flash({
-      notification: "Votre compte a été crée. Vous pouvez vous connecter.",
+      notification: "Your account has been created. You can log in now.",
     });
     response.redirect("/");
   }

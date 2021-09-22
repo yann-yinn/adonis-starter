@@ -16,9 +16,9 @@ export default class AdminPostsController {
   private entityFormAction = (entity) => {
     return "/admin/posts/" + entity.id;
   };
-  private entityCreationNotification = () => "Le post a été crée";
-  private entityUpdateNotification = () => "Le post a été mis à jour";
-  private entityDeleteNotification = () => "Le post a été supprimé";
+  private entityCreationNotification = () => "Post has been created";
+  private entityUpdateNotification = () => "Post has been updated";
+  private entityDeleteNotification = () => "Post has been deleted";
 
   /**
    * Liste des posts pour l'admin
@@ -38,7 +38,7 @@ export default class AdminPostsController {
     entities.forEach((entity) => {
       const deleteLink = createConfirmDeleteLink({
         id: entity.id,
-        title: `Étes vous sûr de vouloir supprimer "${entity.title}" ?`,
+        title: `Are you sure you want to delete "${entity.title}" ?`,
         formAction: `${this.entityListPath}/${entity.id}?_method=DELETE`,
         returnUrl: this.entityListPath,
       });

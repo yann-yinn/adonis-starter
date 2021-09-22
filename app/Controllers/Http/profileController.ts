@@ -3,7 +3,6 @@ import User from "App/Models/User";
 import roles from "Config/roles";
 import UserService from "App/Services/UserService";
 import UpdateProfileValidator from "App/Validators/UpdateProfileValidator";
-import Drive from "@ioc:Adonis/Core/Drive";
 
 export default class profileController {
   private entityService = UserService;
