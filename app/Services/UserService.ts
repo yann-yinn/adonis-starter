@@ -35,8 +35,19 @@ async function create(payload: createUserPayload) {
   const user = new User();
   user.email = payload.email;
   user.name = payload.name;
-  user.roles = payload.role ? [payload.role] : ["member"];
+
+  if (payload.role) {
+    user.roles = [payload.role];
+  } else {
+    if (await User.first()) {
+      user.roles = ["member"];
+    } else {
+      user.roles = ["admin"];
+    }
+  }
+
   user.password = payload.password.trim();
+
   if (payload.picture) {
     await payload.picture.moveToDisk("./");
     user.picture = payload.picture.fileName;
