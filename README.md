@@ -2,7 +2,7 @@
 
 required: node >= 14
 
-AdonisJS 5 _monolith_ starter (100% node.js) with signup / signin form to build MVP, user administration and user roles.
+AdonisJS 5 _monolith_ starter (100% node.js) with signup / signin form, user administration and roles, to launch quickly MVP.
 
 Classic HTML templating using Adonis Edge templates with Bootstrap CSS.
 
