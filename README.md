@@ -28,7 +28,7 @@ cp env.example .env
 # edit your .env file !
 
 # create tables
-node build/ace migration:run --force
+node ace migration:run --force
 ```
 
 ## Features
@@ -47,3 +47,18 @@ Planned:
 
 - [ ] Send email on account creation
 - [ ] Forgot password
+
+## FAQ
+
+SSL issue with postgres sql on Heroku: configurer `rejectUnauthorized` in your `config/database.ts` config file.
+
+```json
+connections: {
+  pg: {
+    client: "pg",
+    connection: {
+      ssl: {
+        rejectUnauthorized: Env.get("NODE_ENV") === "production" ? true : false,
+      },
+      // ...
+```
