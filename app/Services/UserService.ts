@@ -35,6 +35,9 @@ async function create(payload: createUserPayload) {
   const user = new User();
   user.email = payload.email;
   user.name = payload.name;
+  // waiting for email verification.
+  user.emailVerified = false;
+  user.blocked = true;
 
   if (payload.role) {
     user.roles = [payload.role];

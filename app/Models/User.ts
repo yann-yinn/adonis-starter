@@ -35,6 +35,12 @@ export default class User extends BaseModel {
   @column()
   public picture?: string;
 
+  @column()
+  public emailVerified: boolean;
+
+  @column()
+  public blocked: boolean;
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
