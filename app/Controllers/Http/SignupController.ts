@@ -1,8 +1,12 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
 import UserService from "App/Services/UserService";
-// import Mail from "@ioc:Adonis/Addons/Mail";
-// import Env from "@ioc:Adonis/Core/Env";
+import VerificationProcedureService from "App/Services/VerificationProcedureService";
+import { VerificationProcedureType } from "App/Enums/VerificationProcedureType";
+import Mail from "@ioc:Adonis/Addons/Mail";
+import Env from "@ioc:Adonis/Core/Env";
+import { v4 as uuidv4 } from "uuid";
+import User from "App/Models/User";
 
 export default class SignupController {
   public async create({ view }: HttpContextContract) {
@@ -13,29 +17,46 @@ export default class SignupController {
     const payload = await request.validate(CreateUserValidator);
     const user = await UserService.create(payload);
     session.put("tmpUser", user);
-    /*
+
+    const verifyEmailId = uuidv4();
+    VerificationProcedureService.create({
+      id: verifyEmailId,
+      userId: user.id.toString(),
+      type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL.toString(),
+    });
+    const verifyUrl = Env.get("SITE_URL") + "/verify-email/" + verifyEmailId;
     await Mail.send((message) => {
       message
         .from(Env.get("EMAIL_FROM"))
         .to(payload.email)
-        .subject(`Welcome Onboard ${payload.name}`)
+        .subject(`[${Env.get("SITE_NAME")}]- Welcome Onboard ${payload.name}`)
         .htmlView("emails/welcome", {
           user: payload,
-          verifyEmailLink: Env.get("SITE_URL"),
+          verifyUrl,
           siteName: Env.get("SITE_URL"),
         });
     });
-    response.redirect(`/signup/check-email`);
-    */
-    session.flash({
-      notification: "Your account has been created, you can log in now.",
-    });
-    response.redirect("/");
+
+    response.redirect(`/signup/check-your-inbox`);
   }
 
-  public async checkEmail({ view, session }: HttpContextContract) {
-    return view.render("pages/check-email", {
+  public async checkYourInbox({ view, session }: HttpContextContract) {
+    return view.render("pages/checkYourInbox", {
       user: session.get("tmpUser"),
     });
+  }
+
+  public async verifyEmail({ view, params }: HttpContextContract) {
+    console.log("params", params);
+    const verificationProcedure = await VerificationProcedureService.findById(
+      params.token
+    );
+    const user = await User.findOrFail(verificationProcedure.userId);
+    user.blocked = false;
+    user.emailVerified = true;
+    await user.save();
+
+    // verificationProcedure.delete();
+    return view.render("pages/verifyEmail", {});
   }
 }

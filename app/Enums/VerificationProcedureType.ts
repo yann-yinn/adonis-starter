@@ -1,3 +1,4 @@
 export enum VerificationProcedureType {
-    PASSWORD_RENEWAL
+  PASSWORD_RENEWAL,
+  SIGNUP_VERIFY_EMAIL,
 }

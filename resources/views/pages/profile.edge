@@ -22,7 +22,7 @@ Mon compte
           <h2>{{entity.name}}</h2>
           <p>
             @if(entity.picture)
-            <img src="/files/{{entity.picture}}" width="200"/> <br />
+            <img src="{{await driveUrl(entity.picture)}}" width="200"/> <br />
             @endif
             {{entity.email}} <br />
             @each(roleId in entity.roles)

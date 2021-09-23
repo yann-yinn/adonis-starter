@@ -19,7 +19,6 @@
 */
 
 import Route from "@ioc:Adonis/Core/Route";
-import Application from "@ioc:Adonis/Core/Application";
 
 Route.get("/", async ({ view }) => {
   return view.render("pages/home");
@@ -27,7 +26,8 @@ Route.get("/", async ({ view }) => {
 
 Route.get("signup", "SignupController.create");
 Route.post("signup", "SignupController.store");
-Route.get("signup/check-email", "SignupController.checkEmail");
+Route.get("signup/check-your-inbox", "SignupController.checkYourInbox");
+Route.get("verify-email/:token", "SignupController.verifyEmail");
 Route.get("login", "SigninController.create").middleware("guest");
 Route.post("login", "SigninController.store").middleware("guest");
 Route.get("logout", "SigninController.destroy").middleware("auth");
@@ -58,8 +58,3 @@ Route.resource("/profile", "profileController")
     "*": "auth",
   })
   .only(["show", "edit", "update", "destroy"]);
-
-Route.get("/files/*", async ({ response, params }) => {
-  const path = Application.makePath(`/uploads/${params["*"].join("/")}`);
-  response.download(path);
-});
