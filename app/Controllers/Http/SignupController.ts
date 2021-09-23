@@ -2,7 +2,7 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
 import UserService from "App/Services/UserService";
 import VerificationProcedureService from "App/Services/VerificationProcedureService";
-import { VerificationProcedureType } from "App/Enums/VerificationProcedureType";
+import { VerificationProcedureType } from "App/types";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +22,7 @@ export default class SignupController {
     VerificationProcedureService.create({
       id: verifyEmailId,
       userId: user.id.toString(),
-      type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL.toString(),
+      type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL,
     });
     const verifyUrl = Env.get("SITE_URL") + "/verify-email/" + verifyEmailId;
     await Mail.send((message) => {
@@ -41,13 +41,12 @@ export default class SignupController {
   }
 
   public async checkYourInbox({ view, session }: HttpContextContract) {
-    return view.render("pages/checkYourInbox", {
+    return view.render("pages/SignUpCheckYourInbox", {
       user: session.get("tmpUser"),
     });
   }
 
   public async verifyEmail({ view, params }: HttpContextContract) {
-    console.log("params", params);
     const verificationProcedure = await VerificationProcedureService.findById(
       params.token
     );

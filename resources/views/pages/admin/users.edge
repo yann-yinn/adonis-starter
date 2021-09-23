@@ -28,7 +28,7 @@
         <tr>
           <td> {{ entity.name }} </td>
           <td> {{ entity.email }} </td>
-          <td> {{ entity.verified ? 'yes': 'no' }} </td>
+          <td> {{ entity.email_verified ? 'yes': 'no' }} </td>
           <td> {{ entity.blocked ? 'yes': 'no' }} </td>
           <td> {{ entity.roles.join(',') }} </td>
           <td> <a href="{{entity._editLink}}">Editer</a> </td>

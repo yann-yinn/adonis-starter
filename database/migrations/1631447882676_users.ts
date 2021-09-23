@@ -12,6 +12,8 @@ export default class UsersSchema extends BaseSchema {
       table.string("name").notNullable();
       table.specificType("roles", "VARCHAR(255)[]").notNullable();
       table.text("picture");
+      table.boolean("blocked").notNullable;
+      table.boolean("email_verified").notNullable;
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
        */
