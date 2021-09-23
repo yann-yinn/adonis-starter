@@ -16,6 +16,8 @@
         <tr>
           <th scope="col">Nom</th>
           <th scope="col">Email</th>
+          <th scope="col">Email Verified</th>
+          <th scope="col">Blocked</th>
           <th scope="col">Role</th>
           <th scope="col">edit</th>
           <th scope="col">delete</th>
@@ -26,6 +28,8 @@
         <tr>
           <td> {{ entity.name }} </td>
           <td> {{ entity.email }} </td>
+          <td> {{ entity.verified ? 'yes': 'no' }} </td>
+          <td> {{ entity.blocked ? 'yes': 'no' }} </td>
           <td> {{ entity.roles.join(',') }} </td>
           <td> <a href="{{entity._editLink}}">Editer</a> </td>
           <td> <a href="{{entity._deleteLink}}">Supprimer</a> </td>

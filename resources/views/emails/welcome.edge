@@ -1,14 +1,11 @@
 <p>Hello {{ user.name }} ! 👋</p>
 <p>Your account has been created on our site <strong>{{siteName}}</strong>.</p>
 <p>
-  Verify your email address to log in and get started.
-  @!component('partials/mailButton', {
-    text: 'Verify Email',
-    href: verifyUrl
-  })
-</p>
+  <a href="{{verifyUrl}}">
+    Click here to verify your email address to log in and get started.
+  </a>
 
-<p>Verify Link:  {{ verifyUrl }}</p>
+<p><em>Verify Link Url:  {{ verifyUrl }}</em></p>
 
 
 
