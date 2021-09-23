@@ -43,7 +43,7 @@ Done:
 - [x] Authenticated users can create "posts" in the admin as an example entity
 - [x] Role and permissions with bouncers.
 
-Planned:
+In progress:
 
 - [ ] Send email on account creation
 - [ ] Forgot password
@@ -52,7 +52,7 @@ Planned:
 
 SSL issue with postgres sql on Heroku: configurer `rejectUnauthorized` in your `config/database.ts` config file.
 
-```json
+```js
 connections: {
   pg: {
     client: "pg",
