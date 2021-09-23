@@ -11,6 +11,12 @@
     </div>
   </div>
   <div class="shadow-lg p-5">
+    @if(entities.length === 0)
+      <div class="text-center">
+        <p>No post have been created for now.</p>
+        <img style="max-width: 400px" src="/images/no-result.png" />
+      </div>
+    @else
     <table class="table">
       <thead>
         <tr>
@@ -49,6 +55,7 @@
         </ul>
       </nav>
     </div>
+    @endif
   </div>
 </div>
 @endsection
