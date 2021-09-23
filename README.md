@@ -48,6 +48,10 @@ In progress:
 - [ ] Send email on account creation
 - [ ] Forgot password
 
+# Contribute
+
+Fork **dev** branch and make a PR againts the **dev** branch.
+
 ## FAQ
 
 SSL issue with postgres sql on Heroku: configurer `rejectUnauthorized` in your `config/database.ts` config file.
