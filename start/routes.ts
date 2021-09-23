@@ -27,7 +27,7 @@ Route.get("/", async ({ view }) => {
 
 Route.get("signup", "SignupController.create");
 Route.post("signup", "SignupController.store");
-Route.get("signup/check-email/:userId", "SignupController.checkEmail");
+Route.get("signup/check-email", "SignupController.checkEmail");
 Route.get("login", "SigninController.create").middleware("guest");
 Route.post("login", "SigninController.store").middleware("guest");
 Route.get("logout", "SigninController.destroy").middleware("auth");

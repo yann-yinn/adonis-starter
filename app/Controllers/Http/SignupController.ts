@@ -13,6 +13,7 @@ export default class SignupController {
   public async store({ request, response, session }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
     const user = await UserService.create(payload);
+    session.put("tmpUser", user);
     await Mail.send((message) => {
       message
         .from(Env.get("EMAIL_FROM"))
@@ -24,13 +25,12 @@ export default class SignupController {
           siteName: Env.get("SITE_URL"),
         });
     });
-    response.redirect(`/signup/check-email/${user.id}`);
+    response.redirect(`/signup/check-email`);
   }
 
-  public async checkEmail({ view, params }: HttpContextContract) {
-    const user = await User.findOrFail(params.userId);
+  public async checkEmail({ view, session }: HttpContextContract) {
     return view.render("pages/check-email", {
-      user,
+      user: session.get("tmpUser"),
     });
   }
 }
