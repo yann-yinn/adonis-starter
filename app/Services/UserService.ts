@@ -73,6 +73,10 @@ async function update(payload: updateUserPayload) {
   await user.save();
 }
 
+async function findByEmail(email: string): Promise<User> {
+  return await User.findByOrFail("email",email);
+}
+
 // return values to populate the userForm
 function initFormValues(entity?: User): formValues {
   const payload = {
@@ -87,4 +91,4 @@ function initFormValues(entity?: User): formValues {
   return payload;
 }
 
-export default { initFormValues, create, update };
+export default { initFormValues, create, update ,findByEmail};

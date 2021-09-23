@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "node server.js"
+    "start": "node server.js",
+    "migrate-up": "node ace migration:run"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.3.7",
@@ -32,6 +33,7 @@
     "phc-argon2": "^1.1.2",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.20"
+    "source-map-support": "^0.5.20",
+    "uuid": "^8.3.2"
   }
 }
