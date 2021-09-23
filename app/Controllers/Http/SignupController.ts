@@ -1,9 +1,8 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CreateUserValidator from "App/Validators/CreateUserValidator";
 import UserService from "App/Services/UserService";
-import Mail from "@ioc:Adonis/Addons/Mail";
-import Env from "@ioc:Adonis/Core/Env";
-import User from "App/Models/User";
+// import Mail from "@ioc:Adonis/Addons/Mail";
+// import Env from "@ioc:Adonis/Core/Env";
 
 export default class SignupController {
   public async create({ view }: HttpContextContract) {
@@ -14,6 +13,7 @@ export default class SignupController {
     const payload = await request.validate(CreateUserValidator);
     const user = await UserService.create(payload);
     session.put("tmpUser", user);
+    /*
     await Mail.send((message) => {
       message
         .from(Env.get("EMAIL_FROM"))
@@ -21,11 +21,16 @@ export default class SignupController {
         .subject(`Welcome Onboard ${payload.name}`)
         .htmlView("emails/welcome", {
           user: payload,
-          siteUrl: Env.get("SITE_URL"),
+          verifyEmailLink: Env.get("SITE_URL"),
           siteName: Env.get("SITE_URL"),
         });
     });
     response.redirect(`/signup/check-email`);
+    */
+    session.flash({
+      notification: "Your account has been created, you can log in now.",
+    });
+    response.redirect("/");
   }
 
   public async checkEmail({ view, session }: HttpContextContract) {
