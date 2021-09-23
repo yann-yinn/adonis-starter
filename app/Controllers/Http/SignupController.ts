@@ -3,6 +3,7 @@ import CreateUserValidator from "App/Validators/CreateUserValidator";
 import UserService from "App/Services/UserService";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
+import User from "App/Models/User";
 
 export default class SignupController {
   public async create({ view }: HttpContextContract) {
@@ -11,7 +12,7 @@ export default class SignupController {
 
   public async store({ request, response, session }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
-    await UserService.create(payload);
+    const user = await UserService.create(payload);
     await Mail.send((message) => {
       message
         .from(Env.get("EMAIL_FROM"))
@@ -23,9 +24,13 @@ export default class SignupController {
           siteName: Env.get("SITE_URL"),
         });
     });
-    session.flash({
-      notification: "Your account has been created. You can log in now.",
+    response.redirect(`/signup/check-email/${user.id}`);
+  }
+
+  public async checkEmail({ view, params }: HttpContextContract) {
+    const user = await User.findOrFail(params.userId);
+    return view.render("pages/check-email", {
+      user,
     });
-    response.redirect("/");
   }
 }

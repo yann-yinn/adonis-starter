@@ -52,7 +52,7 @@ async function create(payload: createUserPayload) {
     await payload.picture.moveToDisk("./");
     user.picture = payload.picture.fileName;
   }
-  await user.save();
+  return await user.save();
 }
 
 async function update(payload: updateUserPayload) {
