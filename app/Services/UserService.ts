@@ -8,7 +8,7 @@ interface createUserPayload {
   password: string;
   password_confirmation: string;
   role?: RoleId;
-  picture: MultipartFileContract;
+  picture?: MultipartFileContract;
 }
 
 interface updateUserPayload {
