@@ -9,11 +9,15 @@ import { v4 as uuidv4 } from "uuid";
 import User from "App/Models/User";
 
 export default class SignupController {
-  public async create({ view }: HttpContextContract) {
+  public async signupForm({ view }: HttpContextContract) {
     return view.render("pages/signup");
   }
 
-  public async store({ request, response, session }: HttpContextContract) {
+  public async submitSignupForm({
+    request,
+    response,
+    session,
+  }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
     const user = await UserService.create(payload);
     session.put("tmpUser", user);
@@ -48,7 +52,7 @@ export default class SignupController {
 
   public async verifyEmail({ view, params }: HttpContextContract) {
     const verificationProcedure = await VerificationProcedureService.findById(
-      params.token
+      params.id
     );
     const user = await User.findOrFail(verificationProcedure.userId);
     user.blocked = false;

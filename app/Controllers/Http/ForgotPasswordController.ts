@@ -7,11 +7,10 @@ import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 
 export default class ForgotPasswordController {
-  public async showEmailForm({ view }: HttpContextContract) {
+  public async emailForm({ view }: HttpContextContract) {
     return view.render("pages/forgotPassword");
   }
 
-  // submit email form
   public async submitEmailForm({
     request,
     response,
@@ -41,13 +40,13 @@ export default class ForgotPasswordController {
     response.redirect("/forgot-password/check-your-inbox");
   }
 
-  public async showCheckYourInbox({ view, session }: HttpContextContract) {
+  public async checkYourInbox({ view, session }: HttpContextContract) {
     return view.render("pages/forgotPasswordCheckYourInbox", {
       user: session.get("tmpUser"),
     });
   }
 
-  public async showResetPasswordForm({ view, request }: HttpContextContract) {
+  public async resetPasswordForm({ view, request }: HttpContextContract) {
     return view.render("pages/resetPassword", {
       renewalId: request.ctx?.params.id,
     });

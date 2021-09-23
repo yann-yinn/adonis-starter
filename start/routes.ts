@@ -24,24 +24,29 @@ Route.get("/", async ({ view }) => {
   return view.render("pages/home");
 });
 
-Route.get("signup", "SignupController.create");
-Route.post("signup", "SignupController.store");
+Route.get("signup", "SignupController.signupForm");
+Route.post("signup", "SignupController.submitSignupForm");
 Route.get("signup/check-your-inbox", "SignupController.checkYourInbox");
-Route.get("verify-email/:token", "SignupController.verifyEmail");
+Route.get("verify-email/:id", "SignupController.verifyEmail");
 Route.get("login", "SigninController.create").middleware("guest");
 Route.post("login", "SigninController.store").middleware("guest");
 Route.get("logout", "SigninController.destroy").middleware("auth");
 
-Route.get("forgot-password", "ForgotPasswordController.showEmailForm");
+Route.get("forgot-password", "ForgotPasswordController.emailForm").middleware(
+  "guest"
+);
 Route.post("forgot-password", "ForgotPasswordController.submitEmailForm");
+
 Route.get(
   "forgot-password/check-your-inbox",
-  "ForgotPasswordController.showCheckYourInbox"
-);
+  "ForgotPasswordController.checkYourInbox"
+).middleware("guest");
+
 Route.get(
   "forgot-password/:id",
-  "ForgotPasswordController.showResetPasswordForm"
-);
+  "ForgotPasswordController.resetPasswordForm"
+).middleware("guest");
+
 Route.post(
   "forgot-password/:id",
   "ForgotPasswordController.submitResetPasswordForm"
