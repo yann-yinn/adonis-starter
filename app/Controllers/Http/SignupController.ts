@@ -59,7 +59,7 @@ export default class SignupController {
     user.emailVerified = true;
     await user.save();
 
-    // verificationProcedure.delete();
+    await verificationProcedure.delete();
     return view.render("pages/verifyEmail", {});
   }
 }

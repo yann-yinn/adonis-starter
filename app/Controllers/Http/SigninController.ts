@@ -1,6 +1,6 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 
-export default class SessionController {
+export default class SigninController {
   // signin page
   public async create({ view }: HttpContextContract) {
     return view.render("pages/signin");

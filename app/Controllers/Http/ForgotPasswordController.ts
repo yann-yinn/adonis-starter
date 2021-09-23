@@ -22,7 +22,7 @@ export default class ForgotPasswordController {
     VerificationProcedureService.create({
       id: renewalId,
       userId: user.id.toString(),
-      type: VerificationProcedureType.PASSWORD_RENEWAL.toString(),
+      type: VerificationProcedureType.PASSWORD_RENEWAL,
     });
 
     const verifyUrl = `${Env.get("SITE_URL")}/forgot-password/${renewalId}`;
@@ -65,7 +65,7 @@ export default class ForgotPasswordController {
       password: request.input("password"),
       password_confirmation: request.input("password"),
     });
-    passwordRenewal.delete();
+    await passwordRenewal.delete();
     session.flash({
       notification: "Your password has been updated.",
     });
