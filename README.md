@@ -1,4 +1,4 @@
-# Node.js MVP starter, built up Adonis JS
+# A Node.js MVP starter, built upon Adonis JS
 
 A Node.js / TypeScript / postgres SQL starter built upon [Adonis JS](https://adonisjs.com) framework, with ready-to-use users management system, to focus on building your ideas.
 
