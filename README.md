@@ -1,8 +1,12 @@
-# MVP starter (node monolith)
+# Node.js MVP starter, built up Adonis JS
 
-MVP starter is Node _monolith_ starter built upon Adonis JS framework, with ready-to-use signup, signin form, user administration, roles.
+A Node.js / TypeScript / postgres SQL starter built upon [Adonis JS](https://adonisjs.com) framework, with ready-to-use users management system, to focus on building your ideas.
 
-It uses classic HTML templating using Adonis Edge templates with Bootstrap CSS.
+🔋 Batteries included:
+
+- User registration, login, logout, forgot password, profile picture
+- Roles and permissions (`start/bouncers.ts`)
+- Users administration (add, delete, edit existing users)
 
 <img src="https://github.com/yann-yinn/adonis-starter/blob/main/screen.png"/>
 
