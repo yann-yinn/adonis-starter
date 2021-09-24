@@ -39,18 +39,6 @@ node run migration-up
 npm run dev
 ```
 
-## Features
-
-- [x] Sign up Form
-- [x] Sign in form
-- [x] Log out
-- [x] Reset password
-- [x] Send emails on account creation / reset password
-- [x] User profile with edition
-- [x] User avatar
-- [x] Roles and permissions with bouncers.
-- [x] Authenticated users can create "posts" in the admin as an example entity
-
 ## Contribute
 
 Fork **dev** branch and make a PR againts the **dev** branch.
