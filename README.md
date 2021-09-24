@@ -1,62 +1,61 @@
-# AdonisJS 5 starter (monolith)
+# MVP starter (node monolith)
 
-AdonisJS 5 _monolith_ starter (100% node.js) with ready-to-use signup / signin form, user administration, roles.
+MVP starter is Node _monolith_ starter built upon Adonis JS framework, with ready-to-use signup, signin form, user administration, roles.
 
-Classic HTML templating using Adonis Edge templates with Bootstrap CSS.
+It uses classic HTML templating using Adonis Edge templates with Bootstrap CSS.
 
 <img src="https://github.com/yann-yinn/adonis-starter/blob/main/screen.png"/>
 
 ## Installation
 
-Prérequis:
+Requirements:
 
 - ⚠️ latest release of Node.js 14, along with npm >= 6.0.0.
-- une base de données Postgres
+- a Postgres database.
 
-```
-# check node.js version
+```sh
+# check your node version
 node -v
-# check npm version
+# check your npm version
 npm -v
 
-git clone git@github.com:yann-yinn/adonis-starter.git
+# clone the repo
+git clone git@github.com:yann-yinn/mvp-starter.git
 
+# install dependencies
 npm install
 
+# create the .env file and set required env vars.
 cp env.example .env
 
-# edit your .env file !
-
-# create tables
-node ace migration:run --force
+# create postgres tables
+node run migration-up
 ```
 
 ## Features
 
-Done:
-
 - [x] Sign up Form
 - [x] Sign in form
 - [x] Log out
-- [x] User profile page / profile page edition
+- [x] Reset password
+- [x] Send emails on account creation / reset password
+- [x] User profile with edition
 - [x] User avatar
+- [x] Roles and permissions with bouncers.
 - [x] Authenticated users can create "posts" in the admin as an example entity
-- [x] Role and permissions with bouncers.
 
-In progress:
-
-- [ ] Send email on account creation
-- [ ] Forgot password
-
-# Contribute
+## Contribute
 
 Fork **dev** branch and make a PR againts the **dev** branch.
 
 ## FAQ
 
-SSL issue with postgres sql on Heroku: configurer `rejectUnauthorized` in your `config/database.ts` config file.
+### POSTGRES SSL AND HEROKU
+
+Fix SSL issue in development with postgres hosted with Heroku: configure `rejectUnauthorized` in your `config/database.ts` config file.
 
 ```js
+// config/database.ts
 connections: {
   pg: {
     client: "pg",
