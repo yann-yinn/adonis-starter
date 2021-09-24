@@ -5,3 +5,11 @@
   </div>
 </div>
 @end
+
+@if(flashMessages.get("error"))
+<div class="alert alert-danger">
+  <div class="container">
+  {{ flashMessages.get("error") }}
+  </div>
+</div>
+@end

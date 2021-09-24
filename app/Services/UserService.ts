@@ -1,6 +1,7 @@
 import User from "App/Models/User";
 import { RoleId } from "App/types";
 import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
+import config from "Config/starter";
 
 interface createUserPayload {
   name: string;
@@ -37,7 +38,7 @@ async function create(payload: createUserPayload) {
   user.name = payload.name;
   // waiting for email verification.
   user.emailVerified = false;
-  user.blocked = true;
+  user.blocked = config.signup.blockUserUntilEmailVerification ? true : false;
 
   if (payload.role) {
     user.roles = [payload.role];
@@ -73,10 +74,6 @@ async function update(payload: updateUserPayload) {
   await user.save();
 }
 
-async function findByEmail(email: string): Promise<User> {
-  return await User.findByOrFail("email",email);
-}
-
 // return values to populate the userForm
 function initFormValues(entity?: User): formValues {
   const payload = {
@@ -91,4 +88,4 @@ function initFormValues(entity?: User): formValues {
   return payload;
 }
 
-export default { initFormValues, create, update ,findByEmail};
+export default { initFormValues, create, update };

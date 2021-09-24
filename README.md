@@ -30,6 +30,9 @@ cp env.example .env
 
 # create postgres tables
 node run migration-up
+
+# launch dev server !
+npm run dev
 ```
 
 ## Features

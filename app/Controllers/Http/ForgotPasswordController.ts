@@ -5,6 +5,7 @@ import VerificationProcedureService from "App/Services/VerificationProcedureServ
 import { VerificationProcedureType } from "App/types";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
+import User from "App/Models/User";
 
 export default class ForgotPasswordController {
   public async emailForm({ view }: HttpContextContract) {
@@ -17,7 +18,14 @@ export default class ForgotPasswordController {
     session,
   }: HttpContextContract) {
     const renewalId = uuidv4();
-    const user = await UserService.findByEmail(request.input("email"));
+
+    const user = await User.findBy("email", request.input("email"));
+    if (!user) {
+      session.flash({
+        error: "Sorry, we found no user found with this email.",
+      });
+      return response.redirect("/forgot-password");
+    }
     session.put("tmpUser", user);
     VerificationProcedureService.create({
       id: renewalId,
