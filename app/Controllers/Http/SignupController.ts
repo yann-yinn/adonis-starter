@@ -7,6 +7,7 @@ import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import { v4 as uuidv4 } from "uuid";
 import User from "App/Models/User";
+import starterConfig from "Config/starter";
 
 export default class SignupController {
   public async signupForm({ view }: HttpContextContract) {
@@ -20,28 +21,35 @@ export default class SignupController {
   }: HttpContextContract) {
     const payload = await request.validate(CreateUserValidator);
     const user = await UserService.create(payload);
-    session.put("tmpUser", user);
 
-    const verifyEmailId = uuidv4();
-    VerificationProcedureService.create({
-      id: verifyEmailId,
-      userId: user.id.toString(),
-      type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL,
-    });
-    const verifyUrl = Env.get("SITE_URL") + "/verify-email/" + verifyEmailId;
-    await Mail.send((message) => {
-      message
-        .from(Env.get("EMAIL_FROM"))
-        .to(payload.email)
-        .subject(`[${Env.get("SITE_NAME")}]- Welcome Onboard ${payload.name}`)
-        .htmlView("emails/welcome", {
-          user: payload,
-          verifyUrl,
-          siteName: Env.get("SITE_URL"),
-        });
-    });
+    if (!starterConfig.signup.verifyEmail) {
+      session.flash({
+        notification: "Your account has been created. You can log in.",
+      });
+      response.redirect(`/`);
+    } else {
+      session.put("tmpUser", user);
 
-    response.redirect(`/signup/check-your-inbox`);
+      const verifyEmailId = uuidv4();
+      VerificationProcedureService.create({
+        id: verifyEmailId,
+        userId: user.id.toString(),
+        type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL,
+      });
+      const verifyUrl = Env.get("SITE_URL") + "/verify-email/" + verifyEmailId;
+      await Mail.send((message) => {
+        message
+          .from(Env.get("EMAIL_FROM"))
+          .to(payload.email)
+          .subject(`[${Env.get("SITE_NAME")}]- Welcome Onboard ${payload.name}`)
+          .htmlView("emails/welcome", {
+            user: payload,
+            verifyUrl,
+            siteName: Env.get("SITE_URL"),
+          });
+      });
+      response.redirect(`/signup/check-your-inbox`);
+    }
   }
 
   public async checkYourInbox({ view, session }: HttpContextContract) {
