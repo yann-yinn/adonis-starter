@@ -52,7 +52,15 @@ export default class SignupController {
     }
   }
 
-  public async checkYourInbox({ view, session }: HttpContextContract) {
+  public async checkYourInbox({
+    view,
+    session,
+    response,
+  }: HttpContextContract) {
+    const user = session.get("tmpUser");
+    if (!user) {
+      return response.forbidden();
+    }
     return view.render("pages/SignUpCheckYourInbox", {
       user: session.get("tmpUser"),
     });
