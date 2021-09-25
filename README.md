@@ -1,12 +1,16 @@
-# A Node.js MVP starter, built upon Adonis JS
+# MVP starter
 
-A Node.js / TypeScript / postgres SQL starter built upon [Adonis JS](https://adonisjs.com) framework, with ready-to-use users management system, to focus on building your ideas.
+A Node.js, TypeScript & postgres SQL starter built upon [Adonis JS](https://adonisjs.com) framework, with **ready-to-use users management system**, to focus on building your new ideas.
 
 🔋 Batteries included:
 
-- User registration, login, logout, forgot password, profile picture
-- Roles and permissions (`start/bouncers.ts`)
-- Users administration (add, delete, edit existing users)
+✨ Sign up form
+✨ Sign in form
+✨ Logout
+✨ List / create / delete users in admin page
+✨ Forgot password
+✨ Email verification
+✨ Roles and permissions with AdonisJS bouncers
 
 <img src="https://github.com/yann-yinn/adonis-starter/blob/main/screen.png"/>
 
@@ -29,7 +33,7 @@ git clone git@github.com:yann-yinn/mvp-starter.git
 # install dependencies
 npm install
 
-# create the .env file and set required env vars.
+# DO NOT FORGET: create the .env file and set required env vars.
 cp env.example .env
 
 # create postgres tables
@@ -42,6 +46,68 @@ npm run dev
 ## Contribute
 
 Fork **dev** branch and make a PR againts the **dev** branch.
+
+## Roles and Permissions
+
+### Adding new role
+
+You can add new roles inside `config/roles.ts` file. By default, there is only an "admin" and "member" roles.
+
+```js
+import { Role } from "App/types";
+
+const roles: Role[] = [
+  {
+    id: "member",
+    label: "Member",
+  },
+  {
+    id: "admin",
+    label: "Administrator",
+  },
+];
+export default roles;
+```
+
+### definining authorizations
+
+MVP starter is using "bouncers" from Adonis JS framework to define authorizations.
+
+See `start/bouncer.ts` File for predefined authorizations or to add new authorizations.
+
+Example bouncer: "Admin role can edit any post. Member can only edit their own posts":
+
+```ts
+.define("editPost", (user: User, post: Post) => {
+  if (userHasRoles(["admin"], user)) {
+    return true;
+  }
+  if (userHasRoles(["member"], user) && user.id === post.userId) {
+    return true;
+  }
+  return false;
+})
+```
+
+Then, in your controller, use the defined bouncer like so (don't forget the **await** keyword!)
+
+```ts
+public async edit({ view, request, bouncer }: HttpContextContract) {
+  const entity = await this.entityModel.findOrFail(request.param("id"));
+  await bouncer.authorize("adminEditPost", entity);
+  // etc
+}
+```
+
+You can control authorizations in the templates too:
+
+```html
+@can('adminEditPost', entity)
+  <a href="{{entity._editLink}}">Edit</a> </td>
+@end
+```
+
+See adonis docs on "bouncers" for more details: [https://docs.adonisjs.com/guides/authorization](https://docs.adonisjs.com/guides/authorization)
 
 ## FAQ
 

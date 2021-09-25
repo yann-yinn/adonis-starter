@@ -33,11 +33,11 @@
           <td> {{ entity.userName }} </td>
           <td>
             @can('adminEditPost', entity)
-              <a href="{{entity._editLink}}">Editer</a> </td>
+              <a href="{{entity._editLink}}">Edit</a> </td>
             @end
           <td> 
             @can('adminEditPost', entity)
-              <a href="{{entity._deleteLink}}">Supprimer</a> </td>
+              <a href="{{entity._deleteLink}}">Delete</a> </td>
             @end
         </tr>
         @end
