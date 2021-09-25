@@ -20,5 +20,7 @@ export default class CreatePostValidator {
    * }
    *
    */
-  public messages = {};
+  public messages = {
+    "title.required": "Title field is required",
+  };
 }

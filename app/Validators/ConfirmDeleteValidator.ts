@@ -23,9 +23,9 @@ export default class ConfirmDeleteValidator {
    *
    */
   public messages = {
-    "title.required": "Le paramètre title est requis",
-    "id.required": "Le paramètre id est requis",
-    "formAction.required": "Le paramètre formAction est requis",
-    "returnUrl.required": "Le paramètre returnUrl est requis",
+    "title.required": "Title param is required",
+    "id.required": "Id param is required",
+    "formAction.required": "formAction param is required",
+    "returnUrl.required": "returnUrl param is required",
   };
 }

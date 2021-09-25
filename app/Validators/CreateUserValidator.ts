@@ -49,5 +49,4 @@ export default class CreateUserValidator {
     "password_confirmation.confirmed":
       "Password and confirm password does not match.",
   };
-  };
 }
