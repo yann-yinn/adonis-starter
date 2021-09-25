@@ -4,13 +4,13 @@ A Node.js, TypeScript & postgres SQL starter built upon [Adonis JS](https://adon
 
 🔋 Batteries included:
 
-✨ Sign up form
-✨ Sign in form
-✨ Logout
-✨ List / create / delete users in admin page
-✨ Forgot password
-✨ Email verification
-✨ Roles and permissions with AdonisJS bouncers
+- [x] Sign up form
+- [x] Sign in form
+- [x] Logout
+- [x] List / create / delete users in admin page
+- [x] Forgot password
+- [x] Email verification
+- [x] Roles and permissions with AdonisJS bouncers
 
 <img src="https://github.com/yann-yinn/adonis-starter/blob/main/screen.png"/>
 
