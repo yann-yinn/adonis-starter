@@ -2,6 +2,12 @@ import User from "App/Models/User";
 import { RoleId } from "App/types";
 import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
 import config from "Config/starter";
+import VerificationProcedureService from "App/Services/VerificationProcedureService";
+import { VerificationProcedureType } from "App/types";
+import Mail from "@ioc:Adonis/Addons/Mail";
+import Env from "@ioc:Adonis/Core/Env";
+import { v4 as uuidv4 } from "uuid";
+import starterConfig from "Config/starter";
 
 interface createUserPayload {
   name: string;
@@ -32,11 +38,14 @@ interface formValues {
   picture: string;
 }
 
-async function create(payload: createUserPayload) {
+interface createOptions {
+  sendEmail?: boolean;
+}
+
+async function create(payload: createUserPayload, options?: createOptions) {
   const user = new User();
   user.email = payload.email;
   user.name = payload.name;
-  // waiting for email verification.
   user.emailVerified = false;
   user.blocked = config.signup.blockUserUntilEmailVerification ? true : false;
 
@@ -45,7 +54,9 @@ async function create(payload: createUserPayload) {
   } else {
     if (await User.first()) {
       user.roles = ["member"];
-    } else {
+    }
+    // first created user is Admin by default
+    else {
       user.roles = ["admin"];
     }
   }
@@ -56,7 +67,30 @@ async function create(payload: createUserPayload) {
     await payload.picture.moveToDisk("./");
     user.picture = payload.picture.fileName;
   }
-  return await user.save();
+  const userSaved = await user.save();
+
+  if (options?.sendEmail && starterConfig.signup.verifyEmail) {
+    const verifyEmailId = uuidv4();
+    VerificationProcedureService.create({
+      id: verifyEmailId,
+      userId: userSaved.id.toString(),
+      type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL,
+    });
+    const verifyUrl = Env.get("SITE_URL") + "/verify-email/" + verifyEmailId;
+    await Mail.send((message) => {
+      message
+        .from(Env.get("EMAIL_FROM"))
+        .to(userSaved.email)
+        .subject(`[${Env.get("SITE_NAME")}]- Welcome Onboard ${userSaved.name}`)
+        .htmlView("emails/welcome", {
+          user: userSaved,
+          verifyUrl,
+          siteName: Env.get("SITE_NAME"),
+        });
+    });
+  }
+
+  return userSaved;
 }
 
 async function update(payload: updateUserPayload) {

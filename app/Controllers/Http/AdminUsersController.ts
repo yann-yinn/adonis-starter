@@ -70,7 +70,7 @@ export default class AdminUsersController {
   }: HttpContextContract) {
     await bouncer.authorize("adminCreateUser");
     let payload = await request.validate(this.entityCreateValidator);
-    this.entityService.create(payload);
+    await this.entityService.create(payload);
     session.flash({
       notification: this.entityCreationNotification(),
     });

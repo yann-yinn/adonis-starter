@@ -20,7 +20,7 @@ export default class UpdateUserValidator {
       rules.maxLength(255),
     ]),
     role: schema.enum(roleIds),
-    picture: schema.file({
+    picture: schema.file.optional({
       size: "5mb",
       extnames: ["jpg", "gif", "png", "webp", "jpeg"],
     }),
