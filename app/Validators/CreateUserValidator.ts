@@ -41,11 +41,13 @@ export default class CreateUserValidator {
    *
    */
   public messages = {
-    "email.required": "Le champ email est requis",
-    "email.unique": "Un compte avec cette adresse email existe déjà",
-    "password.required": "Le champ password est requis",
-    "password_confirmation.required": "ce champ est requis",
+    "email.required": "Email field is required",
+    "email.unique": "An account with this email already exists",
+    "password.required": "Password field is required",
+    "password.minLength": "Password must be at least 6 characters long",
+    "password_confirmation.required": "This field is required",
     "password_confirmation.confirmed":
-      "Les deux mots de passe ne sont pas identiques",
+      "Password and confirm password does not match.",
+  };
   };
 }
