@@ -29,6 +29,7 @@ export default class ForgotPasswordValidator {
    */
   public messages = {
     "password.required": "Le champ password est requis",
+    "password.minLength": "Le mot de passe doit faire au moins 6 caractères",
     "password_confirmation.required": "ce champ est requis",
     "password_confirmation.confirmed":
       "Les deux mots de passe ne sont pas identiques",
