@@ -43,6 +43,9 @@ interface createOptions {
 }
 
 async function create(payload: createUserPayload, options?: createOptions) {
+  // default values for options
+  options?.sendEmail === undefined ? true : false;
+
   const user = new User();
   user.email = payload.email;
   user.name = payload.name;

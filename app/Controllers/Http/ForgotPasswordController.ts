@@ -6,6 +6,7 @@ import { VerificationProcedureType } from "App/types";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import User from "App/Models/User";
+import ForgotPasswordValidator from "App/Validators/ForgotPasswordValidator";
 
 export default class ForgotPasswordController {
   public async emailForm({ view }: HttpContextContract) {
@@ -65,13 +66,14 @@ export default class ForgotPasswordController {
     response,
     session,
   }: HttpContextContract) {
+    const payload = await request.validate(ForgotPasswordValidator);
     const passwordRenewal = await VerificationProcedureService.findById(
       request.ctx?.params.id
     );
     UserService.update({
       id: passwordRenewal.userId,
-      password: request.input("password"),
-      password_confirmation: request.input("password"),
+      password: payload.password,
+      password_confirmation: payload.password_confirmation,
     });
     await passwordRenewal.delete();
     session.flash({
