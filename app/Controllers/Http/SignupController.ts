@@ -1,5 +1,5 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import CreateUserValidator from "App/Validators/CreateUserValidator";
+import { CreateUserValidator } from "App/Validators/UserValidators";
 import UserService from "App/Services/UserService";
 import VerificationProcedureService from "App/Services/VerificationProcedureService";
 import User from "App/Models/User";

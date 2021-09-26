@@ -2,7 +2,7 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
 import roles from "Config/roles";
 import UserService from "App/Services/UserService";
-import UpdateProfileValidator from "App/Validators/UpdateProfileValidator";
+import { UpdateProfileValidator } from "App/Validators/UserValidators";
 
 export default class profileController {
   private entityService = UserService;

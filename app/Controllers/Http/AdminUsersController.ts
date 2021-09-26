@@ -1,6 +1,9 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import CreateAdminUserValidator from "App/Validators/CreateAdminUserValidator";
-import UpdateUserValidator from "App/Validators/UpdateUserValidator";
+import {
+  CreateAdminUserValidator,
+  UpdateUserValidator,
+} from "App/Validators/UserValidators";
+
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";

@@ -6,7 +6,7 @@ import { VerificationProcedureType } from "App/types";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import User from "App/Models/User";
-import ForgotPasswordValidator from "App/Validators/ForgotPasswordValidator";
+import { ForgotPasswordValidator } from "App/Validators/UserValidators";
 
 export default class ForgotPasswordController {
   public async emailForm({ view }: HttpContextContract) {
