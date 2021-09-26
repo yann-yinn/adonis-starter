@@ -1,6 +1,9 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import CreatePostValidator from "App/Validators/CreatePostValidator";
-import UpdatePostValidator from "App/Validators/UpdatePostValidator";
+import {
+  CreatePostValidator,
+  UpdatePostValidator,
+} from "App/Validators/PostValidator";
+
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import Post from "App/Models/Post";
