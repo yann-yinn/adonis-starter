@@ -1,16 +1,15 @@
 <div x-data="imageViewer({{src}})">
-
-    <!-- Image file selector -->
-    <input name="{{name}}" class="form-control" type="file" accept="{{accept}}" @change="fileChosen">
-    <!-- Show the image -->
-    <template x-if="imageUrl">
-      <div class="mt-3">
-        <img :src="imageUrl" 
-              class="img-fluid" 
-              style="max-width:200px"
-        />
-      </div>
-    </template>
+  <!-- Image file selector -->
+  <input name="{{name}}" class="form-control" type="file" accept="{{accept}}" @change="fileChosen">
+  <!-- Show the image -->
+  <template x-if="imageUrl">
+    <div class="mt-3">
+      <img :src="imageUrl" 
+            class="img-fluid" 
+            style="max-width:200px"
+      />
+    </div>
+  </template>
 </div>
 
 <script>
