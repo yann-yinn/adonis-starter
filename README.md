@@ -37,7 +37,7 @@ npm install
 cp env.example .env
 
 # create postgres tables
-npm run migration-up
+ npm run migrate-up
 
 # launch dev server !
 npm run dev
