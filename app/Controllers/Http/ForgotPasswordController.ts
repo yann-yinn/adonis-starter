@@ -23,7 +23,7 @@ export default class ForgotPasswordController {
     const user = await User.findBy("email", request.input("email"));
     if (!user) {
       session.flash({
-        error: "Sorry, we found no user found with this email.",
+        error: "Sorry, we did not find any user with this email.",
       });
       return response.redirect("/forgot-password");
     }
