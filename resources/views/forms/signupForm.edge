@@ -2,7 +2,7 @@
   {{ csrfField() }}
 
   <div class="form-group row">
-    <label for="name" class="col-md-4 col-form-label text-md-right mb-3">Nom</label>
+    <label for="name" class="col-md-4 col-form-label text-md-right mb-3">Name</label>
     <div class="col-md-6">
       <input id="email" type="text" name="name" value="" class="form-control" required>
       @if(flashMessages.has('errors.name'))
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Mot de passe</label>
+  <div class="form-group row"><label for="password" class="col-md-4 col-form-label text-md-right mb-3">Password</label>
     <div class="col-md-6">
       <input id="password" type="password" name="password" class="form-control" required>
       @if(flashMessages.has('errors.password'))
@@ -37,7 +37,7 @@
   </div>
 
   <div class="form-group row">
-    <label for="password-confirm" class="col-md-4 col-form-label text-md-right  mb-3">Confirmer le mot de passe</label>
+    <label for="password-confirm" class="col-md-4 col-form-label text-md-right  mb-3">Confirm password</label>
     <div class="col-md-6">
       <input id="password-confirm" type="password" name="password_confirmation" class="form-control" required>
       @if(flashMessages.has('errors.password_confirmation'))
@@ -51,7 +51,7 @@
   <div class="form-group row mb-0">
     <div class="col-md-6 offset-md-4">
       <button type="submit" class="btn btn-primary">
-        Register
+        Create account
       </button>
     </div>
   </div>
