@@ -14,8 +14,4 @@ function create(payload: verificationProcedurePayload) {
   return verificationProcedure.save();
 }
 
-function findById(id: string): Promise<VerificationProcedure> {
-  return VerificationProcedure.findOrFail(id);
-}
-
-export default { create, findById };
+export default { create };

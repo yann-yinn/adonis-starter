@@ -7,6 +7,7 @@ import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import User from "App/Models/User";
 import { ForgotPasswordValidator } from "App/Validators/UserValidators";
+import VerificationProcedure from "App/Models/VerificationProcedure";
 
 export default class ForgotPasswordController {
   public async emailForm({ view }: HttpContextContract) {
@@ -55,9 +56,10 @@ export default class ForgotPasswordController {
     });
   }
 
-  public async resetPasswordForm({ view, request }: HttpContextContract) {
+  public async resetPasswordForm({ view, params }: HttpContextContract) {
+    await VerificationProcedure.findOrFail(params.id);
     return view.render("pages/resetPassword", {
-      renewalId: request.ctx?.params.id,
+      renewalId: params.id,
     });
   }
 
@@ -65,17 +67,20 @@ export default class ForgotPasswordController {
     request,
     response,
     session,
+    auth,
+    params,
   }: HttpContextContract) {
     const payload = await request.validate(ForgotPasswordValidator);
-    const passwordRenewal = await VerificationProcedureService.findById(
-      request.ctx?.params.id
-    );
-    UserService.update({
+    const passwordRenewal = await VerificationProcedure.findOrFail(params.id);
+    const user = await UserService.update({
       id: passwordRenewal.userId,
       password: payload.password,
       password_confirmation: payload.password_confirmation,
     });
     await passwordRenewal.delete();
+    // login automatically user once his password has been changed
+    await auth.attempt(user.email, payload.password);
+    response.redirect("/");
     session.flash({
       notification: "Your password has been updated.",
     });
