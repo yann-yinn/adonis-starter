@@ -8,7 +8,7 @@
 import Bouncer from "@ioc:Adonis/Addons/Bouncer";
 import User from "App/Models/User";
 import Post from "App/Models/Post";
-import { RoleId } from "App/types";
+import { userHasRoles } from "App/Services/HelpersService";
 
 /*
 |--------------------------------------------------------------------------
@@ -32,16 +32,6 @@ import { RoleId } from "App/types";
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-function userHasRoles(roles: RoleId[], user: User) {
-  let authorized = false;
-  for (const role of roles) {
-    if (user.roles.includes(role)) {
-      authorized = true;
-    }
-  }
-  return authorized;
-}
-
 export const { actions } = Bouncer
   // === USERS ADMINISTRATION ===
   .define("adminListUsers", (user: User) => {
