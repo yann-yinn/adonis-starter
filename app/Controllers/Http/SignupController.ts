@@ -1,8 +1,8 @@
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import { CreateUserValidator } from "App/Validators/UserValidators";
 import UserService from "App/Services/UserService";
-import VerificationProcedureService from "App/Services/VerificationProcedureService";
 import User from "App/Models/User";
+import VerificationProcedure from "App/Models/VerificationProcedure";
 import starterConfig from "Config/starter";
 
 export default class SignupController {
@@ -44,7 +44,7 @@ export default class SignupController {
   }
 
   public async verifyEmail({ view, params }: HttpContextContract) {
-    const verificationProcedure = await VerificationProcedureService.findById(
+    const verificationProcedure = await VerificationProcedure.findOrFail(
       params.id
     );
     const user = await User.findOrFail(verificationProcedure.userId);

@@ -99,7 +99,7 @@ async function create(payload: createUserPayload, options?: createOptions) {
   return userSaved;
 }
 
-async function update(payload: updateUserPayload) {
+async function update(payload: updateUserPayload): Promise<User> {
   const user = await User.findOrFail(payload.id);
   if (payload.email) user.email = payload.email.trim();
   if (payload.name) user.name = payload.name.trim();
@@ -111,7 +111,8 @@ async function update(payload: updateUserPayload) {
     await payload.picture.moveToDisk("./");
     user.picture = payload.picture.fileName;
   }
-  await user.save();
+  const savedUser = await user.save();
+  return savedUser;
 }
 
 // return values to populate the userForm
