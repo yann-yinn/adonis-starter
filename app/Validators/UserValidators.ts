@@ -3,7 +3,7 @@ import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import roles from "Config/roles";
 const roleIds = roles.map((r) => r.id);
 
-const PASSWORD_MIN_LENGTH = 6;
+const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 255;
 
 function emailRules() {
@@ -15,6 +15,10 @@ function passwordRules() {
     rules.confirmed("password_confirmation"),
     rules.minLength(PASSWORD_MIN_LENGTH),
     rules.maxLength(PASSWORD_MAX_LENGTH),
+    rules.oneLowerCaseAtLeast(),
+    rules.oneNumericAtLeast(),
+    rules.oneUpperCaseAtLeast(),
+    rules.oneSpecialCharacterAtLeast(),
   ];
 }
 
