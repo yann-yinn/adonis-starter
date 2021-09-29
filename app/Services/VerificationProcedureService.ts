@@ -18,4 +18,8 @@ function findById(id: string): Promise<VerificationProcedure> {
   return VerificationProcedure.findOrFail(id);
 }
 
-export default { create, findById };
+async function deleteById(id: string) {
+   (await findById(id)).delete();
+}
+
+export default { create, findById, deleteById };

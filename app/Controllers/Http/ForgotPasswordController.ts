@@ -51,16 +51,20 @@ export default class ForgotPasswordController {
   }
 
   public async checkYourInbox({ view, session }: HttpContextContract) {
-    return view.render("pages/forgotPasswordCheckYourInbox", {
+    return view.render("pages/ForgotPasswordCheckYourInbox", {
       user: session.get("tmpUser"),
     });
   }
 
-  public async resetPasswordForm({ view, params }: HttpContextContract) {
-    await VerificationProcedure.findOrFail(params.id);
+  public async resetPasswordForm({ view, params,response }: HttpContextContract) {
+    if((await VerificationProcedureService.findById(params.id)).createdAt.diffNow("hours").hours > -24){
     return view.render("pages/resetPassword", {
       renewalId: params.id,
     });
+    }else{
+      VerificationProcedureService.deleteById(params.id);
+      return response.notFound();
+    }
   }
 
   public async submitResetPasswordForm({
