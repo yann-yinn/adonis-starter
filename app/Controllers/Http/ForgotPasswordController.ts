@@ -56,13 +56,14 @@ export default class ForgotPasswordController {
     });
   }
 
-  public async resetPasswordForm({ view, params }: HttpContextContract) {
+  public async resetPasswordForm({ view, params,response }: HttpContextContract) {
     if((await VerificationProcedureService.findById(params.id)).createdAt.diffNow("hours").hours > -24){
     return view.render("pages/resetPassword", {
       renewalId: params.id,
     });
     }else{
-      return view.render('errors/not-found')
+      VerificationProcedureService.deleteById(params.id);
+      return response.notFound();
     }
   }
 
