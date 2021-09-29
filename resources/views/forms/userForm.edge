@@ -99,15 +99,15 @@
     <div class="invalid-feedback d-block">
       {{ flashMessages.get('errors.password_confirmation') }}
     </div>
-    
+    @endif
   </div>
-  @endif
-
 
   <div class="form-group mt-3">
-    <button type="submit" class="btn btn-primary">
-      Sauvegarder
-    </button>
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary">
+        Sauvegarder
+      </button>
+    </div>
   </div>
 
 </form>
