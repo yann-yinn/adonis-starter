@@ -41,22 +41,13 @@
     @endif
   </div>
 
-  <div class="text-muted mt-3">
-    <small>This password must contain at least:</small>
-    <ul class="mt-2">
-      <li><small>8 characters</small></li>
-      <li><small>1 digit</small></li>
-      <li><small>1 uppercase letter</small></li>
-      <li><small>1 lowercase letter</small></li>
-      <li><small>1 special character: (for example: &!#?;+)</small></li>
-    </ul>
-  </div>
-
+  @include('partials/passwordInstructions')
+  
   <div class="d-grid gap-2">
     <button type="submit" class="btn btn-primary">
       Create account
     </button>
   </div>
-  
+
 </form>
 
