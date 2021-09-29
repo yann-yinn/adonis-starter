@@ -46,6 +46,13 @@ function customMessages() {
     "email.unique": "An account with this email already exists",
     "password.required": "Password field is required",
     "password.minLength": "Password must be at least 6 characters long",
+    "password.oneLowerCaseAtLeast":
+      "Password must contain at least one lowercase letter",
+    "password.oneUpperCaseAtLeast":
+      "Password must contain at least one uppercase letter",
+    "password.oneNumericAtLeast": "Password must contain at least one digit",
+    "password.oneSpecialCharacterAtLeast":
+      "Password must contain at least one special character",
     "password_confirmation.required": "This field is required",
     "password_confirmation.confirmed":
       "Password and confirm password does not match.",
