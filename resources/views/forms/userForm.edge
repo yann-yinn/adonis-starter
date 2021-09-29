@@ -4,7 +4,7 @@
   <input type="hidden" name="id" value="{{ formValues.id }}" />
 
   <div class="form-group mt-3">
-    <label for="name">Name</label>
+    <label for="name"><strong>Name</strong></label>
     <input 
       type="text" 
       name="name" 
@@ -19,7 +19,7 @@
   </div>
 
   <div class="form-group mt-3">
-    <label for="name">Email</label>
+    <label for="name"><strong>Email</strong></label>
     <input 
       type="email" 
       name="email" 
@@ -34,7 +34,7 @@
   </div>
 
   <div class="mt-3">
-    <label>Picture</label>
+    <label><strong>Picture</strong></label>
     @!component('components/fileUpload', {
       src: formValues.picture ? await driveUrl(formValues.picture) : "",
       name: 'picture',
@@ -49,7 +49,7 @@
 
   @if(!hideFieldRole)
     <div class="form-group mt-3">
-      <label for="role">Role</label>
+      <label for="role"><strong>Role</strong></label>
       <select class="form-control" name="role">
         @each (role in roles)
           @set('selected', formValues.role == role.id ? "selected" : "")
@@ -68,12 +68,12 @@
 
   @if(formValues.id)
   <div class="mt-5 mb-3">
-    <strong>Changer le mot de passe:</strong>
+    <strong>Change your password: </strong>
   </div>
   @endif
 
   <div class="form-group mt-3">
-    <label for="name">Mot de passe</label>
+    <label for="name"><strong>Password</strong></label>
     <input 
       type="password" 
       name="password" 
@@ -88,7 +88,7 @@
   </div>
 
   <div class="form-group mt-3">
-    <label for="name">Confirmation du mot de passe</label>
+    <label for="name"><strong>Confirm password</strong></label>
     <input 
       type="password" 
       name="password_confirmation" 
