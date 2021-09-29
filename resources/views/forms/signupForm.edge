@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <label for="name"><strong>Name</strong></label>
-    <input id="name" type="text" name="name" value="" class="form-control" autocomplete="username" required>
+    <input id="name" type="text" name="name" value="{{flashMessages.get('name') ? flashMessages.get('name') : ""}}" class="form-control" autocomplete="username" required>
     @if(flashMessages.has('errors.name'))
     <div class="invalid-feedback d-block">
       {{ flashMessages.get('errors.name') }}
@@ -13,7 +13,7 @@
 
   <div class="form-group mt-3">
     <label for="email"><strong>Email</strong></label>
-    <input id="email" type="text" name="email" value="" class="form-control" autocomplete="email" required>
+    <input id="email" type="email" name="email" value="{{flashMessages.get('email') ? flashMessages.get('email') : ""}}" class="form-control" autocomplete="email" required>
     @if(flashMessages.has('errors.email'))
     <div class="invalid-feedback d-block">
       {{ flashMessages.get('errors.email') }}
@@ -42,7 +42,7 @@
   </div>
 
   @include('partials/passwordInstructions')
-  
+
   <div class="d-grid gap-2">
     <button type="submit" class="btn btn-primary">
       Create account
