@@ -14,10 +14,7 @@
 
   <div class="form-group mt-3">
     <label for="password"><strong>Password</strong></label>
-    <span class="password-field">
-      <input id="password" type="password" name="password" class="form-control password-input"  required />
-      <i class="password-icon bi bi-eye-slash" id="togglePassword"></i>
-    </span>
+    @include('partials/password')
   </div>
 
   <div class="d-grid gap-2 mt-4">
@@ -30,16 +27,3 @@
     <a href="/forgot-password">Forgot password ?</a>
   </div>
 </form>
-
-@section('scripts')
-  <script>
-    const pwToggleBtn = document.getElementById('togglePassword');
-    const pwInput = document.getElementById('password');
-
-    pwToggleBtn.addEventListener("click", function(){
-      const type = pwInput.getAttribute("type") === "password"? "text": "password";
-      pwInput.setAttribute("type", type);
-      this.classList.toggle('bi-eye');
-    });
-  </script>
-@end
