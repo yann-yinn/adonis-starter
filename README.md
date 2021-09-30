@@ -18,8 +18,9 @@ A Node.js, TypeScript & postgres SQL starter built upon [Adonis JS](https://adon
 
 Requirements:
 
-- ⚠️ latest release of Node.js 14, along with npm >= 6.0.0.
-- a Postgres database.
+- ⚠️ Latest release of Node.js 14, along with npm >= 6.0.0.
+- A Postgres database.
+- An STMP server to send emails (you might use, for example, Mailgun, Sparkpot, Amazon SES)
 
 ```sh
 # check your node version
