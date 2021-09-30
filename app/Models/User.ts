@@ -8,6 +8,7 @@ import {
   HasMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import Post from "App/Models/Post";
+import { RoleId } from "App/types";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -17,8 +18,7 @@ export default class User extends BaseModel {
   public posts: HasMany<typeof Post>;
 
   @column()
-  // example: ['member', 'admin']
-  public roles: string[];
+  public roles: RoleId[];
 
   @column()
   public email: string;

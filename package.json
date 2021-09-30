@@ -6,7 +6,8 @@
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
     "start": "node server.js",
-    "migrate-up": "node ace migration:run"
+    "migrate-up": "node ace migration:run",
+    "commit": "cz"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.3.7",

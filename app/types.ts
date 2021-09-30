@@ -5,7 +5,7 @@ export interface ConfirmDeleteOptions {
   returnUrl: string;
 }
 
-export type RoleId = "member" | "admin";
+export type RoleId = "member" | "admin" | "root";
 
 export interface Role {
   id: RoleId;

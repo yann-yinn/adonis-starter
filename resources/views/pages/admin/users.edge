@@ -26,13 +26,22 @@
       <tbody>
         @each(entity in entities)
         <tr>
-          <td> {{ entity.name }} </td>
+          <td>
+            @if(entity.roles.includes('root'))
+            👑
+            @endif
+            {{ entity.name }} 
+          </td>
           <td> {{ entity.email }} </td>
           <td> {{ entity.email_verified ? 'yes': 'no' }} </td>
           <td> {{ entity.blocked ? 'yes': 'no' }} </td>
           <td> {{ entity.roles.join(',') }} </td>
           <td> <a href="{{entity._editLink}}">Editer</a> </td>
-          <td><a href="{{entity._deleteLink}}">Supprimer</a></td>
+          <td>
+            @if(!entity.roles.includes('root'))
+              <a href="{{entity._deleteLink}}">Supprimer</a>
+            @endif
+          </td>
         </tr>
         @end
       </tbody>
