@@ -55,7 +55,11 @@ async function create(payload: createUserPayload, options?: createOptions) {
   user.emailVerified = false;
   user.blocked = config.signup.blockUserUntilEmailVerification ? true : false;
 
-  if (payload.role) {
+  // set users roles
+  // special case: first create user is automatically the root user.
+  if ((await User.first()) === null) {
+    user.roles = ["root"];
+  } else if (payload.role) {
     user.roles = [payload.role];
   } else {
     // defaut role is member, if no role has been provided.
