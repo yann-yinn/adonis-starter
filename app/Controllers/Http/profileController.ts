@@ -23,7 +23,6 @@ export default class profileController {
     return view.render("pages/profileEdit", {
       hideFieldRole: true,
       formValues,
-      roles,
       formAction: "/profile/update?_method=PUT",
     });
   }

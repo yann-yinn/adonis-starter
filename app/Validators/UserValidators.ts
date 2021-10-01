@@ -97,7 +97,7 @@ export class UpdateUserValidator {
       { trim: true },
       passwordConfirmationRules()
     ),
-    role: schema.enum(roleIds),
+    role: schema.enum.optional(roleIds),
     picture: schema.file.optional(pictureRules()),
   });
 

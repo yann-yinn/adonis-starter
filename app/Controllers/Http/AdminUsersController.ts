@@ -7,7 +7,6 @@ import {
 import { createConfirmDeleteLink } from "App/Services/HelpersService";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
-import roles from "Config/roles";
 import UserService from "App/Services/UserService";
 
 export default class AdminUsersController {
@@ -87,7 +86,8 @@ export default class AdminUsersController {
     const entity = await this.entityModel.findOrFail(request.param("id"));
     const formValues = this.entityService.initFormValues(entity);
     return view.render(this.entityFormView, {
-      roles,
+      hideFieldRole: entity.roles.includes("root"),
+      roles: this.entityService.allRolesExceptRoot(),
       formValues,
       formAction: this.entityFormAction(entity) + "?_method=PUT",
     });
