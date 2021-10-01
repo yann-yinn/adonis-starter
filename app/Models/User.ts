@@ -58,7 +58,7 @@ export default class User extends BaseModel {
   @beforeSave()
   public static async preventMultipleRootUsers(user: User) {
     const rootUser = await User.findBy("roles", ["root"]);
-    if (rootUser && user.id !== rootUser.id) {
+    if (rootUser && user.roles.includes("root") && user.id !== rootUser.id) {
       throw new Error("Only one root user is allowed. Abort saving");
     }
   }
