@@ -55,15 +55,11 @@ async function create(payload: createUserPayload, options?: createOptions) {
   user.emailVerified = false;
   user.blocked = config.signup.blockUserUntilEmailVerification ? true : false;
 
-  // special case: first created user is automatically the super admin
-  if ((await User.first()) === null) {
-    user.roles = ["root"];
+  if (payload.role) {
+    user.roles = [payload.role];
   } else {
-    if (payload.role) {
-      user.roles = [payload.role];
-    } else {
-      user.roles = ["member"];
-    }
+    // defaut role is member, if no role has been provided.
+    user.roles = ["member"];
   }
 
   user.password = payload.password.trim();
