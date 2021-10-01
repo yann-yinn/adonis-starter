@@ -6,7 +6,6 @@ import {
   BaseModel,
   hasMany,
   HasMany,
-  beforeCreate,
 } from "@ioc:Adonis/Lucid/Orm";
 import Post from "App/Models/Post";
 import { RoleId } from "App/types";
@@ -53,6 +52,14 @@ export default class User extends BaseModel {
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password);
+    }
+  }
+
+  @beforeSave()
+  public static async preventMultipleRootUsers(user: User) {
+    const rootUser = await User.findBy("roles", ["root"]);
+    if (rootUser && user.id !== rootUser.id) {
+      throw new Error("Only one root user is allowed. Abort saving");
     }
   }
 }
