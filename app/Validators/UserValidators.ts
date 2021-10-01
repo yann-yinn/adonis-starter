@@ -1,7 +1,7 @@
 import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import roles from "Config/roles";
-const roleIds = roles.map((r) => r.id);
+import UserService from "App/Services/UserService";
+const roleIds = UserService.allRolesExceptRoot().map((r) => r.id);
 
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 255;

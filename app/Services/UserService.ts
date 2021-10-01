@@ -1,5 +1,6 @@
 import User from "App/Models/User";
 import { RoleId } from "App/types";
+import roles from "Config/roles";
 import { MultipartFileContract } from "@ioc:Adonis/Core/BodyParser";
 import config from "Config/starter";
 import VerificationProcedureService from "App/Services/VerificationProcedureService";
@@ -128,4 +129,8 @@ function initFormValues(entity?: User): formValues {
   return payload;
 }
 
-export default { initFormValues, create, update };
+function allRolesExceptRoot() {
+  return roles.filter((r) => r.id !== "root");
+}
+
+export default { initFormValues, create, update, allRolesExceptRoot };

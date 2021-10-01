@@ -59,7 +59,7 @@ export default class AdminUsersController {
     await bouncer.authorize("adminCreateUser");
     const formValues = this.entityService.initFormValues();
     return view.render(this.entityFormView, {
-      roles,
+      roles: this.entityService.allRolesExceptRoot(),
       formValues,
       formAction: this.entityListPath,
     });
