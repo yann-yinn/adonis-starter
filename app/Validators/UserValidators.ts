@@ -42,6 +42,7 @@ function nameRules() {
 
 function customMessages() {
   return {
+    "name.required": "Name field is required",
     "email.required": "Email field is required",
     "email.unique": "An account with this email already exists",
     "password.required": "Password field is required",
