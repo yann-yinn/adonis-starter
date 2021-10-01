@@ -58,6 +58,11 @@ You can add new roles inside `config/roles.ts` file. By default, there is only a
 import { Role } from "App/types";
 
 const roles: Role[] = [
+  // root is a special role and can do anything.
+  {
+    id: "root",
+    label: "Root",
+  },
   {
     id: "member",
     label: "Member",
@@ -70,7 +75,7 @@ const roles: Role[] = [
 export default roles;
 ```
 
-### definining authorizations
+### Definining authorizations
 
 MVP starter is using "bouncers" from Adonis JS framework to define authorizations.
 
@@ -95,7 +100,7 @@ Then, in your controller, use the defined bouncer like so (don't forget the **aw
 ```ts
 public async edit({ view, request, bouncer }: HttpContextContract) {
   const entity = await this.entityModel.findOrFail(request.param("id"));
-  await bouncer.authorize("adminEditPost", entity);
+  await bouncer.authorize("editPost", entity);
   // etc
 }
 ```
