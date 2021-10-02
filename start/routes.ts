@@ -82,3 +82,5 @@ Route.group(() => {
     "api/v1/passwordController.strength"
   );
 }).prefix("/api/v1");
+
+Route.get("/password/test", "api/v1/passwordController.test");

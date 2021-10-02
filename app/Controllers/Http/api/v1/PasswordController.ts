@@ -19,4 +19,7 @@ export default class PasswordController {
     }
     return { success: true, errors: [] };
   }
+  public async test({ view }: HttpContextContract) {
+    return view.render("pages/passwordTest");
+  }
 }
