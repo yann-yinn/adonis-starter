@@ -63,15 +63,17 @@ You can add new roles inside `config/roles.ts` file. By default, there is only "
 import { Role } from "App/types";
 
 const roles: Role[] = [
-  // root is a special role and can do anything.
+  // root is a special role and has all authorizations.
   {
     id: "root",
     label: "Root",
   },
+  // Member is the default role when someone creates a new account.
   {
     id: "member",
     label: "Member",
   },
+  // Admin can create / delete users, except the root user.
   {
     id: "admin",
     label: "Administrator",
