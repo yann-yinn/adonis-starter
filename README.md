@@ -115,7 +115,7 @@ public async edit({ view, request, bouncer }: HttpContextContract) {
 You can control authorizations in the templates too:
 
 ```html
-@can('adminEditPost', entity)
+@can('editPost', entity)
   <a href="{{entity._editLink}}">Edit</a> </td>
 @end
 ```
