@@ -10,9 +10,8 @@ function emailRules() {
   return [rules.maxLength(255), rules.minLength(5)];
 }
 
-function passwordRules() {
-  return [
-    rules.confirmed("password_confirmation"),
+export function passwordRules(confirm = true) {
+  const passwordRules = [
     rules.minLength(PASSWORD_MIN_LENGTH),
     rules.maxLength(PASSWORD_MAX_LENGTH),
     rules.oneLowerCaseAtLeast(),
@@ -20,6 +19,10 @@ function passwordRules() {
     rules.oneUpperCaseAtLeast(),
     rules.oneSpecialCharacterAtLeast(),
   ];
+  if (confirm) {
+    passwordRules.push(rules.confirmed("password_confirmation"));
+  }
+  return passwordRules;
 }
 
 function passwordConfirmationRules() {

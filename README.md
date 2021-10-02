@@ -52,7 +52,7 @@ Fork **dev** branch and make a PR againts the **dev** branch.
 
 ### Adding new role
 
-You can add new roles inside `config/roles.ts` file. By default, there is only an "admin" and "member" roles.
+You can add new roles inside `config/roles.ts` file. By default, there is only "root", "admin" and "member" roles. Root role is special and MUST NOT be deleted. First created user became automatically a "root" user.
 
 ```js
 import { Role } from "App/types";

@@ -52,24 +52,33 @@ Route.post(
   "ForgotPasswordController.submitResetPasswordForm"
 );
 
-// route générique pour confirmer la suppression d'une entité
+// generic route to confirm entity deletion
 Route.get("admin/confirm-delete", "AdminController.confirmDelete").middleware(
   "auth"
 );
 
-// administration des posts
+// posts admin
 Route.resource("/admin/posts", "AdminPostsController").middleware({
   "*": "auth",
 });
 
-// administration des utilisateurs
+// users admin
 Route.resource("/admin/users", "AdminUsersController").middleware({
   "*": "auth",
 });
 
-// profil utilisateur
 Route.resource("/profile", "profileController")
   .middleware({
     "*": "auth",
   })
   .only(["show", "edit", "update", "destroy"]);
+
+// API
+Route.group(() => {
+  Route.get("/password-strengthOld", "api/v1/passwordController.strength");
+  Route.get(
+    // :password MUST be urlEncoded, as it might contains special characters.
+    "/password-strength/:password",
+    "api/v1/passwordController.strength"
+  );
+}).prefix("/api/v1");
