@@ -23,24 +23,29 @@ Requirements:
 - An STMP server to send emails (you might use, for example, Mailgun, Sparkpot, Amazon SES)
 
 ```sh
-# check your node version
+# Check your node version
 node -v
-# check your npm version
+# Check your npm version
 npm -v
 
-# clone the repo
+# Clone the repo
 git clone git@github.com:yann-yinn/mvp-starter.git
 
-# install dependencies
+# Install dependencies
 npm install
 
-# DO NOT FORGET: create the .env file and set required env vars.
+# Configure your environment variables:
+#
+# 1) Generate your unique app id, you need this value for APP_KEY env var in .env.
+node ace generate:key
+# 2) copy env.example file to create a ".env" file
+# edit the env file and set required env vars.
 cp env.example .env
 
-# create postgres tables
+# Create postgres tables
  npm run migrate-up
 
-# launch dev server !
+# Launch dev server !
 npm run dev
 ```
 
