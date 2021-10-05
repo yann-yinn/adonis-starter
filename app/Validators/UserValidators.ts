@@ -82,8 +82,7 @@ export class CreateUserValidator {
       { trim: true },
       passwordConfirmationRules()
     ),
-    picture: schema.file.optional(pictureRules()),
-    blocked: schema.boolean.optional()
+    picture: schema.file.optional(pictureRules())
   });
 
   public messages = customMessages();
@@ -122,6 +121,7 @@ export class CreateAdminUserValidator {
     ),
     role: schema.enum(roleIds),
     picture: schema.file.optional(pictureRules()),
+    blocked: schema.boolean.optional()
   });
 
   public messages = customMessages();
