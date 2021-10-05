@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import Hash from "@ioc:Adonis/Core/Hash";
+import Drive from '@ioc:Adonis/Core/Drive';
 import {
   column,
   beforeSave,
@@ -51,6 +52,13 @@ export default class User extends BaseModel {
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password);
+    }
+  }
+
+  @beforeSave()
+  public static async cleanupPictureStorage(user: User) {
+    if (user.$dirty.picture && user.$original.picture) {
+      await Drive.delete(user.$original.picture)
     }
   }
 }
