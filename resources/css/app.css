@@ -1,0 +1,13 @@
+.password-icon {
+  color: #0c6efd;
+  cursor: pointer;
+  position: absolute;
+  right: 1.5vw;
+}
+
+.password-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  position: relative;
+}

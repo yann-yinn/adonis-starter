@@ -14,7 +14,10 @@
 
   <div class="form-group mt-3">
     <label for="password"><strong>Password</strong></label>
-    <input id="password" type="password" name="password" class="form-control" required>
+    <span class="password-field">
+      <input id="password" type="password" name="password" class="form-control password-input"  required />
+      <i class="password-icon bi bi-eye-slash" id="togglePassword"></i>
+    </span>
   </div>
 
   <div class="d-grid gap-2 mt-4">
@@ -26,5 +29,4 @@
   <div class="text-center mt-3">
     <a href="/forgot-password">Forgot password ?</a>
   </div>
-
 </form>
