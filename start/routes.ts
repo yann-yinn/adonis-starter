@@ -35,7 +35,15 @@ Route.get("logout", "SigninController.destroy").middleware("auth");
 Route.get("forgot-password", "ForgotPasswordController.emailForm").middleware(
   "guest"
 );
+
 Route.post("forgot-password", "ForgotPasswordController.submitEmailForm");
+
+Route.get("send-email-verification", "SendEmailVerificationController.emailForm").middleware(
+  "guest"
+).as('send-email-verification');
+
+Route.post("send-email-verification", "SendEmailVerificationController.submitEmailForm");
+
 
 Route.get(
   "forgot-password/check-your-inbox",
