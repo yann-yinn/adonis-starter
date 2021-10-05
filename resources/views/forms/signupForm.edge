@@ -21,33 +21,9 @@
     @endif
   </div>
 
-  <div class="form-group mt-3">
-    <label for="password"><strong>Password</strong></label>
-    <span class="password-field">
-      <input id="password" autocomplete="new-password" type="password" name="password" class="form-control" required>
-      <i class="password-icon bi bi-eye-slash" id="togglePassword"></i>
-    </span>
-    @if(flashMessages.has('errors.password'))
-    <div class="invalid-feedback d-block">
-      {{ flashMessages.get('errors.password') }}
-    </div>
-    @endif
-  </div>
-
-  <div class="form-group mt-3">
-    <label for="password-confirm"><strong>Confirm password</strong></label>
-    <span class="password-field">
-      <input id="password-confirm" autocomplete="new-password" type="password" name="password_confirmation" class="form-control" required>
-      <i class="password-icon bi bi-eye-slash" id="togglePasswordConfirm"></i>
-    </span>
-    @if(flashMessages.has('errors.password_confirmation'))
-    <div class="invalid-feedback d-block">
-      {{ flashMessages.get('errors.password_confirmation') }}
-    </div>
-    @endif
-  </div>
-
-  @include('partials/passwordInstructions')
+  @!component('components/fieldPassword', {
+    confirmation: true,
+  })
 
   <div class="d-grid gap-2">
     <button type="submit" class="btn btn-primary">

@@ -25,11 +25,10 @@ export function passwordRules(confirm = true) {
   return passwordRules;
 }
 
+// no rules for now, we just want passwordConfirmation field
+// to be equal to password field, which is validated.
 function passwordConfirmationRules() {
-  return [
-    rules.minLength(PASSWORD_MIN_LENGTH),
-    rules.maxLength(PASSWORD_MAX_LENGTH),
-  ];
+  return [];
 }
 
 function pictureRules() {

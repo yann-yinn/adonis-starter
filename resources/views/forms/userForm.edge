@@ -35,7 +35,7 @@
 
   <div class="mt-3">
     <label><strong>Picture</strong></label>
-    @!component('components/fileUpload', {
+    @!component('components/fieldFileUpload', {
       src: formValues.picture ? await driveUrl(formValues.picture) : "",
       name: 'picture',
       accept: 'image/*'
@@ -66,49 +66,10 @@
     </div>
   @endif
 
-  @if(formValues.id)
-  <div class="mt-5 mb-3">
-    <strong>Change your password: </strong>
-  </div>
-  @endif
-
-  <div class="form-group mt-3">
-    <label for="name"><strong>Password</strong></label>
-    <span class="password-field">
-      <input
-        id="password" 
-        type="password" 
-        name="password" 
-        value="{{ formValues.password }}" 
-        class="form-control password-input"
-      />
-      <i class="password-icon bi bi-eye-slash" id="togglePassword"></i>
-    </span>
-    @if(flashMessages.has('errors.password'))
-    <div class="invalid-feedback d-block">
-      {{ flashMessages.get('errors.password') }}
-    </div>
-    @endif
-  </div>
-
-  <div class="form-group mt-3">
-    <label for="name"><strong>Confirm password</strong></label>
-    <span class="password-field">
-      <input
-        id="password-confirm"
-        type="password" 
-        name="password_confirmation" 
-        value="{{ formValues.password_confirmation }}" 
-        class="form-control password-input"
-      />
-      <i class="password-icon bi bi-eye-slash" id="togglePassword"></i>
-    </span>
-    @if(flashMessages.has('errors.password_confirmation'))
-    <div class="invalid-feedback d-block">
-      {{ flashMessages.get('errors.password_confirmation') }}
-    </div>
-    @endif
-  </div>
+  @!component('components/fieldPassword', {
+    label: 'Change your password',
+    confirmation: true,
+  })
 
   <div class="form-group mt-3">
     <div class="d-grid gap-2">
