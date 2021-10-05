@@ -28,14 +28,29 @@ Route.get("signup", "SignupController.signupForm");
 Route.post("signup", "SignupController.submitSignupForm");
 Route.get("signup/check-your-inbox", "SignupController.checkYourInbox");
 Route.get("verify-email/:id", "SignupController.verifyEmail");
-Route.get("login", "SigninController.create").middleware("guest");
+Route
+  .get("login", "SigninController.create")
+  .middleware("guest")
+  .as("login")
+;
 Route.post("login", "SigninController.store").middleware("guest");
 Route.get("logout", "SigninController.destroy").middleware("auth");
 
 Route.get("forgot-password", "ForgotPasswordController.emailForm").middleware(
   "guest"
 );
+
 Route.post("forgot-password", "ForgotPasswordController.submitEmailForm");
+
+Route
+  .get("send-email-verification", "SendEmailVerificationController.emailForm")
+  .middleware("guest")
+  .as('send-email-verification');
+
+Route
+  .post("send-email-verification", "SendEmailVerificationController.submitEmailForm")
+  .as('send-email-verification.process');
+
 
 Route.get(
   "forgot-password/check-your-inbox",

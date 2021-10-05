@@ -35,8 +35,8 @@ export default Env.rules({
   // MAILING
   SMTP_HOST: Env.schema.string({ format: "host" }),
   SMTP_PORT: Env.schema.number(),
-  SMTP_USERNAME: Env.schema.string(),
-  SMTP_PASSWORD: Env.schema.string(),
+  SMTP_USERNAME: Env.schema.string.optional(),
+  SMTP_PASSWORD: Env.schema.string.optional(),
 
   // MAILING - AWS
   // SES_ACCESS_KEY: Env.schema.string(),

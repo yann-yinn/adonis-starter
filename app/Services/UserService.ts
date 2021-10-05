@@ -16,6 +16,7 @@ interface createUserPayload {
   password: string;
   password_confirmation: string;
   role?: RoleId;
+  blocked?: boolean;
   picture?: MultipartFileContract;
 }
 
@@ -26,6 +27,7 @@ interface updateUserPayload {
   password?: string;
   password_confirmation?: string;
   role?: RoleId;
+  blocked?: boolean;
   picture?: MultipartFileContract;
 }
 
@@ -37,6 +39,7 @@ interface formValues {
   password: string;
   password_confirmation: string;
   picture: string;
+  blocked: boolean;
 }
 
 interface createOptions {
@@ -75,28 +78,37 @@ async function create(payload: createUserPayload, options?: createOptions) {
   }
   const userSaved = await user.save();
 
+  await sendEmailVerification(userSaved, options);
+
+  return userSaved;
+}
+
+async function sendEmailVerification(user: User, options?: createOptions) {
+  if (!options) options = {};
+  if (!options.sendEmail) {
+    options.sendEmail = true;
+  }
+
   if (options?.sendEmail && starterConfig.signup.verifyEmail) {
     const verifyEmailId = uuidv4();
     VerificationProcedureService.create({
       id: verifyEmailId,
-      userId: userSaved.id.toString(),
+      userId: user.id.toString(),
       type: VerificationProcedureType.SIGNUP_VERIFY_EMAIL,
     });
     const verifyUrl = Env.get("SITE_URL") + "/verify-email/" + verifyEmailId;
     await Mail.send((message) => {
       message
         .from(Env.get("EMAIL_FROM"))
-        .to(userSaved.email)
-        .subject(`[${Env.get("SITE_NAME")}]- Welcome Onboard ${userSaved.name}`)
+        .to(user.email)
+        .subject(`[${Env.get("SITE_NAME")}]- Welcome Onboard ${user.name}`)
         .htmlView("emails/welcome", {
-          user: userSaved,
+          user: user,
           verifyUrl,
           siteName: Env.get("SITE_NAME"),
         });
     });
   }
-
-  return userSaved;
 }
 
 async function update(payload: updateUserPayload): Promise<User> {
@@ -111,6 +123,7 @@ async function update(payload: updateUserPayload): Promise<User> {
     await payload.picture.moveToDisk("./");
     user.picture = payload.picture.fileName;
   }
+  user.blocked = payload.blocked?true:false;
   const savedUser = await user.save();
   return savedUser;
 }
@@ -125,6 +138,7 @@ function initFormValues(entity?: User): formValues {
     password: "",
     password_confirmation: "",
     role: entity ? entity.roles[0] : "member",
+    blocked: entity?.blocked ? entity.blocked : false
   };
   return payload;
 }
@@ -133,4 +147,4 @@ function allRolesExceptRoot() {
   return roles.filter((r) => r.id !== "root");
 }
 
-export default { initFormValues, create, update, allRolesExceptRoot };
+export default { initFormValues, create, update, allRolesExceptRoot, sendEmailVerification };

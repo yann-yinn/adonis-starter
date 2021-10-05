@@ -102,6 +102,7 @@ export class UpdateUserValidator {
     ),
     role: schema.enum.optional(roleIds),
     picture: schema.file.optional(pictureRules()),
+    blocked: schema.boolean.optional(),
   });
 
   public messages = customMessages();
@@ -120,6 +121,7 @@ export class CreateAdminUserValidator {
     ),
     role: schema.enum(roleIds),
     picture: schema.file.optional(pictureRules()),
+    blocked: schema.boolean.optional(),
   });
 
   public messages = customMessages();
