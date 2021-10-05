@@ -29,7 +29,10 @@ node -v
 npm -v
 
 # Clone the repo
-git clone git@github.com:yann-yinn/mvp-starter.git
+# stable branch, to start a new project
+git clone -b main git@github.com:yann-yinn/adonis-starter.git
+# If you want to contribute: clone dev branch instead of main.
+# git clone -b git@github.com:yann-yinn/mvp-starter.git
 
 # Install dependencies
 npm install
