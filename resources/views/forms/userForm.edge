@@ -64,24 +64,24 @@
       </div>
       @endif
     </div>
+    
+    <div class="form-group mt-3">
+      <label for="name"><strong>Blocked</strong></label>
+      <input 
+        type="checkbox" 
+        name="blocked" 
+        @if(formValues.blocked)
+          checked="checked"
+        @endif
+      />
+      @if(flashMessages.has('errors.blocked'))
+      <div class="invalid-feedback d-block">
+        {{ flashMessages.get('errors.blocked') }}
+      </div>
+      @endif
+    </div>
   @endif
 
-  <div class="form-group mt-3">
-    <label for="name"><strong>Blocked</strong></label>
-    <input 
-      type="checkbox" 
-      name="blocked" 
-      @if(formValues.blocked)
-        checked="checked"
-      @endif
-    />
-    @if(flashMessages.has('errors.blocked'))
-    <div class="invalid-feedback d-block">
-      {{ flashMessages.get('errors.blocked') }}
-    </div>
-    @endif
-  </div>
-  
   @!component('components/fieldPassword', {
     label: 'Change your password',
     confirmation: true,
