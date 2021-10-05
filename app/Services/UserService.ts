@@ -39,6 +39,7 @@ interface formValues {
   password: string;
   password_confirmation: string;
   picture: string;
+  blocked: boolean;
 }
 
 interface createOptions {
