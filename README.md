@@ -145,6 +145,7 @@ connections: {
 
 ## Changelog
 
+- 5 oct. User is (optionnaly) blocked until his email is verified (thanks @Yoann-TYT)
 - 5 oct. Add "root" role, (default role for the very first registered user)
 - 5 otc. Add password validations rules
 - 5 oct. Show / Hide password (thanks @Sreejit7)
