@@ -139,3 +139,11 @@ connections: {
       },
       // ...
 ```
+
+## Changelog
+
+- 5 oct. Add "root" role, (default role for the very first registered user)
+- 5 otc. Add password validations rules
+- 5 oct. Show / Hide password (thanks @Sreejit7)
+- 5 oct. When use upload a new profile picture, delete the old one (thanks @Yoann-TYT)
+- nov. forgot password and mail verification (thanks @HugoLd)
