@@ -11,11 +11,20 @@ export default class SigninController {
   // login form action
   public async store({ request, session, auth, response }: HttpContextContract) {
     await auth.attempt(request.input("email"), request.input("password"));
-    if (starter.signup.blockUserUntilEmailVerification && auth.user && !auth.user.emailVerified) {
-      const url = Route.makeUrl('send-email-verification');
-      const message = `You must confirm your email, check your inbox. <a href="${url}">Click here to resend an email verification for your account</a>`;
-      session.flash({notification: message});
-      session.clear();
+    if (auth.user?.blocked) {
+      if (
+        starter.signup.blockUserUntilEmailVerification && 
+        !auth.user?.emailVerified
+      ) {
+        const url = Route.makeUrl('send-email-verification');
+        const message = `You must confirm your email, check your inbox. <a href="${url}">Click here to resend an email verification for your account</a>`;
+        session.flash({notification: message});
+        session.clear();
+      } else {
+        const message = `Your account is blocked. Please contact an administrator.`;
+        session.flash({error: message});
+        session.clear();
+      }
     }
     response.redirect("/");
   }

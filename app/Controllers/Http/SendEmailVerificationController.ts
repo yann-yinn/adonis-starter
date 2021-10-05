@@ -6,11 +6,12 @@ import { VerificationProcedureType } from "App/types";
 import Mail from "@ioc:Adonis/Addons/Mail";
 import Env from "@ioc:Adonis/Core/Env";
 import User from "App/Models/User";
+import Route from "@ioc:Adonis/Core/Route";
 import { ForgotPasswordValidator } from "App/Validators/UserValidators";
 
 export default class SendEmailVerificationController {
   public async emailForm({ view }: HttpContextContract) {
-    return view.render("pages/forgotPassword");
+    return view.render("pages/sendEmailVerification");
   }
 
   public async submitEmailForm({
@@ -18,35 +19,20 @@ export default class SendEmailVerificationController {
     response,
     session,
   }: HttpContextContract) {
-    const renewalId = uuidv4();
 
     const user = await User.findBy("email", request.input("email"));
     if (!user) {
       session.flash({
         error: "Sorry, we found no user found with this email.",
       });
-      return response.redirect("/forgot-password");
+      return response.redirect(Route.makeUrl('send-email-verification'));
     }
-    session.put("tmpUser", user);
-    VerificationProcedureService.create({
-      id: renewalId,
-      userId: user.id.toString(),
-      type: VerificationProcedureType.PASSWORD_RENEWAL,
-    });
 
-    const verifyUrl = `${Env.get("SITE_URL")}/forgot-password/${renewalId}`;
-    await Mail.send((message) => {
-      message
-        .from(Env.get("EMAIL_FROM"))
-        .to(user.email)
-        .subject(`[${Env.get("SITE_NAME")}]- Reset your password`)
-        .htmlView("emails/reset-password", {
-          user,
-          verifyUrl,
-          siteName: Env.get("SITE_URL"),
-        });
-    });
-    response.redirect("/forgot-password/check-your-inbox");
+    await UserService.sendEmailVerification(user);
+    
+    session.flash({notification: 'We sent you an email to verify your account. Please check your inbox'})
+
+    response.redirect(Route.makeUrl('login'));
   }
 
   public async checkYourInbox({ view, session }: HttpContextContract) {
