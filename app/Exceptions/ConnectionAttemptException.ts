@@ -14,6 +14,6 @@ import { Exception } from '@adonisjs/core/build/standalone'
 */
 export default class ConnectionAttemptException extends Exception {
   constructor() {
-    super('Too many attempt connections', 429, 'E_TOO_MANY_ATTEMPT_CONNECTIONS');
+    super('Too many connection attempts ', 429, 'E_TOO_MANY_CONNECTION_ATTEMPTS');
   }
 }
