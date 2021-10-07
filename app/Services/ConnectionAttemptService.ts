@@ -13,11 +13,16 @@ export default class ConnectionAttemptService implements ConnectionAttemptServic
   private cache: NodeCache;
   constructor() {
     this.cache = new NodeCache();
+    setInterval(() => {
+      this.cache.keys().forEach((keyCache) => {
+        this.clean(keyCache)
+      });
+    }, 1000*60*60*ConnectionAttemptLimit.periodInHours) // clean old cache memory
   }
 
   attempt(request: RequestContract) {
     const connectionAttempt: [ConnectionAttemptInterface] = [{date: DateTime.now()}]
-    var allConnectionAttempts;
+    let allConnectionAttempts;
     if (this.cache.has(request.ip()+request.url(false))) {
       const connectionAttempts: [ConnectionAttemptInterface] | undefined = this.cache.get<[ConnectionAttemptInterface]>(request.ip() + request.url(false));
       if (connectionAttempts) {
@@ -35,8 +40,8 @@ export default class ConnectionAttemptService implements ConnectionAttemptServic
     this.cache.del(request.ip()+request.url(false));
   }
 
-  check(request: RequestContract) {
-    var connectionAttempts: ConnectionAttemptInterface[] | undefined = this.cache.get<ConnectionAttemptInterface[]>(request.ip()+request.url(false));
+  clean(key: string) {
+    let connectionAttempts: ConnectionAttemptInterface[] | undefined = this.cache.get<ConnectionAttemptInterface[]>(key);
     if (connectionAttempts) {
       connectionAttempts.forEach(function(connectionAttempt: ConnectionAttemptInterface, key) {
         if (connectionAttempt.date < DateTime.now().minus({hours: ConnectionAttemptLimit.periodInHours})) {
@@ -49,6 +54,12 @@ export default class ConnectionAttemptService implements ConnectionAttemptServic
         return element !== null
       })
     }
+    this.cache.set(key, connectionAttempts);
+  }
+
+  check(request: RequestContract) {
+    this.clean(request.ip()+request.url(false));
+    let connectionAttempts: ConnectionAttemptInterface[] | undefined = this.cache.get<ConnectionAttemptInterface[]>(request.ip()+request.url(false));
     if (connectionAttempts?.length && connectionAttempts.length >= ConnectionAttemptLimit.maxAttempts) {
       throw new ConnectionAttemptException();
     }
