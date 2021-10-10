@@ -1,15 +1,18 @@
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import ConnectionAttemptService from "App/Services/ConnectionAttemptService";
 
 export default class AppProvider {
   constructor (protected app: ApplicationContract) {
   }
 
   public register () {
-    // Register your own bindings
+    this.app.container.singleton('App/ConnectionAttemptService',() => {
+      return new ConnectionAttemptService();
+    });
   }
 
   public async boot () {
-    // IoC container is ready
+
   }
 
   public async ready () {

@@ -33,7 +33,12 @@ Route
   .middleware("guest")
   .as("login")
 ;
-Route.post("login", "SigninController.store").middleware("guest");
+Route
+  .post("login", "SigninController.store")
+  .middleware("guest")
+  .middleware('connectionAttempt')
+;
+
 Route.get("logout", "SigninController.destroy").middleware("auth");
 
 Route.get("forgot-password", "ForgotPasswordController.emailForm").middleware(
